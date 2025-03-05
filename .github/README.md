@@ -1,0 +1,1 @@
+mein zuhause im internet, gebaut mit Next.js 🚀
