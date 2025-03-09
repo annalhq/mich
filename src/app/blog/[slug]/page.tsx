@@ -2,8 +2,7 @@
 
 import { MarkdownRenderer } from "@/components/markdown-renderer";
 
-export default function BlogPost({ params }: { params: { slug: string } }) {
-
+export default function BlogPost() {
   const content = `
 # mdx-blog
 
