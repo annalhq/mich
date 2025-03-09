@@ -1,3 +1,6 @@
+import { GeistSans } from "geist/font/sans";
+
+import { Layout } from "@/components/layout";
 import { ScreenIndicator } from "@/components/screen-indicator";
 import { ThemeProvider } from "@/components/theme-provider";
 
@@ -9,7 +12,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={GeistSans.className}>
       <head>
         <link
           rel="icon"
@@ -23,8 +26,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <main> {children}</main>
-
+          <Layout>{children}</Layout>
           <ScreenIndicator />
         </ThemeProvider>
       </body>
