@@ -18,8 +18,9 @@ export default function HomePage() {
           <p className="mt-2 text-lg text-muted-foreground">
             I am currently doing my undergrad with a focus on mathematics and
             machine learning. My research interests lie in the intersection of
-            these fields, where I’m interested in exploring how mathematical
-            structures can be leveraged to create more interpretable models.
+            these fields, where I&apos;m interested in exploring how
+            mathematical structures can be leveraged to create more
+            interpretable models.
           </p>
         </div>
       </div>
