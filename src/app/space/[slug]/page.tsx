@@ -2,7 +2,7 @@
 
 import { MarkdownRenderer } from "@/components/markdown-renderer";
 
-export default function SpaceEntry({ params }: { params: { slug: string } }) {
+export default function SpaceEntry() {
   const content = `
 # Space content
 
