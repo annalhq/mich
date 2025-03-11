@@ -1,15 +1,13 @@
 import { notFound } from "next/navigation";
+import { ReactElement } from "react";
 
 import { MarkdownRenderer } from "@/components/markdown-renderer";
 import { getPost } from "@/lib/mdx";
 
-interface SpaceEntryProps {
-  params: {
-    slug: string;
-  };
-}
-
-export default function SpaceEntry({ params }: SpaceEntryProps) {
+export default async function SpaceEntry(props: {
+  params: Promise<{ slug: string }>;
+}): Promise<ReactElement> {
+  const params = await props.params;
   const entry = getPost("space", params.slug);
 
   if (!entry) {

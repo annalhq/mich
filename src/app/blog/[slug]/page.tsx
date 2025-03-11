@@ -1,15 +1,13 @@
 import { notFound } from "next/navigation";
+import { ReactElement } from "react";
 
 import { MarkdownRenderer } from "@/components/markdown-renderer";
 import { getPost } from "@/lib/mdx";
 
-interface BlogPostProps {
-  params: {
-    slug: string;
-  };
-}
-
-export default function BlogPost({ params }: BlogPostProps) {
+export default async function BlogPost(props: {
+  params: Promise<{ slug: string }>;
+}): Promise<ReactElement> {
+  const params = await props.params;
   const post = getPost("blog", params.slug);
 
   if (!post) {
