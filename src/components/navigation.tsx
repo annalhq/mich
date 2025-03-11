@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 
+import { Search } from "./search";
 import { ThemeToggle } from "./theme-toggle";
 
 export function Navigation() {
@@ -35,7 +36,10 @@ export function Navigation() {
             </Link>
           ))}
         </div>
-        <ThemeToggle />
+        <div className="flex items-center space-x-4">
+          <Search />
+          <ThemeToggle />
+        </div>
       </div>
     </nav>
   );
