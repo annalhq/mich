@@ -11,6 +11,10 @@ import { SearchResult, search } from "@/lib/pagefind";
 
 /* eslint-disable */
 
+/* eslint-disable */
+
+/* eslint-disable */
+
 export function Search() {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -58,6 +62,16 @@ export function Search() {
     router.push(result.url);
   };
 
+  // Handle closing dialog when navigating
+  useEffect(() => {
+    const handleRouteChange = () => {
+      setIsOpen(false);
+    };
+
+    window.addEventListener("popstate", handleRouteChange);
+    return () => window.removeEventListener("popstate", handleRouteChange);
+  }, []);
+
   return (
     <>
       <button
@@ -87,6 +101,7 @@ export function Search() {
             <div
               className="fixed inset-0 bg-black/20 backdrop-blur-sm dark:bg-zinc-900/80"
               aria-hidden="true"
+              onClick={() => setIsOpen(false)}
             />
           </Transition.Child>
 
@@ -110,7 +125,15 @@ export function Search() {
                   className="h-12 w-full border-0 bg-transparent pl-4 text-zinc-900 placeholder:text-zinc-500 focus:outline-none focus:ring-0 dark:text-white sm:text-sm"
                   placeholder="Search..."
                   autoComplete="off"
+                  autoFocus
                 />
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="px-2 py-1 text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300"
+                  aria-label="Close search"
+                >
+                  ESC
+                </button>
               </div>
 
               {isLoading && (

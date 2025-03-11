@@ -1,8 +1,6 @@
 /* eslint-disable */
 import { addBasePath } from "next/dist/client/add-base-path";
 
-import { addBasePath } from "next/dist/client/add-base-path";
-
 interface Pagefind {
   search: (query: string) => Promise<PagefindResult[]>;
   options: (config: {
