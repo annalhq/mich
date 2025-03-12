@@ -1,186 +1,203 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Fragment, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-import { Combobox, Dialog, Transition } from "@headlessui/react";
-import { Search as SearchIcon } from "lucide-react";
+import { Search as SearchIcon, X } from "lucide-react";
 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { SearchResult, search } from "@/lib/pagefind";
 
-export function Search() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [query, setQuery] = useState("");
-  const [results, setResults] = useState<SearchResult[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+interface SearchState {
+  isOpen: boolean;
+  query: string;
+  results: SearchResult[];
+  isLoading: boolean;
+}
+
+export function Search(): JSX.Element {
+  const [state, setState] = useState<SearchState>({
+    isOpen: false,
+    query: "",
+    results: [],
+    isLoading: false,
+  });
   const router = useRouter();
+  const searchRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+  // Callback
+  const handleClose = useCallback(() => {
+    setState((prev) => ({ ...prev, isOpen: false, query: "" }));
+  }, []);
+
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        handleClose();
+      } else if ((e.ctrlKey || e.metaKey) && e.key === "k") {
         e.preventDefault();
-        setIsOpen(true);
+        setState((prev) => ({ ...prev, isOpen: true }));
+        inputRef.current?.focus();
       }
-    };
+    },
+    [handleClose]
+  );
 
+  const handleClickOutside = useCallback(
+    (e: MouseEvent) => {
+      if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
+        handleClose();
+      }
+    },
+    [handleClose]
+  );
+
+  // Effects
+  useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
+    window.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [handleKeyDown, handleClickOutside]);
 
   useEffect(() => {
-    const searchContent = async () => {
-      if (!query) {
-        setResults([]);
-        return;
+    const debounceTimer = setTimeout(() => {
+      if (state.query) {
+        setState((prev) => ({ ...prev, isLoading: true }));
+        search(state.query)
+          .then((results) =>
+            setState((prev) => ({ ...prev, results, isLoading: false }))
+          )
+          .catch((error) => {
+            console.error("Search failed:", error);
+            setState((prev) => ({ ...prev, results: [], isLoading: false }));
+          });
+      } else {
+        setState((prev) => ({ ...prev, results: [] }));
       }
+    }, 300);
+    return () => clearTimeout(debounceTimer);
+  }, [state.query]);
 
-      setIsLoading(true);
-      try {
-        const searchResults = await search(query);
-        setResults(searchResults);
-      } catch (error) {
-        console.error("Search failed:", error);
-        setResults([]);
-      } finally {
-        setIsLoading(false);
+  const handleSelect = useCallback(
+    (resultId: string) => {
+      const selectedResult = state.results.find((r) => r.id === resultId);
+      if (selectedResult) {
+        handleClose();
+        router.push(selectedResult.url);
       }
-    };
+    },
+    [state.results, router, handleClose]
+  );
 
-    const debounce = setTimeout(searchContent, 300);
-    return () => clearTimeout(debounce);
-  }, [query]);
+  const searchOverlay = useMemo(
+    () =>
+      state.isOpen && (
+        <div className="fixed inset-0 z-50 flex items-start justify-center p-4 pt-[15vh]">
+          <div
+            className="fixed inset-0 bg-black/30 backdrop-blur-sm transition-opacity duration-200"
+            aria-hidden="true"
+          />
+          <div
+            ref={searchRef}
+            className="relative w-full max-w-2xl transform rounded-xl bg-white shadow-xl transition-all duration-200 dark:bg-zinc-900"
+          >
+            <div className="flex items-center gap-3 border-b border-gray-200 px-4 py-2 dark:border-zinc-800">
+              <SearchIcon className="h-5 w-5 text-zinc-500" />
+              <input
+                ref={inputRef}
+                value={state.query}
+                onChange={(e) =>
+                  setState((prev) => ({ ...prev, query: e.target.value }))
+                }
+                className="h-10 w-full border-0 bg-transparent text-zinc-900 placeholder:text-zinc-500 focus:outline-none dark:text-white sm:text-sm"
+                placeholder="Search here"
+                autoComplete="off"
+                autoFocus
+              />
+              {state.query && (
+                <button
+                  onClick={() => setState((prev) => ({ ...prev, query: "" }))}
+                  className="rounded-full p-1 text-zinc-500 hover:bg-zinc-100 hover:text-zinc-700 dark:hover:bg-zinc-800 dark:hover:text-zinc-300"
+                  aria-label="Clear search"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              )}
+            </div>
 
-  const handleSelect = (result: SearchResult) => {
-    setIsOpen(false);
-    router.push(result.url);
-  };
+            <div className="max-h-[60vh] overflow-y-auto">
+              {state.isLoading && (
+                <div className="animate-pulse p-4 text-sm text-zinc-500">
+                  Searching...
+                </div>
+              )}
 
-  // Handle closing dialog when navigating
-  useEffect(() => {
-    const handleRouteChange = () => {
-      setIsOpen(false);
-    };
+              {state.results.length > 0 && (
+                <Select onValueChange={handleSelect}>
+                  <SelectTrigger className="border-0 focus:ring-0">
+                    <SelectValue placeholder="Select a result..." />
+                  </SelectTrigger>
+                  <SelectContent className="max-h-[40vh]">
+                    {state.results.map((result) => (
+                      <SelectItem
+                        key={result.id}
+                        value={result.id}
+                        className="cursor-pointer py-2"
+                      >
+                        <div className="flex flex-col">
+                          <span className="font-medium">{result.title}</span>
+                          <span className="text-xs text-zinc-500">
+                            {result.url}
+                          </span>
+                        </div>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
 
-    window.addEventListener("popstate", handleRouteChange);
-    return () => window.removeEventListener("popstate", handleRouteChange);
-  }, []);
+              {state.query &&
+                !state.isLoading &&
+                state.results.length === 0 && (
+                  <div className="p-4 text-sm text-zinc-500">
+                    No results found for &quot;{state.query}&quot;
+                  </div>
+                )}
+            </div>
+          </div>
+        </div>
+      ),
+    [state, handleSelect]
+  );
 
   return (
     <>
       <button
-        onClick={() => setIsOpen(true)}
-        className="flex items-center gap-2 rounded-md border bg-background px-3 py-2 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground md:w-64"
+        onClick={() => {
+          setState((prev) => ({ ...prev, isOpen: true }));
+          setTimeout(() => inputRef.current?.focus(), 0);
+        }}
+        className="flex w-full items-center gap-2 rounded-md border bg-background px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground md:w-64"
       >
         <SearchIcon className="h-4 w-4" />
-        <span className="hidden md:inline">Search here...</span>
+        <span className="hidden flex-1 text-left md:inline">
+          Search content...
+        </span>
         <kbd className="hidden rounded bg-muted px-2 py-0.5 text-xs font-light text-muted-foreground md:inline">
-          Ctrl K
+          Ctrl + K
         </kbd>
       </button>
-
-      <Transition.Root show={isOpen} as={Fragment}>
-        <Dialog
-          onClose={setIsOpen}
-          className="fixed inset-0 z-50 overflow-y-auto p-4 pt-[25vh]"
-        >
-          <Transition.Child
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <div
-              className="fixed inset-0 bg-black/20 backdrop-blur-sm dark:bg-zinc-900/80"
-              aria-hidden="true"
-              onClick={() => setIsOpen(false)}
-            />
-          </Transition.Child>
-
-          <Transition.Child
-            enter="ease-out duration-300"
-            enterFrom="opacity-0 scale-95"
-            enterTo="opacity-100 scale-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100 scale-100"
-            leaveTo="opacity-0 scale-95"
-          >
-            <Combobox
-              onChange={handleSelect}
-              as="div"
-              className="relative mx-auto max-w-xl divide-y divide-gray-100 overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black/5 dark:divide-zinc-800 dark:bg-zinc-900"
-            >
-              <div className="flex items-center px-4">
-                <SearchIcon className="h-5 w-5 text-zinc-500" />
-                <Combobox.Input
-                  onChange={(e) => setQuery(e.target.value)}
-                  className="h-12 w-full border-0 bg-transparent pl-4 text-zinc-900 placeholder:text-zinc-500 focus:outline-none focus:ring-0 dark:text-white sm:text-sm"
-                  placeholder="Search..."
-                  autoComplete="off"
-                  autoFocus
-                />
-                <button
-                  onClick={() => setIsOpen(false)}
-                  className="px-2 py-1 text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300"
-                  aria-label="Close search"
-                >
-                  ESC
-                </button>
-              </div>
-
-              {isLoading && (
-                <div className="p-4 text-sm text-zinc-500">Loading...</div>
-              )}
-
-              {results.length > 0 && (
-                <Combobox.Options
-                  static
-                  className="max-h-96 overflow-y-auto py-4 text-sm"
-                >
-                  {results.map((result) => (
-                    <Combobox.Option key={result.id} value={result}>
-                      {({ active }) => (
-                        <div
-                          className={`px-4 py-2 ${
-                            active
-                              ? "bg-zinc-100 dark:bg-zinc-800"
-                              : "bg-white dark:bg-zinc-900"
-                          }`}
-                        >
-                          <div className="flex items-center justify-between">
-                            <h3 className="font-medium text-zinc-900 dark:text-white">
-                              {result.title}
-                            </h3>
-                            <span
-                              className={`ml-2 rounded-full px-2 py-0.5 text-xs ${
-                                result.type === "blog"
-                                  ? "bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300"
-                                  : "bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300"
-                              }`}
-                            >
-                              {result.type}
-                            </span>
-                          </div>
-                          <p className="mt-1 text-zinc-500 dark:text-zinc-400">
-                            {result.excerpt}
-                          </p>
-                        </div>
-                      )}
-                    </Combobox.Option>
-                  ))}
-                </Combobox.Options>
-              )}
-
-              {query && !isLoading && results.length === 0 && (
-                <div className="p-4 text-sm text-zinc-500">
-                  No results found for &quot;{query}&quot;
-                </div>
-              )}
-            </Combobox>
-          </Transition.Child>
-        </Dialog>
-      </Transition.Root>
+      {searchOverlay}
     </>
   );
 }
