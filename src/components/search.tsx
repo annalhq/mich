@@ -1,4 +1,3 @@
-/* eslint-disable */
 "use client";
 
 import { useRouter } from "next/navigation";
@@ -8,12 +7,6 @@ import { Combobox, Dialog, Transition } from "@headlessui/react";
 import { Search as SearchIcon } from "lucide-react";
 
 import { SearchResult, search } from "@/lib/pagefind";
-
-/* eslint-disable */
-
-/* eslint-disable */
-
-/* eslint-disable */
 
 export function Search() {
   const [isOpen, setIsOpen] = useState(false);
@@ -79,7 +72,7 @@ export function Search() {
         className="flex items-center gap-2 rounded-md border bg-background px-3 py-2 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground md:w-64"
       >
         <SearchIcon className="h-4 w-4" />
-        <span className="hidden md:inline">Search...</span>
+        <span className="hidden md:inline">Search here...</span>
         <kbd className="hidden rounded bg-muted px-2 py-0.5 text-xs font-light text-muted-foreground md:inline">
           Ctrl K
         </kbd>
