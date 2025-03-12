@@ -18,7 +18,7 @@ export default async function BlogPost(props: {
     <div className="mx-auto max-w-2xl">
       <article>
         <header className="mb-8">
-          <h1 className="mb-2 text-3xl font-bold">{post.title}</h1>
+          {/* <h1 className="mb-2 text-3xl font-bold">{post.title}</h1> */}
           <div className="text-sm text-muted-foreground">
             <time dateTime={post.date}>{post.date}</time>
             <span className="mx-2">•</span>

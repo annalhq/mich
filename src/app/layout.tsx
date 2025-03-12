@@ -33,3 +33,14 @@ export default function RootLayout({
     </html>
   );
 }
+
+export const metadata = {
+  title: "annalhq",
+  description: "my personal portfolio",
+  keywords: [
+    "machine learning",
+    "particle physics",
+    "mathematics",
+    "reinforcement learning",
+  ],
+};
