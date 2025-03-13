@@ -10,7 +10,7 @@ import {
   ComboboxOptions,
 } from "@headlessui/react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Loader2, Search as SearchIcon, X } from "lucide-react";
+import { Loader2, Search as SearchIcon } from "lucide-react";
 import { useHotkeys } from "react-hotkeys-hook";
 
 import { useSearch } from "@/lib/search";
@@ -140,7 +140,7 @@ export function Search(): JSX.Element {
                       spellCheck={false}
                       className="w-full bg-transparent text-base text-foreground outline-none placeholder:text-muted-foreground"
                       autoComplete="off"
-                      type="search"
+                      type=""
                       onChange={handleChange}
                       onFocus={handleFocus}
                       onBlur={handleFocus}
@@ -158,9 +158,7 @@ export function Search(): JSX.Element {
                           }
                         }}
                         className="text-muted-foreground transition-colors hover:text-foreground"
-                      >
-                        <X size={16} />
-                      </button>
+                      ></button>
                     )}
                     <button
                       onClick={() => setIsModalOpen(false)}
