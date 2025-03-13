@@ -5,17 +5,20 @@ export default function SpacePage() {
   const entries = getSpaceEntries();
 
   return (
-    <div className="mx-auto max-w-2xl space-y-8">
-      <h1 className="text-3xl font-medium">space</h1>
-      <div className="space-y-4 pt-1">
+    <div className="mx-auto max-w-7xl space-y-8">
+      <h1 className="text-3xl font-medium">blog</h1>
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
         {entries.map((entry) => (
-          <div className="py-1" key={entry.slug}>
+          <div
+            key={entry.slug}
+            className="transform transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
+          >
             <ContentCard
-              key={entry.slug}
               title={entry.title}
               description={entry.description}
               href={`/space/${entry.slug}`}
               date={entry.date}
+              readingTime={entry.readingTime}
             />
           </div>
         ))}
