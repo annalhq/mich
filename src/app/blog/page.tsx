@@ -9,7 +9,10 @@ export default function BlogPage() {
       <h1 className="text-3xl font-medium">blog</h1>
       <div className="space-y-4 pt-1">
         {posts.map((post) => (
-          <div className="py-1" key={post.slug}>
+          <div
+            className="transform py-1 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
+            key={post.slug}
+          >
             <ContentCard
               title={post.title}
               description={post.description}
