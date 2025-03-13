@@ -2,7 +2,7 @@
 import { addBasePath } from "next/dist/client/add-base-path";
 
 interface Pagefind {
-  search: (query: string) => Promise<PagefindResult[]>;
+  search: (query: string) => Promise<{ results: PagefindResult[] }>;
   options: (config: {
     baseUrl: string;
     excerptLength: number;
@@ -52,9 +52,15 @@ export async function search(query: string): Promise<SearchResult[]> {
     await importPagefind();
   }
 
-  const results = await window.pagefind.search(query);
+  const response = await window.pagefind.search(query);
+
+  if (!response || !response.results) {
+    console.warn("Unexpected response format from pagefind:", response);
+    return [];
+  }
+
   const searchResults = await Promise.all(
-    results.map(async (result: PagefindResult) => {
+    response.results.map(async (result: PagefindResult) => {
       const data = await result.data();
       const type: "blog" | "space" = data.url.startsWith("/blog/")
         ? "blog"

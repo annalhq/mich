@@ -5,7 +5,7 @@ export default function BlogPage() {
   const posts = getBlogPosts();
 
   return (
-    <div className="mx-auto max-w-2xl space-y-8">
+    <div className="mx-auto max-w-2xl space-y-8" data-pagefind-body>
       <h1 className="text-3xl font-medium">blog</h1>
       <div className="space-y-4 pt-1">
         {posts.map((post) => (
