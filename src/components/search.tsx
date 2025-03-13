@@ -1,203 +1,178 @@
+// search-bar.tsx
 "use client";
 
-import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-
-import { Search as SearchIcon, X } from "lucide-react";
+import NextLink from "next/link";
 
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { SearchResult, search } from "@/lib/pagefind";
+  Combobox,
+  ComboboxInput,
+  ComboboxOption,
+  ComboboxOptions,
+} from "@headlessui/react";
+import cn from "clsx";
 
-interface SearchState {
-  isOpen: boolean;
-  query: string;
-  results: SearchResult[];
-  isLoading: boolean;
-}
+import { SearchResult, groupResults, useSearch } from "@/lib/search";
+
+// search-bar.tsx
+
+// search-bar.tsx
 
 export function Search(): JSX.Element {
-  const [state, setState] = useState<SearchState>({
-    isOpen: false,
-    query: "",
-    results: [],
-    isLoading: false,
-  });
-  const router = useRouter();
-  const searchRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const {
+    state,
+    inputRef,
+    focused,
+    mounted,
+    handleSelect,
+    handleFocus,
+    handleChange,
+  } = useSearch();
 
-  // Callback
-  const handleClose = useCallback(() => {
-    setState((prev) => ({ ...prev, isOpen: false, query: "" }));
-  }, []);
-
-  const handleKeyDown = useCallback(
-    (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        handleClose();
-      } else if ((e.ctrlKey || e.metaKey) && e.key === "k") {
-        e.preventDefault();
-        setState((prev) => ({ ...prev, isOpen: true }));
-        inputRef.current?.focus();
-      }
-    },
-    [handleClose]
-  );
-
-  const handleClickOutside = useCallback(
-    (e: MouseEvent) => {
-      if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
-        handleClose();
-      }
-    },
-    [handleClose]
-  );
-
-  // Effects
-  useEffect(() => {
-    window.addEventListener("keydown", handleKeyDown);
-    window.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-      window.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [handleKeyDown, handleClickOutside]);
-
-  useEffect(() => {
-    const debounceTimer = setTimeout(() => {
-      if (state.query) {
-        setState((prev) => ({ ...prev, isLoading: true }));
-        search(state.query)
-          .then((results) =>
-            setState((prev) => ({ ...prev, results, isLoading: false }))
-          )
-          .catch((error) => {
-            console.error("Search failed:", error);
-            setState((prev) => ({ ...prev, results: [], isLoading: false }));
-          });
-      } else {
-        setState((prev) => ({ ...prev, results: [] }));
-      }
-    }, 300);
-    return () => clearTimeout(debounceTimer);
-  }, [state.query]);
-
-  const handleSelect = useCallback(
-    (resultId: string) => {
-      const selectedResult = state.results.find((r) => r.id === resultId);
-      if (selectedResult) {
-        handleClose();
-        router.push(selectedResult.url);
-      }
-    },
-    [state.results, router, handleClose]
-  );
-
-  const searchOverlay = useMemo(
-    () =>
-      state.isOpen && (
-        <div className="fixed inset-0 z-50 flex items-start justify-center p-4 pt-[15vh]">
-          <div
-            className="fixed inset-0 bg-black/30 backdrop-blur-sm transition-opacity duration-200"
-            aria-hidden="true"
-          />
-          <div
-            ref={searchRef}
-            className="relative w-full max-w-2xl transform rounded-xl bg-white shadow-xl transition-all duration-200 dark:bg-zinc-900"
-          >
-            <div className="flex items-center gap-3 border-b border-gray-200 px-4 py-2 dark:border-zinc-800">
-              <SearchIcon className="h-5 w-5 text-zinc-500" />
-              <input
-                ref={inputRef}
-                value={state.query}
-                onChange={(e) =>
-                  setState((prev) => ({ ...prev, query: e.target.value }))
-                }
-                className="h-10 w-full border-0 bg-transparent text-zinc-900 placeholder:text-zinc-500 focus:outline-none dark:text-white sm:text-sm"
-                placeholder="Search here"
-                autoComplete="off"
-                autoFocus
-              />
-              {state.query && (
-                <button
-                  onClick={() => setState((prev) => ({ ...prev, query: "" }))}
-                  className="rounded-full p-1 text-zinc-500 hover:bg-zinc-100 hover:text-zinc-700 dark:hover:bg-zinc-800 dark:hover:text-zinc-300"
-                  aria-label="Clear search"
-                >
-                  <X className="h-4 w-4" />
-                </button>
-              )}
-            </div>
-
-            <div className="max-h-[60vh] overflow-y-auto">
-              {state.isLoading && (
-                <div className="animate-pulse p-4 text-sm text-zinc-500">
-                  Searching...
-                </div>
-              )}
-
-              {state.results.length > 0 && (
-                <Select onValueChange={handleSelect}>
-                  <SelectTrigger className="border-0 focus:ring-0">
-                    <SelectValue placeholder="Select a result..." />
-                  </SelectTrigger>
-                  <SelectContent className="max-h-[40vh]">
-                    {state.results.map((result) => (
-                      <SelectItem
-                        key={result.id}
-                        value={result.id}
-                        className="cursor-pointer py-2"
-                      >
-                        <div className="flex flex-col">
-                          <span className="font-medium">{result.title}</span>
-                          <span className="text-xs text-zinc-500">
-                            {result.url}
-                          </span>
-                        </div>
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              )}
-
-              {state.query &&
-                !state.isLoading &&
-                state.results.length === 0 && (
-                  <div className="p-4 text-sm text-zinc-500">
-                    No results found for &quot;{state.query}&quot;
-                  </div>
-                )}
-            </div>
-          </div>
-        </div>
-      ),
-    [state, handleSelect]
+  const icon = mounted && !focused && (
+    <kbd
+      className={cn(
+        "absolute end-1.5 my-1.5 select-none",
+        "h-5 rounded bg-background px-1.5 font-mono text-[11px] font-medium text-muted-foreground",
+        "border border-input",
+        "flex items-center gap-1",
+        "not-prose max-sm:hidden"
+      )}
+    >
+      {navigator.userAgent.includes("Mac") ? (
+        <>
+          <span className="text-xs">⌘</span>K
+        </>
+      ) : (
+        "CTRL K"
+      )}
+    </kbd>
   );
 
   return (
-    <>
-      <button
-        onClick={() => {
-          setState((prev) => ({ ...prev, isOpen: true }));
-          setTimeout(() => inputRef.current?.focus(), 0);
-        }}
-        className="flex w-full items-center gap-2 rounded-md border bg-background px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground md:w-64"
+    <Combobox onChange={handleSelect}>
+      <div className={cn("relative flex items-center", "text-foreground")}>
+        <ComboboxInput
+          ref={inputRef}
+          spellCheck={false}
+          className={({ focus }) =>
+            cn(
+              "rounded-lg px-3 py-2 transition-colors",
+              "w-full md:w-64",
+              "text-base leading-tight md:text-sm",
+              focus
+                ? "bg-transparent ring-2 ring-ring ring-offset-2"
+                : "bg-black/[.05] dark:bg-gray-50/10",
+              "placeholder:text-muted-foreground",
+              "[&::-webkit-search-cancel-button]:appearance-none"
+            )
+          }
+          autoComplete="off"
+          type="search"
+          onChange={handleChange}
+          onFocus={handleFocus}
+          onBlur={handleFocus}
+          value={state.query}
+          placeholder="Search here"
+        />
+        {icon}
+      </div>
+      <ComboboxOptions
+        transition
+        anchor={{ to: "top end", gap: 10, padding: 16 }}
+        className={({ open }) =>
+          cn(
+            "nextra-scrollbar max-md:h-full",
+            "border border-border text-foreground",
+            "z-30 rounded-xl py-2.5 shadow-xl",
+            "bg-background/70 backdrop-blur-md",
+            "transition-opacity motion-reduce:transition-none",
+            open ? "opacity-100" : "opacity-0",
+            state.error || state.isLoading || !state.results.length
+              ? [
+                  "flex grow justify-center gap-2 px-8 text-sm md:min-h-28",
+                  state.error
+                    ? "items-start text-destructive"
+                    : "items-center text-muted-foreground",
+                ]
+              : "md:max-h-[min(calc(100vh-5rem),400px)]!",
+            "w-full md:w-[576px]",
+            "empty:invisible"
+          )
+        }
       >
-        <SearchIcon className="h-4 w-4" />
-        <span className="hidden flex-1 text-left md:inline">
-          Search content...
-        </span>
-        <kbd className="hidden rounded bg-muted px-2 py-0.5 text-xs font-light text-muted-foreground md:inline">
-          Ctrl + K
-        </kbd>
-      </button>
-      {searchOverlay}
+        {state.error ? (
+          <>
+            <div className="shrink-0">⚠️</div>
+            <div className="grid">
+              <b className="mb-2">Failed to load search index</b>
+              {state.error}
+            </div>
+          </>
+        ) : state.isLoading ? (
+          <>
+            <div className="shrink-0 animate-spin">⏳</div>
+            <span>Searching...</span>
+          </>
+        ) : state.results.length ? (
+          <Result results={state.results} />
+        ) : (
+          state.query && (
+            <div className="px-8 py-4">
+              No results found for &quot;{state.query}&quot;
+            </div>
+          )
+        )}
+      </ComboboxOptions>
+    </Combobox>
+  );
+}
+
+interface ResultProps {
+  results: SearchResult[];
+}
+
+function Result({ results }: ResultProps) {
+  const groupedResults = groupResults(results);
+
+  return (
+    <>
+      {Object.entries(groupedResults).map(([section, sectionResults]) => (
+        <div key={section}>
+          <div
+            className={cn(
+              "not-first:mt-6 mx-2.5 mb-2 select-none border-b border-border px-2.5 pb-1.5 text-xs font-semibold uppercase text-muted-foreground"
+            )}
+          >
+            {section}
+          </div>
+          {sectionResults.map((result) => (
+            <ComboboxOption
+              key={result.id}
+              as={NextLink}
+              value={result}
+              href={result.url}
+              className={({ focus }) =>
+                cn(
+                  "mx-2.5 break-words rounded-md",
+                  focus ? "bg-primary/10 text-primary" : "text-foreground",
+                  "block scroll-m-12 px-2.5 py-2"
+                )
+              }
+            >
+              <div className="text-base font-semibold leading-5">
+                {result.title}
+              </div>
+              <div
+                className={cn(
+                  "mt-1 text-sm leading-[1.35rem] text-muted-foreground",
+                  "[&_mark]:bg-primary/80 [&_mark]:text-primary-foreground"
+                )}
+                dangerouslySetInnerHTML={{ __html: result.excerpt || "" }}
+              />
+            </ComboboxOption>
+          ))}
+        </div>
+      ))}
     </>
   );
 }
