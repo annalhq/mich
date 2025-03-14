@@ -1,0 +1,66 @@
+---
+title: "markdown"
+description: "checkning markdown"
+date: "2025-03-11"
+---
+
+# Markdown Playground
+
+Testing my blog post. Here's a variety of Markdown syntax.
+
+## Code Examples
+
+Let's test syntax highlighting with different languages:
+
+```typescript
+interface User {
+  id: string;
+  name: string;
+  email: string;
+}
+
+function greetUser(user: User) {
+  console.log(`Hello ${user.name}!`);
+  return {
+    message: `Welcome back ${user.name}`,
+    timestamp: new Date()
+  };
+}
+```
+
+```python
+def fibonacci(n: int) -> int:
+    if n <= 1:
+        return n
+    return fibonacci(n - 1) + fibonacci(n - 2)
+
+# Generate first 10 Fibonacci numbers
+fib_sequence = [fibonacci(i) for i in range(10)]
+print(f"Fibonacci sequence: {fib_sequence}")
+```
+## Features
+
+This section demonstrates heading navigation. You should be able to:
+1. Click on any heading to get its URL
+2. Use the URL to directly navigate to this section
+3. See the heading highlight when navigated to
+
+
+### Lists and Text Formatting
+
+- **Bold text** for emphasis
+- *Italic text* for subtle emphasis
+- ***Bold and italic*** for strong emphasis
+- `inline code` for technical terms
+
+1. First ordered item
+2. Second ordered item
+3. Third ordered item
+
+### Blockquotes
+
+> This is a blockquote example
+> It can span multiple lines
+> And supports *formatting*
+
+![image](https://samplelib.com/lib/preview/png/sample-boat-400x300.png)
