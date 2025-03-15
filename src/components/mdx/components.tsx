@@ -6,7 +6,6 @@ import { Tweet } from "react-tweet";
 import { Accordion } from "./accordion";
 import { Callout } from "./callout";
 
-// Adding custom components that will be available in MDX
 const components = {
   Accordion,
   Callout,
@@ -14,12 +13,10 @@ const components = {
   img: (props: any) => (
     <div className="my-6">
       <Image
-        className="rounded-lg"
         alt={props.alt || ""}
         src={props.src}
-        width={700}
-        height={400}
-        style={{ width: "100%", height: "auto" }}
+        width={props.width || 400}
+        height={props.height || 300}
         priority={false}
       />
       {props.alt && (
@@ -29,7 +26,7 @@ const components = {
       )}
     </div>
   ),
-  // Override default heading components to add anchor links
+
   h1: ({ children, id }: { children: React.ReactNode; id?: string }) => (
     <h1 id={id} className="mb-4 mt-8 scroll-mt-20 text-4xl font-bold">
       {children}
