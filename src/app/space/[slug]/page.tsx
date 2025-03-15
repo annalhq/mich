@@ -5,7 +5,7 @@ import { MarkdownRenderer } from "@/components/markdown-renderer";
 import { getPost, getSpaceEntries } from "@/lib/mdx";
 
 export async function generateStaticParams() {
-  const entries = await getSpaceEntries(); // Added await here
+  const entries = getSpaceEntries();
   return entries.map((entry) => ({ slug: entry.slug }));
 }
 
@@ -13,7 +13,7 @@ export default async function SpaceEntry(props: {
   params: Promise<{ slug: string }>;
 }): Promise<ReactElement> {
   const params = await props.params;
-  const entry = await getPost("space", params.slug); // Added await here
+  const entry = getPost("space", params.slug);
 
   if (!entry) {
     notFound();
