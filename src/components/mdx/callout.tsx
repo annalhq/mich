@@ -1,40 +1,60 @@
-import {
-  AlertCircle,
-  AlertTriangle,
-  CheckCircle,
-  InfoIcon,
-} from "lucide-react";
+"use client";
 
-type CalloutType = "info" | "warning" | "success" | "error";
+import { forwardRef } from "react";
 
-interface CalloutProps {
+import { cva } from "class-variance-authority";
+import { AlertCircle, AlertTriangle, CheckCircle, Info } from "lucide-react";
+
+import { cn } from "@/lib/utils";
+
+type CalloutType = "info" | "warn" | "error" | "success";
+
+interface CalloutProps
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
   type?: CalloutType;
-  children: React.ReactNode;
+  title?: React.ReactNode;
+  icon?: React.ReactNode;
 }
 
 const icons = {
-  info: InfoIcon,
-  warning: AlertTriangle,
-  success: CheckCircle,
-  error: AlertCircle,
+  info: <Info />,
+  warn: <AlertTriangle />,
+  error: <AlertCircle />,
+  success: <CheckCircle />,
 };
 
-const styles = {
-  info: "bg-blue-50 border-blue-200 text-blue-800",
-  warning: "bg-yellow-50 border-yellow-200 text-yellow-800",
-  success: "bg-green-50 border-green-200 text-green-800",
-  error: "bg-red-50 border-red-200 text-red-800",
-};
+const calloutVariants = cva(
+  "my-6 flex flex-row gap-2 rounded-lg border border-s-2 bg-fd-card p-3 text-sm text-fd-card-foreground shadow-md",
+  {
+    variants: {
+      type: {
+        info: "border-s-blue-500/50",
+        warn: "border-s-orange-500/50",
+        error: "border-s-red-500/50",
+        success: "border-s-green-500/50",
+      },
+    },
+  }
+);
 
-export function Callout({ type = "info", children }: CalloutProps) {
-  const Icon = icons[type];
+export const Callout = forwardRef<HTMLDivElement, CalloutProps>(
+  ({ type = "info", children, title, icon, className, ...props }, ref) => {
+    return (
+      <div
+        ref={ref}
+        className={cn(calloutVariants({ type }), className)}
+        {...props}
+      >
+        {icon ?? icons[type]}
+        <div className="min-w-0 flex-1">
+          {title && <p className="not-prose mb-2 font-medium">{title}</p>}
+          <div className="text-fd-muted-foreground prose-no-margin">
+            {children}
+          </div>
+        </div>
+      </div>
+    );
+  }
+);
 
-  return (
-    <div
-      className={`my-6 flex gap-3 rounded-md border-l-4 p-4 ${styles[type]}`}
-    >
-      <Icon className="mt-1 h-5 w-5 flex-shrink-0" />
-      <div>{children}</div>
-    </div>
-  );
-}
+Callout.displayName = "Callout";

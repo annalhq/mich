@@ -1,7 +1,11 @@
 /* eslint-disable */
 "use client";
 
-import { MDXProvider } from "./mdx/mdx-provider";
+import { MDXRemote } from "next-mdx-remote";
+
+import mdxComponents from "./mdx/components";
+
+/* eslint-disable */
 
 /* eslint-disable */
 
@@ -9,7 +13,6 @@ interface MarkdownRendererProps {
   content: any;
 }
 
-// This is a server component that passes the serialized MDX to a client component
 export function MarkdownRenderer({ content }: MarkdownRendererProps) {
-  return <MDXProvider source={content} />;
+  return <MDXRemote {...content} components={mdxComponents} />;
 }
