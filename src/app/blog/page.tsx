@@ -1,8 +1,8 @@
 import { ContentCard } from "@/components/content-card";
 import { getBlogPosts } from "@/lib/mdx";
 
-export default function BlogPage() {
-  const posts = getBlogPosts();
+export default async function BlogPage() {
+  const posts = await getBlogPosts(); // Make sure we await the async function
 
   return (
     <div className="mx-auto max-w-2xl space-y-8">

@@ -1,8 +1,8 @@
 import { ContentCard } from "@/components/content-card";
 import { getSpaceEntries } from "@/lib/mdx";
 
-export default function SpacePage() {
-  const entries = getSpaceEntries();
+export default async function SpacePage() {
+  const entries = await getSpaceEntries(); // Added await here
 
   return (
     <div className="mx-auto max-w-7xl space-y-8">

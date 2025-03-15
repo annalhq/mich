@@ -1,0 +1,104 @@
+---
+title: "markdown"
+description: "checkning markdown"
+date: "2025-03-11"
+---
+
+# Markdown Playground
+
+Testing my blog post. Here's a variety of Markdown syntax.
+
+## Code Examples
+
+Let's test syntax highlighting with different languages:
+
+```typescript
+interface User {
+  id: string;
+  name: string;
+  email: string;
+}
+
+function greetUser(user: User) {
+  console.log(`Hello ${user.name}!`);
+  return {
+    message: `Welcome back ${user.name}`,
+    timestamp: new Date()
+  };
+}
+```
+
+```python
+def fibonacci(n: int) -> int:
+    if n <= 1:
+        return n
+    return fibonacci(n - 1) + fibonacci(n - 2)
+
+# Generate first 10 Fibonacci numbers
+fib_sequence = [fibonacci(i) for i in range(10)]
+print(f"Fibonacci sequence: {fib_sequence}")
+```
+## Features
+
+This section demonstrates heading navigation. You should be able to:
+1. Click on any heading to get its URL
+2. Use the URL to directly navigate to this section
+3. See the heading highlight when navigated to
+
+
+### Lists and Text Formatting
+
+- **Bold text** for emphasis
+- *Italic text* for subtle emphasis
+- ***Bold and italic*** for strong emphasis
+- `inline code` for technical terms
+
+1. First ordered item
+2. Second ordered item
+3. Third ordered item
+
+### Blockquotes
+
+> This is a blockquote example
+> It can span multiple lines
+> And supports *formatting*
+
+![](https://samplelib.com/lib/preview/png/sample-boat-400x300.png)
+
+## Accordion
+
+<Accordion title="Section 1">
+  This is the content of section 1.
+</Accordion>
+
+<Accordion title="Section 2">
+  This is the content of section 2.
+  It can contain multiple paragraphs and other elements.
+</Accordion>
+
+<Accordion title="Section 3">
+  This is the content of section 3.
+  - List item 1
+  - List item 2
+</Accordion>
+
+## Callout
+
+<Callout>
+  This is a default callout box. Use it to highlight important information.
+</Callout>
+
+<Callout type="info">
+  This is an info callout box. Use it to display helpful tips.
+</Callout>
+
+<Callout type="warn">
+  This is a warning callout box. Use it to alert users to potential issues.
+</Callout>
+
+
+<Callout type="success">
+  This is a success callout box. Use it to confirm successful actions.
+</Callout>
+
+<Tweet id="1900264411425620181" />
