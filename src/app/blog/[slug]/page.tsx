@@ -5,7 +5,7 @@ import { MarkdownRenderer } from "@/components/markdown-renderer";
 import { getBlogPosts, getPost } from "@/lib/mdx";
 
 export async function generateStaticParams() {
-  const posts = await getBlogPosts(); // Added await here
+  const posts = await getBlogPosts();
   return posts.map((post) => ({ slug: post.slug }));
 }
 

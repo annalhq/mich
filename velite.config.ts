@@ -32,9 +32,9 @@ const spaces = defineCollection({
 });
 
 const codeOptions = {
-  theme: "one-dark-pro",
-  keepBackground: true,
-  grid: true,
+  // theme: "ayu-dark",
+  // keepBackground: true,
+  // grid: true,
 };
 
 export default defineConfig({

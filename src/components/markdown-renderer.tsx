@@ -7,8 +7,6 @@ import mdxComponents from "./mdx/components";
 
 /* eslint-disable */
 
-/* eslint-disable */
-
 interface MarkdownRendererProps {
   content: any;
 }

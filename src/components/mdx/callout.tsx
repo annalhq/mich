@@ -23,22 +23,23 @@ const icons = {
   success: <CheckCircle />,
 };
 
-const calloutVariants = cva(
-  "my-6 flex flex-row gap-2 rounded-lg border border-s-2 bg-fd-card p-3 text-sm text-fd-card-foreground shadow-md",
-  {
-    variants: {
-      type: {
-        info: "border-s-blue-500/50",
-        warn: "border-s-orange-500/50",
-        error: "border-s-red-500/50",
-        success: "border-s-green-500/50",
-      },
-    },
-  }
-);
-
 export const Callout = forwardRef<HTMLDivElement, CalloutProps>(
   ({ type = "info", children, title, icon, className, ...props }, ref) => {
+    // Move calloutVariants inside the component function
+    const calloutVariants = cva(
+      "my-6 flex flex-row gap-2 rounded-lg border border-s-2 bg-fd-card p-3 text-sm text-fd-card-foreground shadow-md",
+      {
+        variants: {
+          type: {
+            info: "border-s-blue-500/50",
+            warn: "border-s-orange-500/50",
+            error: "border-s-red-500/50",
+            success: "border-s-green-500/50",
+          },
+        },
+      }
+    );
+
     return (
       <div
         ref={ref}

@@ -24,11 +24,7 @@ export async function getPost(folder: string, slug: string) {
 
   const fileContent = fs.readFileSync(filePath, "utf8");
 
-  const codeOptions = {
-    theme: "one-dark-pro",
-    keepBackground: true,
-    grid: true,
-  };
+  const codeOptions = {};
 
   // Extract frontmatter
   const matterRegex = /---\s*([\s\S]*?)\s*---/;
@@ -78,6 +74,48 @@ export async function getPost(folder: string, slug: string) {
 
 export async function getBlogPosts() {
   const postsDirectory = path.join(process.cwd(), "content/blog");
+
+  if (!fs.existsSync(postsDirectory)) {
+    return [];
+  }
+
+  const filenames = fs.readdirSync(postsDirectory);
+
+  const posts = filenames
+    .filter((filename) => filename.endsWith(".mdx"))
+    .map((filename) => {
+      const filePath = path.join(postsDirectory, filename);
+      const fileContent = fs.readFileSync(filePath, "utf8");
+
+      // Simple frontmatter parsing
+      const matter = fileContent.match(/---\s*([\s\S]*?)\s*---/);
+      const frontMatterBlock = matter ? matter[1] : "";
+
+      // Extract title, description, and date
+      const frontmatter: Record<string, string> = {};
+      frontMatterBlock.split("\n").forEach((line) => {
+        const [key, ...valueParts] = line.split(":");
+        if (key && valueParts.length) {
+          const value = valueParts.join(":").trim();
+          // Remove quotes if they exist
+          frontmatter[key.trim()] = value.replace(/^"(.*)"$/, "$1");
+        }
+      });
+
+      return {
+        slug: filename.replace(/\.mdx$/, ""),
+        title: frontmatter.title || "Untitled",
+        description: frontmatter.description || "",
+        date: frontmatter.date || new Date().toISOString().split("T")[0],
+        readingTime: readingTime(fileContent),
+      };
+    })
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+  return posts;
+}
+export async function getSpaceEntries() {
+  const postsDirectory = path.join(process.cwd(), "content/space");
 
   if (!fs.existsSync(postsDirectory)) {
     return [];
