@@ -1,5 +1,8 @@
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypePrettyCode from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
+import remarkGfm from "remark-gfm";
+import remarkImages from "remark-images";
 import { defineCollection, defineConfig, s } from "velite";
 
 const posts = defineCollection({
@@ -28,12 +31,20 @@ const spaces = defineCollection({
   }),
 });
 
+const codeOptions = {
+  theme: "one-dark-pro",
+  keepBackground: true,
+  grid: true,
+};
+
 export default defineConfig({
   root: "content",
   collections: { posts, spaces },
   mdx: {
+    remarkPlugins: [remarkGfm, remarkImages],
     rehypePlugins: [
       rehypeSlug,
+      [rehypePrettyCode, codeOptions],
       [
         rehypeAutolinkHeadings,
         {
@@ -44,5 +55,7 @@ export default defineConfig({
         },
       ],
     ],
+    recmaPlugins: [],
+    providerImportSource: "@mdx-js/react",
   },
 });
