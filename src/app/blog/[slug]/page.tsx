@@ -5,15 +5,16 @@ import { MarkdownRenderer } from "@/components/markdown-renderer";
 import { getBlogPosts, getPost } from "@/lib/mdx";
 
 export async function generateStaticParams() {
-  const posts = getBlogPosts();
+  const posts = await getBlogPosts();
   return posts.map((post) => ({ slug: post.slug }));
 }
 
 export default async function BlogPost(props: {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };
 }): Promise<ReactElement> {
-  const params = await props.params;
-  const post = getPost("blog", params.slug);
+  const { params } = await props;
+  const { slug } = params;
+  const post = await getPost("blog", slug);
 
   if (!post) {
     notFound();
@@ -29,7 +30,14 @@ export default async function BlogPost(props: {
             <span>{post.readingTime}</span>
           </div>
         </header>
-        <MarkdownRenderer content={post.content} />
+        <MarkdownRenderer
+          content={post.content}
+          frontmatter={{
+            title: post.title,
+            description: post.description,
+            date: post.date,
+          }}
+        />
       </article>
     </div>
   );
