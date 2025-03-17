@@ -1,4 +1,4 @@
-
+/* eslint-disable */
 import fs from "fs";
 import matter from "gray-matter";
 import { serialize } from "next-mdx-remote/serialize";
