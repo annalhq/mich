@@ -31,11 +31,11 @@ async function readMDXFile(filePath: string): Promise<Post> {
     mdxOptions: {
       rehypePlugins: [
         rehypeSlug,
-        [rehypePrettyCode, { theme: "github-dark" }],
+        [rehypePrettyCode as any, { theme: "github-dark" }],
         [rehypeAutolinkHeadings, { behavior: "wrap" }],
       ],
     },
-    parseFrontmatter: false, // Already parsed with gray-matter
+    parseFrontmatter: false,
   });
 
   return {
