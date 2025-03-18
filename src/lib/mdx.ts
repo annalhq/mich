@@ -7,6 +7,8 @@ import readingTime from "reading-time";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
+import path from "path";
+import readingTime from "reading-time";
 
 export interface Post {
   title: string;
@@ -38,12 +40,18 @@ async function readMDXFile(filePath: string): Promise<Post> {
     parseFrontmatter: false,
   });
 
+function readMDXFile(filePath: string): Post {
+  const rawContent = fs.readFileSync(filePath, "utf-8");
+  const { data, content } = matter(rawContent);
+  const { text: readingTimeText } = readingTime(content);
+
   return {
     title: data.title,
     description: data.description,
     date: data.date,
     slug: path.basename(filePath, ".mdx"),
     content: JSON.stringify(mdxSource),
+    content,
     readingTime: readingTimeText,
   };
 }
@@ -56,6 +64,13 @@ async function getMDXData(source: "blog" | "space"): Promise<Post[]> {
   );
 
   const posts = await Promise.all(postsPromises);
+
+function getMDXData(source: "blog" | "space"): Post[] {
+  const contentDir = path.join(process.cwd(), "content", source);
+  const mdxFiles = getMDXFiles(contentDir);
+  const posts = mdxFiles.map((file) =>
+    readMDXFile(path.join(contentDir, file))
+  );
 
   return source === "blog"
     ? posts.sort(
@@ -76,11 +91,22 @@ export async function getPost(
   source: "blog" | "space",
   slug: string
 ): Promise<Post | null> {
+export function getBlogPosts(): Post[] {
+  return getMDXData("blog");
+}
+
+export function getSpaceEntries(): Post[] {
+  return getMDXData("space");
+}
+
+export function getPost(source: "blog" | "space", slug: string): Post | null {
+
   const contentDir = path.join(process.cwd(), "content", source);
   const filePath = path.join(contentDir, `${slug}.mdx`);
 
   try {
     return await readMDXFile(filePath);
+    return readMDXFile(filePath);
   } catch {
     return null;
   }

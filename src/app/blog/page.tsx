@@ -21,6 +21,8 @@ export default async function BlogPage() {
   const years = Object.keys(postsByYear)
     .map(Number)
     .sort((a, b) => b - a);
+export default function BlogPage() {
+  const posts = getBlogPosts();
 
   return (
     <div className="mx-auto max-w-2xl space-y-8">
