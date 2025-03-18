@@ -10,12 +10,15 @@ export async function generateStaticParams() {
 }
 
 export default async function BlogPost(props: {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };
 }): Promise<ReactElement> {
+  const { params } = await props;
+  const { slug } = params;
+  const post = await getPost("blog", slug);
   const params = await props.params;
   const post = getPost("blog", params.slug);
 
-  if (!post) {
+if (!post) {
     notFound();
   }
 
@@ -30,7 +33,14 @@ export default async function BlogPost(props: {
             <span>{post.readingTime}</span>
           </div>
         </header>
-        <MarkdownRenderer content={post.content} />
+        <MarkdownRenderer
+          content={post.content}
+          frontmatter={{
+            title: post.title,
+            description: post.description,
+            date: post.date,
+          }}
+        />
       </article>
     </div>
   );
