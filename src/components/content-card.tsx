@@ -26,39 +26,39 @@ export function ContentCard({
   return (
     <Link
       href={href}
-      className="group relative block h-[250px] rounded-xl border bg-card p-4 transition-all hover:bg-accent/50"
+      className="group relative block rounded-lg border border-border bg-card/95 p-5 shadow-md transition-all hover:border-primary/50 hover:bg-card hover:shadow-lg"
     >
-      <article className="flex h-full flex-col">
+      <article className="flex flex-col gap-3">
         {category && (
-          <span className="mb-2 inline-flex w-fit rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
+          <span className="inline-flex w-fit rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
             {category}
           </span>
         )}
 
-        <h2 className="mb-2 text-lg font-bold leading-tight">{title}</h2>
+        <h2 className="text-xl font-semibold leading-tight tracking-tight">
+          {title}
+        </h2>
 
-        <p className="line-clamp-2 flex-grow text-sm text-muted-foreground">
+        <p className="line-clamp-3 text-sm text-muted-foreground">
           {description}
         </p>
 
-        <div className="mt-4">
-          {tags && tags.length > 0 && (
-            <div className="mb-2 flex flex-wrap gap-1">
-              {tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="rounded-full bg-secondary px-2 py-0.5 text-xs text-secondary-foreground"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          )}
-
-          <div className="flex items-center justify-between text-xs text-muted-foreground">
-            {date && <time dateTime={date}>{date}</time>}
-            {readingTime && <span>{readingTime}</span>}
+        {tags && tags.length > 0 && (
+          <div className="flex flex-wrap gap-1.5 pt-1">
+            {tags.map((tag) => (
+              <span
+                key={tag}
+                className="rounded-full bg-secondary/40 px-2.5 py-0.5 text-xs font-medium text-secondary-foreground"
+              >
+                {tag}
+              </span>
+            ))}
           </div>
+        )}
+
+        <div className="mt-auto flex items-center justify-between pt-2 text-xs text-muted-foreground">
+          {date && <time dateTime={date}>{date}</time>}
+          {readingTime && <span className="italic">{readingTime}</span>}
         </div>
       </article>
     </Link>

@@ -18,6 +18,7 @@ export default function BlogPage() {
               description={post.description}
               href={`/blog/${post.slug}`}
               date={post.date}
+              readingTime={post.readingTime}
             />
           </div>
         ))}
