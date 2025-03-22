@@ -5,13 +5,13 @@ export default function SpacePage() {
   const entries = getSpaceEntries();
 
   return (
-    <div className="mx-auto max-w-7xl space-y-8">
+    <div className="mx-auto max-w-2xl space-y-8">
       <h1 className="text-3xl font-medium">space</h1>
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+      <div className="space-y-4 pt-1">
         {entries.map((entry) => (
           <div
+            className="transform py-1 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
             key={entry.slug}
-            className="transform transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
           >
             <ContentCard
               title={entry.title}
