@@ -68,7 +68,6 @@ export function Search(): JSX.Element {
     { enableOnFormTags: true }
   );
 
-  // Clear input when modal closes
   useEffect(() => {
     if (!isModalOpen && inputRef.current) {
       inputRef.current.value = "";

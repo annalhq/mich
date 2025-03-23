@@ -62,14 +62,14 @@ export async function search(query: string): Promise<SearchResult[]> {
   const searchResults = await Promise.all(
     response.results.map(async (result: PagefindResult) => {
       const data = await result.data();
-      // Remove .html extension from URL
+
       const url = data.url.replace(/\.html$/, "");
       const type: "blog" | "space" = url.startsWith("/blog/")
         ? "blog"
         : "space";
       return {
         id: result.id,
-        url, // Use the modified URL without .html extension
+        url,
         title: data.meta.title || "Untitled",
         excerpt: data.excerpt,
         type,
