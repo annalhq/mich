@@ -6,6 +6,13 @@ import { useState } from "react";
 import { Copy } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { Tweet } from "react-tweet";
+import rehypeMathJax from "rehype-mathjax";
+import remarkDirective from "remark-directive";
+import remarkFrontmatter from "remark-frontmatter";
+import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+
+/* eslint-disable */
 
 /* eslint-disable */
 
@@ -25,6 +32,13 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
   return (
     <ReactMarkdown
       className="markdown prose-zinc max-w-none dark:prose-invert"
+      remarkPlugins={[
+        remarkGfm,
+        remarkMath,
+        remarkFrontmatter,
+        remarkDirective,
+      ]}
+      rehypePlugins={[rehypeMathJax]}
       components={{
         a: ({ href, children }) => {
           if (
@@ -38,7 +52,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              className="!text-zinc-400 transition-colors hover:!text-zinc-300 no-underline"
+              className="!text-zinc-400 no-underline transition-colors hover:!text-zinc-300"
             >
               {children}
             </a>
