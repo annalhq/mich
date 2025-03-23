@@ -38,7 +38,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-primary underline decoration-primary/30 underline-offset-2 transition-colors hover:decoration-primary"
+              className="!text-zinc-400 transition-colors hover:!text-zinc-300 no-underline"
             >
               {children}
             </a>
@@ -58,7 +58,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
               >
                 <Copy
                   className={`h-4 w-4 ${
-                    copiedCode === code ? "text-green-400" : "text-zinc-400"
+                    copiedCode === code ? "text-zinc-300" : "text-zinc-400"
                   }`}
                 />
               </button>
