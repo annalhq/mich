@@ -1,0 +1,71 @@
+---
+title: "DeepSeek's customised CUDA PTX instruction"
+description: "sample blog for testing, written with the help of ai and bit of a human touch"
+date: "2025-03-26"
+---
+
+DeepSeek recently open-sourced six powerful software libraries to tackle problems in LLM teaining, inference and data infrastructure.
+At the heart of its open-source DeepEP library lies a robust PTX customization kernel, designed to maximize efficiency for deep compute-intensive tasks.
+This blog post explores the intricacies of DeepSeek's PTX kernel and its role in the DeepEP framework.
+
+## What is PTX and Why Does It Matter?
+
+PTX, or Parallel Thread Execution, is an intermediate assembly language used by NVIDIA GPUs to execute programs written in CUDA.
+By directly interacting with PTX, developers gain fine-grained control over GPU operations, enabling them to bypass some of the inefficiencies introduced by higher-level abstractions like standard CUDA kernels 
+While working at this level requires expertise, it opens up opportunities for groundbreaking optimizations—something DeepSeek has capitalized on extensively.
+
+### The Role of `utils.cuh` in DeepEP
+
+This file contains critical implementations that enable the integration of custom PTX instructions into CUDA workflows. For instance:
+
+- **Custom PTX instructions :** Within `utils.cuh`, you&apos;ll find code snippets where DeepSeek overrides default CUDA compiler decisions with hand-tuned PTX logic. These modifications target specific hardware features, ensuring optimal utilization of resources.
+ 
+- **Memory Transfer Optimization :** One of the standout achievements in DeepEP is the reduction of unnecessary memory transfers between host and device. By embedding PTX instructions directly, DeepSeek minimizes latency and boosts overall efficiency
+
+- **Enhanced Memory Access :**
+    1. *Relaxed Memory access:* Instructions like `ld.relaxed` and `st.relaxed` minimize synchronization overhead by avoiding unnecessary memory barriers.
+    2. *Non-Allocating Loads:* The `ld.global.nc.L1::no_allocate` instruction bypasses L1 cache allocation, reducing cache pollution for certain workloads.
+    3. *Volatile Loads:* Functions like `ld.volatile.global` ensure data consistency by bypassing compiler optimizations.
+
+- **Atomic Operations :** Atomic instructions are crucial for ensuring data integrity in parallel environments. DeepEP includes custom atomic functions like `atom.add.release.sys.global`, which combine atomicity with relaxed or release semantics for fine-grained control over memory ordering.
+
+## How Does It Work?
+
+The customization kernel relies heavily on inline assembly within CUDA, allowing developers to inject raw PTX instructions directly into their code. For example:
+
+```cpp
+__device__ __forceinline__ void st_na_relaxed(const int *ptr, int val) {
+    asm volatile("st.relaxed.gpu.global.L1::no_allocate.b32 [%0], %1;" : : "l"(ptr), "r"(val));
+}
+```
+
+This function performs a relaxed store operation, bypassing the L1 cache for improved performance in specific scenarios.
+
+Additionally, macros like `UNROLLED_WARP_COPY` enable optimized data movement within warps by unrolling loops and minimizing instruction latency:
+
+```cpp
+#define UNROLLED_WARP_COPY(UNROLL_FACTOR, LANE_ID, N, DST, SRC, LD_FUNC, ST_FUNC) \
+{ \
+    constexpr int kLoopStride = 32 * (UNROLL_FACTOR); \
+    typename std::remove_reference<decltype(LD_FUNC((SRC) + 0))>::type unrolled_values[(UNROLL_FACTOR)]; \
+    auto __src = (SRC); \
+    auto __dst = (DST); \
+    for (int __i = (LANE_ID); __i < ((N) / kLoopStride) * kLoopStride; __i += kLoopStride) { \
+        _Pragma("unroll") \
+        for (int __j = 0; __j < (UNROLL_FACTOR); ++__j) \
+            unrolled_values[__j] = LD_FUNC(__src + __i + __j * 32); \
+        _Pragma("unroll") \
+        for (int __j = 0; __j < (UNROLL_FACTOR); ++__j) \
+            ST_FUNC(__dst + __i + __j * 32, unrolled_values[__j]); \
+    } \
+}
+```
+This macro is particularly useful for optimizing memory-bound operations in deep learning models.
+
+---
+
+Read more about this here:
+
+1. https://github.com/deepseek-ai/DeepEP/blob/main/csrc/kernels/utils.cuh
+2. https://zhuanlan.zhihu.com/p/26593607948
+2. https://www.pyspur.dev/blog/deepseek_open_source_week
