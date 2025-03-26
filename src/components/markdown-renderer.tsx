@@ -1,6 +1,7 @@
 /* eslint-disable */
 "use client";
 
+import React from "react";
 import { useState } from "react";
 
 import { Copy } from "lucide-react";
@@ -14,14 +15,34 @@ import remarkMath from "remark-math";
 
 /* eslint-disable */
 
-/* eslint-disable */
-
 interface MarkdownRendererProps {
   content: string;
 }
 
 export function MarkdownRenderer({ content }: MarkdownRendererProps) {
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
+
+  const createHeading = (level: number) => {
+    const Heading = ({ children }: { children: React.ReactNode }) => {
+      let slug = slugify(children as string);
+      return React.createElement(`h${level}`, { id: slug }, [
+        React.createElement(
+          "a",
+          {
+            href: `#${slug}`,
+            key: `link-${slug}`,
+            className: "anchor text-zinc-400 hover:text-zinc-300",
+          },
+          children
+        ),
+      ]);
+    };
+    return Heading;
+  };
+
+  // slugify function
+  const slugify = (s: string) =>
+    encodeURIComponent(String(s).trim().toLowerCase().replace(/\s+/g, "-"));
 
   const copyToClipboard = async (code: string) => {
     await navigator.clipboard.writeText(code);
@@ -40,6 +61,12 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
       ]}
       rehypePlugins={[rehypeMathJax]}
       components={{
+        h1: createHeading(1) as any,
+        h2: createHeading(2) as any,
+        h3: createHeading(3) as any,
+        h4: createHeading(4) as any,
+        h5: createHeading(5) as any,
+        h6: createHeading(6) as any,
         a: ({ href, children }) => {
           if (
             href?.startsWith("https://twitter.com") ||
