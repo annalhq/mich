@@ -12,8 +12,8 @@ export function Navigation() {
 
   const links = [
     { href: "/", label: "home" },
-    { href: "/blog", label: "blog" },
     { href: "/space", label: "space" },
+    { href: "/blog", label: "blog" },
   ];
 
   return (
