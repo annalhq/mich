@@ -7,15 +7,15 @@ import { ArrowUpRight } from "lucide-react";
 
 export default function HomePage() {
   return (
-    <div className="flex w-full flex-col items-center justify-center gap-2 pt-2">
+    <div className="flex w-full flex-col items-center justify-center">
       <div className="w-full flex-col px-4 pt-4 md:w-2/3 lg:w-1/2">
         <div className="flex items-center gap-4">
           <Image
-            src="/ann.png"
+            src="/ann.jpg"
             alt="profile picture"
-            width={48}
-            height={48}
-            className="h-10 w-10 rounded-full border border-gray-700 md:h-12 md:w-12"
+            width={64}
+            height={64}
+            className="h-12 w-12 rounded-full border border-gray-700 md:h-12 md:w-12"
           />
           <h1 className="text-left font-serif text-xl md:text-2xl">annalhq</h1>
         </div>
