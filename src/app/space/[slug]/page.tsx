@@ -20,8 +20,8 @@ export default async function SpaceEntry(props: {
   }
 
   return (
-    <div className="mx-auto max-w-2xl">
-      <article data-pagefind-body>
+    <div className="mx-auto max-w-2xl px-4">
+      <article data-pagefind-body className="overflow-hidden">
         <header className="mb-8">
           <h1 className="mb-2 text-3xl font-bold">{entry.title}</h1>
           <div className="text-sm text-muted-foreground">
@@ -30,7 +30,9 @@ export default async function SpaceEntry(props: {
             <span>{entry.readingTime}</span>
           </div>
         </header>
-        <MarkdownRenderer content={entry.content} />
+        <div className="prose break-words prose-pre:overflow-auto prose-img:max-w-full">
+          <MarkdownRenderer content={entry.content} />
+        </div>
       </article>
     </div>
   );
