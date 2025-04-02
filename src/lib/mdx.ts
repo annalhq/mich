@@ -38,11 +38,9 @@ function getMDXData(source: "blog" | "space"): Post[] {
     readMDXFile(path.join(contentDir, file))
   );
 
-  return source === "blog"
-    ? posts.sort(
-        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-      )
-    : posts;
+  return posts.sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
 }
 
 export function getBlogPosts(): Post[] {
