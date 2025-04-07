@@ -1,0 +1,51 @@
+---
+title: "LLaMA 4 SSMax"
+description: "implememtation of scalable softmax  in LLaMA 4 "
+date: "2025-04-07"
+---
+
+### LLaMA 4 Softmax
+
+In their official blog on LLaMA 4, Meta AI implemented SSMax in LLMs.
+
+> Additionally, we employ [inference time temperature scaling](https://arxiv.org/pdf/2501.19399) of attention to enhance length generalization.
+> We call this the iRoPE architecture, where “i” stands for “interleaved” attention layers, highlighting the long-term goal of supporting “infinite” context length, and “RoPE” refers to the rotary position embeddings employed in most layers.
+
+### Attention Mechanism
+The most commonly used attention mechanism in the current Transformer architecture is formally called "Scaled Dot-Product Attention." The term "Scaled" refers to the fact that after the multiplication of Q and the transpose of K, the result is divided by sqrt(d), where d is the dimension of the key vectors.
+before applying the Softmax function without loss of generality with the following assumption: 
+
+$$Q, K, V \in \mathbb{R}^{n \times d}$$
+
+$$Attention(Q,K,V) = softmax\left(\frac{QK^{\top}}{\sqrt{d}}\right)V$$
+
+### Entropy variance
+(to be added)
+
+### SSMax
+
+It scales the query states to allow softmax to:
+
+1. Improve performance on longer context length and key information retrieval tasks.
+2. Process longer context length more effciently.
+
+Whereas in normal attention softmax, as context length grows, the softmaxxed probabilty distribution becomes flatter as the denominator gets larger progressively. This leads to a loss of information and a decrease in performance.
+
+$$z_i \mapsto \dfrac{e^{z_i}}{\sum_{j=1}^n e^{z_j}}$$
+
+The solution is to incorporate N directly into the softmax computation, setting s to a scalar is good enough.
+Also it can be implemended as a simple scaling of the queries.
+
+$$
+\begin{align*}
+\mathbf{a_n} &= \mathrm{SSMax}\left(\dfrac{\mathbf{q_n}K_{1:n}^T}{\sqrt{d}}\right) \\
+			 &=  \mathrm{softmax}\left(\dfrac{(s \log{n}) \mathbf{q_n}K_{1:n}^T)}{\sqrt{d}}\right)
+\end{align*}
+$$
+
+### References
+
+1. [LLaMA 4 official blog](https://ai.meta.com/blog/llama-4-multimodal-intelligence/)
+2. [Overcoming a Theoretical Limitation of Self-Attention](https://openreview.net/pdf?id=qc9O2EtrMI-)
+3. [Blog on log(n) scaling by Jianlin Su](https://kexue.fm/archives/8823#%E6%96%B0%E7%9A%84%E5%9B%A0%E5%AD%90)
+4. [Twitter thread](https://x.com/nrehiew_/status/1908613998473248909)

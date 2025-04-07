@@ -16,6 +16,8 @@ import remarkMath from "remark-math";
 
 /* eslint-disable */
 
+/* eslint-disable */
+
 interface MarkdownRendererProps {
   content: string;
 }
@@ -42,8 +44,8 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
       components={{
         a: ({ href, children }) => {
           if (
-            href?.startsWith("https://twitter.com") ||
-            href?.startsWith("https://x.com")
+            href?.startsWith("https://twitter.com")
+            //|| href?.startsWith("https://x.com") // for ssmax blog disabling, as it is rendering it in reference section & also add nested linkgings [[]()]()
           ) {
             return <Tweet id={href.split("/").pop() || ""} />;
           }
