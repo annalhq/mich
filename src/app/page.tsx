@@ -31,8 +31,10 @@ export default function HomePage() {
           leveraged to create more interpretable models.
         </p>
         <p className="mt-4 text-[16px] md:text-[18px]">
-          currently i am implementing papers from on{" "}
-          <Link href="https://docs.cleanrl.dev/">reinforcement learning</Link>
+          currently i am implementing{" "}
+          <Link href="https://docs.cleanrl.dev/">
+            reinforcement learning papers
+          </Link>
         </p>
 
         {/* Links Section */}
