@@ -20,13 +20,14 @@ date: "2025-04-21"
 - Perceptron and Sparse probabilty
      > Training a multilayer perceptron with a single hidden layer corresponds to the evolution of a sparse probability measure (sum of Dirac masses) over the neuron's parameter domain (here it is 2D for the regression of a 1D function, slope+position of the ridge).
 - [MM1 by Apple](https://arxiv.org/abs/2403.09611)
-- Grok 1 Architecture
-     > - Uses MoE layer to enhance training efficientcy of LLMs
-     > 1. Attention is scaled by 30/tanh(x/30) ?!
-     > 2. Approx GELU is used like Gemma
-     > 3. 4x Layernoms unlike 2x for Llama
-     > 4. RMS Layernorm downcasts at the end unlike Llama - same as Gemma
-     > 5. RoPE is fully in float32 I think like Gemma
-     > 6. Multipliers are 1
-     > 7. QKV has bias, O no bias MLP no bias
-     > 8. Vocab size is 131072. Gemma 256000.
+- Grok 1 Architecture:
+
+     Uses MoE layer to enhance training efficientcy of LLMs
+1. Attention is scaled by 30/tanh(x/30) ?!
+2. Approx GELU is used like Gemma
+3. 4x Layernoms unlike 2x for Llama
+4. RMS Layernorm downcasts at the end unlike Llama - same as Gemma
+5. RoPE is fully in float32 I think like Gemma
+6. Multipliers are 1
+7. QKV has bias, O no bias MLP no bias
+8. Vocab size is 131072. Gemma 256000.

@@ -186,7 +186,7 @@ export function Search(): JSX.Element {
                           <p className="font-semibold">
                             Failed to load search index
                           </p>
-                          <p className="text-xs">{state.error}</p>
+                          <p className="text-xs">{String(state.error)}</p>
                         </div>
                       </div>
                     ) : state.isLoading ? (
