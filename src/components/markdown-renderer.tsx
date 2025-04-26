@@ -1,6 +1,4 @@
 /* eslint-disable */
-"use client";
-
 import ReactMarkdown from "react-markdown";
 import { Tweet } from "react-tweet";
 import rehypeMathJax from "rehype-mathjax";

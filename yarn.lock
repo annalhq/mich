@@ -1471,6 +1471,14 @@
   dependencies:
     "@shikijs/types" "3.3.0"
 
+"@shikijs/transformers@^3.3.0":
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/@shikijs/transformers/-/transformers-3.3.0.tgz#b691585719c393f5f9cbaea8e34c6d4603410099"
+  integrity sha512-PIknEyxfkT7i7at/78ynVmuZEv4+7IcS37f6abxMjQ0pVIPEya8n+KNl7XtfbhNL+U9ElR3UzfSzuD5l5Iu+nw==
+  dependencies:
+    "@shikijs/core" "3.3.0"
+    "@shikijs/types" "3.3.0"
+
 "@shikijs/types@3.3.0":
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/@shikijs/types/-/types-3.3.0.tgz#2787aac662ef0cf286abc0ab65595eab67c27c0f"
