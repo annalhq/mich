@@ -63,13 +63,6 @@
   @apply prose prose-zinc dark:prose-invert max-w-none;
 }
 
-.markdown pre {
-  @apply overflow-x-auto rounded-lg bg-zinc-950 p-4;
-}
-
-.markdown code {
-  @apply rounded-md bg-zinc-800 px-1.5 py-0.5 text-sm;
-}
 
 .markdown h1,
 .markdown h2,
