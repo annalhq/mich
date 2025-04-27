@@ -1464,6 +1464,18 @@
   dependencies:
     "@shikijs/types" "3.3.0"
 
+"@shikijs/rehype@^3.3.0":
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/@shikijs/rehype/-/rehype-3.3.0.tgz#b3bf7310422d988d53f53d0169589f827162f0bf"
+  integrity sha512-m9clrxedJHyKDwYoAkIUJ7thWGSZwZbA0PeGDST7NHCTGeS227BFn8Hoq2olAtxXo14k5T1JcUCDgyaRZfI4Hw==
+  dependencies:
+    "@shikijs/types" "3.3.0"
+    "@types/hast" "^3.0.4"
+    hast-util-to-string "^3.0.1"
+    shiki "3.3.0"
+    unified "^11.0.5"
+    unist-util-visit "^5.0.0"
+
 "@shikijs/themes@3.3.0":
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/@shikijs/themes/-/themes-3.3.0.tgz#200213a37c7e80d39f9814c38291c360c4c42cf1"
@@ -4223,7 +4235,7 @@ hast-util-to-parse5@^8.0.0:
     web-namespaces "^2.0.0"
     zwitch "^2.0.0"
 
-hast-util-to-string@^3.0.0:
+hast-util-to-string@^3.0.0, hast-util-to-string@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/hast-util-to-string/-/hast-util-to-string-3.0.1.tgz#a4f15e682849326dd211c97129c94b0c3e76527c"
   integrity sha512-XelQVTDWvqcl3axRfI0xSeoVKzyIFPwsAGSLIsKdJKQMXDYJS4WYrBNF/8J7RdhIcFI2BOHgAifggsvsxp/3+A==
@@ -7542,7 +7554,7 @@ shebang-regex@^3.0.0:
   resolved "https://registry.yarnpkg.com/shebang-regex/-/shebang-regex-3.0.0.tgz#ae16f1644d873ecad843b0307b143362d4c42172"
   integrity sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==
 
-shiki@^3.2.1:
+shiki@3.3.0, shiki@^3.2.1:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/shiki/-/shiki-3.3.0.tgz#306e8efe5cafec161a964928fa176efdbc64101c"
   integrity sha512-j0Z1tG5vlOFGW8JVj0Cpuatzvshes7VJy5ncDmmMaYcmnGW0Js1N81TOW98ivTFNZfKRn9uwEg/aIm638o368g==
