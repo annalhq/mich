@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.1](https://github.com/annalhq/mich/compare/v0.2.0...v0.2.1) (2025-04-28)
+
+
+### Features
+
+* [#3](https://github.com/annalhq/mich/issues/3) configure rehype-pretty-code ([f8b233c](https://github.com/annalhq/mich/commit/f8b233c1d1f5efeaa814d5d0974e8ea80cbd245d))
+* [#3](https://github.com/annalhq/mich/issues/3) shikijs transformer integration ([f60ba01](https://github.com/annalhq/mich/commit/f60ba01bc552e9ad1fe41a8e33d4ed6f3393b310))
+* new mdx component ([6505794](https://github.com/annalhq/mich/commit/6505794bacafff0ea9c4ccb2f0d88df4ea010e1b))
+* new mdx finally? ([8d9b6d2](https://github.com/annalhq/mich/commit/8d9b6d2f1b6a958fa3f11130c9c77e472555d80e))
+* rehype math integrated ([ae3403c](https://github.com/annalhq/mich/commit/ae3403c0d51fa5fc676369d67beb2ec451467a71))
+
+
+### Bug Fixes
+
+* mdx compiler alpha v.0.1.0 ([5cce27f](https://github.com/annalhq/mich/commit/5cce27f10f80a09dc7db25e63a53716458e28bc3))
+* **mdx:** callout bug resolved ([14458cd](https://github.com/annalhq/mich/commit/14458cd931e0ec98555149e4ca517dc497e6b19f))
+* next config ([2ac0d30](https://github.com/annalhq/mich/commit/2ac0d30dc9d635748c496b2811d736e8fe629855))
+* rehype config ([90db1fd](https://github.com/annalhq/mich/commit/90db1fdcdd93a59fea22733892047c55bc4a66c0))
+* resolve [#2](https://github.com/annalhq/mich/issues/2) [#3](https://github.com/annalhq/mich/issues/3) [#6](https://github.com/annalhq/mich/issues/6) ([d92a1bf](https://github.com/annalhq/mich/commit/d92a1bfedbf71b81b3c74c10175ba1ee713df310))
+* resolve content overflowing issue ([746dfd3](https://github.com/annalhq/mich/commit/746dfd3c676ca0ab7ee3a5ad35c59ab024d6329e))
+* resolve package manager conflicts ([140fb4b](https://github.com/annalhq/mich/commit/140fb4b54d6c8a69011a0a94376c1fe846fe1d0c))
+* resolve post sorting ([ced8b9b](https://github.com/annalhq/mich/commit/ced8b9b83f63540e0b87aa9951d2773169dd1ea8))
+* **search:** remove overlapping icons ([e0c486d](https://github.com/annalhq/mich/commit/e0c486d28fd0298e7130f3f91f5a0d07be29f9a4))
+* **search:** state error ([70b4b61](https://github.com/annalhq/mich/commit/70b4b61382c3820f684fb89bce8a1406eb152f6f))
+* vercel config ([abd5e91](https://github.com/annalhq/mich/commit/abd5e91163fc2e59da41e72842356e5f1646220d))
+
 ## 0.2.0 (2025-03-13)
 
 
