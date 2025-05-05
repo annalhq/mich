@@ -1,5 +1,5 @@
 import { ContentCard } from "@/components/content-card";
-import { getBlogPosts } from "@/lib/mdx";
+import { getBlogPosts } from "@/mdx/utils/mdx";
 
 export default function BlogPage() {
   const posts = getBlogPosts();

@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
 import { ReactElement } from "react";
 
-import { MarkdownRenderer } from "@/components/markdown-renderer";
-import { getBlogPosts, getPost } from "@/lib/mdx";
+import { MarkdownRenderer } from "@/mdx/markdown-renderer";
+import { getBlogPosts, getPost } from "@/mdx/utils/mdx";
 
 export async function generateStaticParams() {
   const posts = getBlogPosts();

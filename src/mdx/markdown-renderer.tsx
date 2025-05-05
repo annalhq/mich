@@ -7,7 +7,7 @@ import remarkFrontmatter from "remark-frontmatter";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 
-import { Code } from "./code-component";
+import { Code } from "./lib/syntax-highlighting/code-component";
 
 /* eslint-disable */
 

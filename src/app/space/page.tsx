@@ -1,5 +1,5 @@
 import { ContentCard } from "@/components/content-card";
-import { getSpaceEntries } from "@/lib/mdx";
+import { getSpaceEntries } from "@/mdx/utils/mdx";
 
 export default function SpacePage() {
   const entries = getSpaceEntries();
