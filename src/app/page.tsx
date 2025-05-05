@@ -23,7 +23,7 @@ export default function HomePage() {
         {/* Bio Section */}
         <p className="mt-8 text-[16px] md:text-[18px]">
           hey there 👋. i work in <span>machine learning</span>,{" "}
-          <span>mathematics</span> and <span>particle physics</span>.
+          <span>mathematics</span> and <span>low level optimizations</span>.
         </p>
         <p className="mt-4 text-[16px] md:text-[18px]">
           my research interests lie in the intersection of these fields, where
