@@ -20,7 +20,7 @@ export default function HomePage() {
           <h1 className="text-left font-serif text-xl md:text-2xl">annalhq</h1>
         </div>
 
-        {/* Bio Section */}
+        {/* Bio */}
         <p className="mt-8 text-[16px] md:text-[18px]">
           hey there 👋. i work in <span>machine learning</span>,{" "}
           <span>mathematics</span> and <span>low level optimizations</span>.
@@ -37,7 +37,7 @@ export default function HomePage() {
           </Link>
         </p>
 
-        {/* Links Section */}
+        {/* Links */}
         <div className="mt-4 flex gap-4 md:gap-8">
           <Link
             href="https://github.com/annalhq"
@@ -59,7 +59,6 @@ export default function HomePage() {
           </Link>
         </div>
 
-        {/* Divider */}
         <div className="my-8 inline-block h-[2px] bg-gray-800 px-16"></div>
       </div>
     </div>
