@@ -63,6 +63,13 @@
   @apply prose prose-zinc dark:prose-invert max-w-none;
 }
 
+.markdown pre::-webkit-scrollbar {
+  display: none;
+}
+.markdown pre {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
 
 .markdown h1,
 .markdown h2,

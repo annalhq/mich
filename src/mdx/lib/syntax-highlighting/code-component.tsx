@@ -14,7 +14,7 @@ export async function Code({ code }: { code: string }) {
   const highlightedCode = await highlightCode(code);
   return (
     <div
-      className="[&>pre]:!m-0 [&>pre]:!overflow-visible [&>pre]:!bg-transparent [&>pre]:!p-0 [&_span.highlighted]:-mx-4 [&_span.highlighted]:block [&_span.highlighted]:bg-yellow-200/10 [&_span.highlighted]:px-4"
+      className="[&>pre]:m-0 [&>pre]:overflow-x-auto [&>pre]:overflow-y-visible [&>pre]:rounded-md [&>pre]:border [&>pre]:border-zinc-700 [&>pre]:bg-transparent [&>pre]:p-1 [&_span.highlighted]:bg-yellow-200/10 [&_span.highlighted]:px-1"
       dangerouslySetInnerHTML={{ __html: highlightedCode }}
     />
   );
