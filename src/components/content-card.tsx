@@ -21,7 +21,6 @@ export function ContentCard({
   readingTime,
   tags = [],
   category,
-  // image // image prop ki jarurat nahi hai
 }: ContentCardProps) {
   return (
     <Link
