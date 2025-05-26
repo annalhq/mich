@@ -108,12 +108,13 @@ export function Search(): JSX.Element {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.15 }}
-            className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm"
+            className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm" // This is the backdrop
           >
-            <div className="fixed inset-0 flex items-start justify-center p-4 sm:items-center sm:p-0">
+            {/* This div positions the modal content. Key changes are here: */}
+            <div className="fixed inset-0 flex items-start justify-center overflow-y-auto px-4 pb-8 pt-[15vh]">
               <motion.div
                 ref={modalRef}
-                initial={{ scale: 0.95, opacity: 0, y: -10 }}
+                initial={{ scale: 0.95, opacity: 0, y: -10 }} // y animation is relative to its final position
                 animate={{ scale: 1, opacity: 1, y: 0 }}
                 exit={{ scale: 0.95, opacity: 0, y: -10 }}
                 transition={{ duration: 0.15, ease: "easeOut" }}
@@ -125,6 +126,7 @@ export function Search(): JSX.Element {
                     setIsModalOpen(false);
                   }}
                 >
+                  {/* This div contains the search input. It will stay at the top of the Combobox. */}
                   <div className="relative flex items-center border-b border-border px-3 py-2">
                     <SearchIcon
                       size={18}
@@ -168,10 +170,11 @@ export function Search(): JSX.Element {
                       </kbd>
                     </button>
                   </div>
+                  {/* This is the scrollable area for results. The input above will not scroll with it. */}
                   <ComboboxOptions
                     static
                     className={cn(
-                      "nextra-scrollbar max-h-[60vh] overflow-y-auto py-2",
+                      "nextra-scrollbar max-h-[60vh] overflow-y-auto py-2", // max-h controls result list height
                       state.error ||
                         state.isLoading ||
                         (!state.results.length && state.query)
