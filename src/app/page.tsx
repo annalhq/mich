@@ -7,8 +7,8 @@ import { ArrowUpRight } from "lucide-react";
 
 export default function HomePage() {
   return (
-    <div className="flex w-full flex-col items-center justify-center">
-      <div className="w-full flex-col px-4 pt-4 md:w-2/3 lg:w-1/2">
+    <div className="mx-auto flex w-full max-w-2xl flex-col items-center justify-center">
+      <div className="w-full flex-col px-0 md:px-0 lg:px-0">
         <div className="flex items-center gap-4">
           <Image
             src="/enso.jpg"
@@ -46,16 +46,10 @@ export default function HomePage() {
             <ArrowUpRight className="mr-1 h-4 w-4" /> github
           </Link>
           <Link
-            href="https://zhihu.com/annalhq_"
+            href="https://zhihu.com/people/przybylski"
             className="flex items-center text-[16px] underline md:text-[18px]"
           >
             <ArrowUpRight className="mr-1 h-4 w-4" /> zhihu
-          </Link>
-          <Link
-            href="https://loj.ac/"
-            className="flex items-center text-[16px] underline md:text-[18px]"
-          >
-            <ArrowUpRight className="mr-1 h-4 w-4" /> libreOJ
           </Link>
         </div>
 
