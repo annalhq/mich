@@ -7,18 +7,24 @@ import remarkFrontmatter from "remark-frontmatter";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 
+import { cn } from "@/lib/utils";
+
 import { Code } from "./lib/syntax-highlighting/code-component";
+import { MetaConfig } from "./utils/mdx";
 
 /* eslint-disable */
 
 interface MarkdownRendererProps {
   content: string;
+  meta?: MetaConfig;
 }
 
-export function MarkdownRenderer({ content }: MarkdownRendererProps) {
+export function MarkdownRenderer({ content, meta }: MarkdownRendererProps) {
   return (
     <ReactMarkdown
-      className="markdown prose-zinc max-w-none dark:prose-invert"
+      className={cn("markdown prose-zinc max-w-none dark:prose-invert", {
+        "markdown-no-list-margin": meta?.styling?.listExtraPadding === false,
+      })}
       remarkPlugins={[
         remarkGfm,
         remarkMath,

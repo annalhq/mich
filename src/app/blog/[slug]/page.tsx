@@ -31,7 +31,7 @@ export default async function BlogPost(props: {
           </div>
         </header>
         <div className="prose break-words prose-pre:overflow-auto prose-img:max-w-full">
-          <MarkdownRenderer content={post.content} />
+          <MarkdownRenderer content={post.content} meta={post.meta} />
         </div>
       </article>
     </div>

@@ -89,6 +89,11 @@
   @apply my-6 ml-6;
 }
 
+.markdown.markdown-no-list-margin ul,
+.markdown.markdown-no-list-margin ol {
+  @apply ml-0;
+}
+
 .markdown blockquote {
   @apply border-l-2 border-zinc-300 pl-6 italic dark:border-zinc-700;
 }
