@@ -33,7 +33,7 @@ This file contains critical implementations that enable the integration of custo
 
 The customization kernel relies heavily on inline assembly within CUDA, allowing developers to inject raw PTX instructions directly into their code. For example:
 
-```cpp
+```cpp {1-2}
 __device__ __forceinline__ void st_na_relaxed(const int *ptr, int val) {
     asm volatile("st.relaxed.gpu.global.L1::no_allocate.b32 [%0], %1;" : : "l"(ptr), "r"(val));
 }
@@ -44,7 +44,6 @@ This function performs a relaxed store operation, bypassing the L1 cache for imp
 Additionally, macros like `UNROLLED_WARP_COPY` enable optimized data movement within warps by unrolling loops and minimizing instruction latency:
 
 ```cpp showLineNumbers
-
 #define UNROLLED_WARP_COPY(UNROLL_FACTOR, LANE_ID, N, DST, SRC, LD_FUNC, ST_FUNC) \
 { \
     constexpr int kLoopStride = 32 * (UNROLL_FACTOR); \

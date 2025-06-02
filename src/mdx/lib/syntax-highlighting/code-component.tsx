@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import { transformerCopyButton } from "@rehype-pretty/transformers";
 import {
   transformerNotationDiff,
   transformerNotationHighlight,
@@ -25,6 +26,10 @@ const processor = unified()
     transformers: [
       transformerNotationDiff({ matchAlgorithm: "v3" }),
       transformerNotationHighlight(),
+      transformerCopyButton({
+        visibility: "hover",
+        feedbackDuration: 3_000,
+      }),
     ],
     tokensMap: {
       fn: "entity.name.function",
@@ -34,13 +39,11 @@ const processor = unified()
       num: "constant.numeric",
     },
     onVisitLine(element) {
-      // Add custom styling to lines if needed
       if (element.children.length === 0) {
         element.children = [{ type: "text", value: " " }];
       }
     },
     onVisitHighlightedLine(element) {
-      // Custom handling for highlighted lines
       element.properties.className = [
         ...(element.properties.className || []),
         "highlighted-line",
@@ -60,7 +63,7 @@ export async function Code({ code }: { code: string }) {
   const file = await processor.process(code);
   return (
     <div
-      className="not-prose my-6 overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-800"
+      className="not-prose"
       dangerouslySetInnerHTML={{ __html: String(file) }}
     />
   );
