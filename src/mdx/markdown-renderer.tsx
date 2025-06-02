@@ -39,7 +39,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              className="!text-zinc-400 no-underline transition-colors hover:!text-zinc-300"
+              className="!text-blue-500 no-underline transition-colors hover:!text-blue-600 dark:!text-blue-400 dark:hover:!text-blue-300"
             >
               {children}
             </a>
