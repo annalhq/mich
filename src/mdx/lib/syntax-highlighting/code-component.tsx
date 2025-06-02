@@ -10,32 +10,58 @@ import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
 
+// hoist processor to avoid rebuilding on every render
+const processor = unified()
+  .use(remarkParse)
+  .use(remarkRehype)
+  .use(rehypePrettyCode, {
+    keepBackground: false,
+    theme: {
+      dark: "one-dark-pro",
+      light: "github-light",
+    },
+    defaultLang: "plaintext",
+    grid: true,
+    transformers: [
+      transformerNotationDiff({ matchAlgorithm: "v3" }),
+      transformerNotationHighlight(),
+    ],
+    tokensMap: {
+      fn: "entity.name.function",
+      var: "variable",
+      str: "string",
+      kw: "keyword",
+      num: "constant.numeric",
+    },
+    onVisitLine(element) {
+      // Add custom styling to lines if needed
+      if (element.children.length === 0) {
+        element.children = [{ type: "text", value: " " }];
+      }
+    },
+    onVisitHighlightedLine(element) {
+      // Custom handling for highlighted lines
+      element.properties.className = [
+        ...(element.properties.className || []),
+        "highlighted-line",
+      ];
+    },
+    onVisitHighlightedChars(element) {
+      // Custom handling for highlighted characters
+      element.properties.className = [
+        ...(element.properties.className || []),
+        "highlighted-chars",
+      ];
+    },
+  })
+  .use(rehypeStringify);
+
 export async function Code({ code }: { code: string }) {
-  const highlightedCode = await highlightCode(code);
+  const file = await processor.process(code);
   return (
     <div
-      className="[&>pre]:m-0 [&>pre]:overflow-x-auto [&>pre]:overflow-y-visible [&>pre]:rounded-md [&>pre]:border [&>pre]:border-zinc-700 [&>pre]:bg-transparent [&>pre]:p-1 [&_span.highlighted]:bg-yellow-200/10 [&_span.highlighted]:px-1"
-      dangerouslySetInnerHTML={{ __html: highlightedCode }}
+      className="not-prose my-6 overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-800"
+      dangerouslySetInnerHTML={{ __html: String(file) }}
     />
   );
-}
-
-async function highlightCode(code: string) {
-  const file = await unified()
-    .use(remarkParse)
-    .use(remarkRehype)
-    .use(rehypePrettyCode, {
-      keepBackground: false,
-      theme: "one-dark-pro",
-      transformers: [
-        transformerNotationDiff({
-          matchAlgorithm: "v3",
-        }),
-        transformerNotationHighlight(),
-      ],
-    })
-    .use(rehypeStringify)
-    .process(code);
-
-  return String(file);
 }

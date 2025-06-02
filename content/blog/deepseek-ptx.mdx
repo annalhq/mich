@@ -43,7 +43,7 @@ This function performs a relaxed store operation, bypassing the L1 cache for imp
 
 Additionally, macros like `UNROLLED_WARP_COPY` enable optimized data movement within warps by unrolling loops and minimizing instruction latency:
 
-```cpp 
+```cpp showLineNumbers
 
 #define UNROLLED_WARP_COPY(UNROLL_FACTOR, LANE_ID, N, DST, SRC, LD_FUNC, ST_FUNC) \
 { \
