@@ -2,6 +2,7 @@ import { GeistSans } from "geist/font/sans";
 
 import { Layout } from "@/components/layout";
 import { ScreenIndicator } from "@/components/screen-indicator";
+import { ThemeProvider } from "@/components/theme-provider";
 
 import "./globals.css";
 
@@ -11,7 +12,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${GeistSans.className} dark`}>
+    <html
+      lang="en"
+      className={`${GeistSans.className}`}
+      suppressHydrationWarning
+    >
       <head>
         <link
           rel="icon"
@@ -19,8 +24,15 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <Layout>{children}</Layout>
-        <ScreenIndicator />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Layout>{children}</Layout>
+          <ScreenIndicator />
+        </ThemeProvider>
       </body>
     </html>
   );
