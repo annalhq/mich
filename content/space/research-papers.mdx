@@ -6,6 +6,15 @@ date: "2025-04-21"
 
 ## My reading list of research papers
 
+- [Log Linear Attention](https://arxiv.org/abs/2506.04761)<br/>
+  [Author's explanation](https://x.com/HanGuo97/status/1930789829094297859)<br/>
+  Log-linear attention introduces a novel mechanism that overcomes quadratic attention bottlenecks and the fixed-size hidden state of linear models by employing a logarithmically growing set of hidden states with a matmul-rich parallel form, yielding log-linear compute and balanced expressiveness.
+- [The Surprising Effectiveness of Negative Reinforcement in LLM Reasoning](https://arxiv.org/abs/2506.01347)<br/>
+  [Author's explanation](https://x.com/tianhongzxy/status/1929596099154633036)<br/>
+  This paper finds that Negative Sample Reinforcement (NSR), which solely penalizes incorrect LLM responses, surprisingly proves highly effective in mathematical reasoning tasks, consistently improving Pass@k performance over base models and often matching or surpassing PPO and GRPO by refining the model's existing knowledge via probability redistribution, with an upweighted NSR objective further enhancing results.
+- [Esoteric Language Models](https://arxiv.org/abs/2506.01928)
+  introduces Eso-LMs, a novel language model that fuses autoregressive and Masked Diffusion Model (MDM) paradigms to achieve state-of-the-art performance, notably integrating KV caching for MDMs to enable up to 65x faster inference.
+  [Blog](https://s-sahoo.com/Eso-LMs/)
 - [Insights into DeepSeek-V3: Scaling Challenges and Reflections on Hardware for AI Architectures](https://www.arxiv.org/abs/2505.09343)
 - [Large Language Diffusion Models](https://arxiv.org/abs/2502.09992)
 - [Optimizing Anytime Reasoning via Budget Relative Policy Optimization (BRPO)](https://arxiv.org/abs/2505.13438)
@@ -19,21 +28,23 @@ date: "2025-04-21"
 - [SoTA with Less: MCTS-Guided Sample Selection for Data-Efficient Visual Reasoning Self-Improvement](https://arxiv.org/abs/2504.07934)
 - [Scaling Reasoning in Diffusion Large Language Models via Reinforcement Learning](https://arxiv.org/abs/2504.12216)
 - [Vision as LoRA](https://arxiv.org/abs/2503.20680)
+
 ---
 
 ### Older ones
 
 - [Attention is All You Need](https://arxiv.org/abs/1706.03762)
 - [Masked Siamese networks for label-efficient learning](https://arxiv.org/abs/2204.07141)
-     > A new state-of-the-art for self-supervised learning on this benchmark while using nearly 10x fewer parameters than previous best performing approaches and 100x fewer labeled images than current mask-based auto-encode [2022]
+  > A new state-of-the-art for self-supervised learning on this benchmark while using nearly 10x fewer parameters than previous best performing approaches and 100x fewer labeled images than current mask-based auto-encode [2022]
 - [Rationale behind LoRA](https://arxiv.org/abs/2012.13255)
 - [GZip-kNN](https://blog.codingconfessions.com/p/decoding-the-acl-paper-gzip-and-knn)
 - Perceptron and Sparse probabilty
-     > Training a multilayer perceptron with a single hidden layer corresponds to the evolution of a sparse probability measure (sum of Dirac masses) over the neuron's parameter domain (here it is 2D for the regression of a 1D function, slope+position of the ridge).
+  > Training a multilayer perceptron with a single hidden layer corresponds to the evolution of a sparse probability measure (sum of Dirac masses) over the neuron's parameter domain (here it is 2D for the regression of a 1D function, slope+position of the ridge).
 - [MM1 by Apple](https://arxiv.org/abs/2403.09611)
 - Grok 1 Architecture:
 
-     Uses MoE layer to enhance training efficientcy of LLMs
+  Uses MoE layer to enhance training efficientcy of LLMs
+
 1. Attention is scaled by 30/tanh(x/30) ?!
 2. Approx GELU is used like Gemma
 3. 4x Layernoms unlike 2x for Llama
