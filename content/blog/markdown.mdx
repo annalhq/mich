@@ -1,0 +1,276 @@
+---
+title: "MDX Testing"
+description: "alpha testing my mdx compiler"
+date: "2025-06-03"
+---
+
+sample blog post to test the mdx compiler and custom components
+
+
+bold **bold text**
+
+italic *italic text*
+
+strikethrough ~~sttext~~
+
+code `inline code`
+
+blockquote
+
+> This is a blockquote
+
+superscript H<sup>2</sup>O
+
+subscript CO<sub>2</sub>
+
+kbd <kbd>Ctrl</kbd> + <kbd>C</kbd>
+
+## Basic Code Block
+
+Simple JavaScript without any special features:
+
+```cpp showLineNumbers
+__global__ void fma_kernel(float* result, float a, float b, float c) {
+    float r;
+    asm("fma.rn.f32 %0, %1, %2, %3;" : "=f"(r) : "f"(a), "f"(b), "f"(c));
+    *result = r;
+}
+
+int main() {
+    float *d_result, h_result;
+    cudaMalloc(&d_result, sizeof(float));
+    fma_kernel<<<1,1>>>(d_result, 2.0f, 3.0f, 4.0f);
+    cudaMemcpy(&h_result, d_result, sizeof(float), cudaMemcpyDeviceToHost);
+    printf("CUDA FMA Result: %f\n", h_result);
+    cudaFree(d_result);
+    return 0;
+}
+```
+
+## Line Numbers Test
+
+Testing if line numbers appear:
+
+```cpp showLineNumbers
+#include <cstdio>
+
+int main() {
+    float a = 2.0f, b = 3.0f, c = 4.0f, result;
+    asm volatile (
+        "vfmadd213ss %[c], %[b], %[a]\n\t" // result = (a * b) + c
+        : [a] "+x" (a)
+        : [b] "x" (b), [c] "x" (c)
+    );
+    result = a;
+    printf("x86 FMA Result: %f\n", result);
+    return 0;
+}
+```
+
+## Line Numbers Starting at Custom Number
+
+Should start at line 50:
+
+```cpp showLineNumbers{50}
+__device__ __forceinline__ void st_na_relaxed(const int *ptr, int val) {
+    asm volatile("st.relaxed.gpu.global.L1::no_allocate.b32 [%0], %1;" : : "l"(ptr), "r"(val));
+}
+```
+
+## Line Highlighting
+
+Highlighting lines 2 and 4-6:
+
+```cpp showLineNumbers {2,4-6}
+#define UNROLLED_WARP_COPY(UNROLL_FACTOR, LANE_ID, N, DST, SRC, LD_FUNC, ST_FUNC) \
+{ \
+    constexpr int kLoopStride = 32 * (UNROLL_FACTOR); \
+    typename std::remove_reference<decltype(LD_FUNC((SRC) + 0))>::type unrolled_values[(UNROLL_FACTOR)]; \
+    auto __src = (SRC); \
+    auto __dst = (DST); \  // [!code highlight]
+    for (int __i = (LANE_ID); __i < ((N) / kLoopStride) * kLoopStride; __i += kLoopStride) { \
+        _Pragma("unroll") \
+        for (int __j = 0; __j < (UNROLL_FACTOR); ++__j) \
+            unrolled_values[__j] = LD_FUNC(__src + __i + __j * 32); \
+        _Pragma("unroll") \
+        for (int __j = 0; __j < (UNROLL_FACTOR); ++__j) \
+            ST_FUNC(__dst + __i + __j * 32, unrolled_values[__j]); \
+    } \
+}
+```
+
+## Line Highlighting with Groups
+
+Different colored groups:
+
+```cpp
+__device__  __forceinline__ float ld_volatile_global(const float *ptr) {
+    float ret;
+    asm volatile("ld.volatile.global.f32 %0, [%1];" : "=f"(ret) : "l"(ptr));
+    return ret;
+}
+
+__device__  __forceinline__ int64_t ld_volatile_global(const int64_t *ptr) {
+    int64_t ret;
+    asm volatile("ld.volatile.global.s64 %0, [%1];" : "=l"(ret) : "l"(ptr));
+    return ret;
+}
+
+__device__  __forceinline__ int64_t ld_volatile_global(const uint64_t *ptr) {
+    int64_t ret;
+    asm volatile("ld.volatile.global.u64 %0, [%1];" : "=l"(ret) : "l"(ptr));
+    return ret;
+}
+```
+
+## Word/Character Highlighting
+
+Highlighting specific words:
+
+```python /triton/
+import time
+import torch
+import triton
+import triton.language as tl
+
+@triton.jit
+def constant_add_kernel(
+    x_ptr,
+    constant,
+    y_ptr,
+    N0: tl.constexpr,
+    BLOCK_SIZE: tl.constexpr
+):
+
+    pid = tl.program_id(0)
+    offsets = pid * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE)
+    mask = offsets < N0
+
+    x = tl.load(x_ptr + offsets, mask=mask)
+    y = x + constant
+    tl.store(y_ptr + offsets, y, mask=mask)
+```
+
+## Character Highlighting with Groups
+
+Different colored character groups:
+
+```javascript /data/#variable /setData/#setter /loading/#variable /setLoading/#setter
+const [data, setData] = useState(null);
+const [loading, setLoading] = useState(true);
+
+setData(newData);
+setLoading(false);
+```
+
+## Character Highlighting with Ranges
+
+Highlighting specific instances:
+
+```javascript /console/1-2 /log/2-3
+console.log("First");
+console.warn("Warning");
+console.log("Second");
+console.error("Error");
+console.log("Third");
+console.debug("Debug");
+```
+
+## Code Block with Title
+
+```javascript title="utils/helpers.js"
+export function debounce(func, delay) {
+  let timeoutId;
+  return function (...args) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => func.apply(this, args), delay);
+  };
+}
+```
+
+## Code Block with Caption
+
+```sql caption="Query to get top users by post count"
+SELECT
+    u.name,
+    COUNT(p.id) as post_count
+FROM users u
+LEFT JOIN posts p ON u.id = p.user_id
+GROUP BY u.id, u.name
+ORDER BY post_count DESC
+LIMIT 10;
+```
+
+## Diff Highlighting
+
+Testing diff syntax:
+
+```javascript
+function calculatePrice(quantity, price) {
+-   return quantity * price;
++   return quantity * price * 1.08; // Add tax
+}
+
+function formatPrice(price) {
+-   return `$${price}`;
++   return `$${price.toFixed(2)}`;
+}
+```
+
+## Inline Code Test
+
+Here's some inline code: `const name = "John"{:js}` with syntax highlighting.
+
+Testing token mapping: `getUserById{:.fn}` and `className{:.property}`.
+
+## Different Languages
+
+### Python
+
+```python showLineNumbers
+import pandas as pd
+import numpy as np
+
+def process_data(df):
+    return df.dropna().reset_index(drop=True)
+
+data = pd.DataFrame({'a': [1, 2, None], 'b': [4, None, 6]})
+clean_data = process_data(data)
+print(clean_data)
+```
+
+### Rust
+
+```rust title="main.rs" {3-5}
+use std::collections::HashMap;
+
+fn main() {
+    let mut map = HashMap::new();
+    map.insert("key", "value");
+
+    match map.get("key") {
+        Some(value) => println!("Found: {}", value),
+        None => println!("Not found"),
+    }
+}
+```
+
+### Go
+
+```go /http/ /fmt/
+package main
+
+import (
+    "fmt"
+    "net/http"
+)
+
+func handler(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintf(w, "Hello, World!")
+}
+
+func main() {
+    http.HandleFunc("/", handler)
+    http.ListenAndServe(":8080", nil)
+}
+```

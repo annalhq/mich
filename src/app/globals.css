@@ -122,46 +122,69 @@
   @apply text-blue-500 no-underline transition-colors hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300;
 }
 
+/* 
+------
+REHYPE PRETTY CODE 
+------
+*/
+
 /* rehype-pretty-code styling */
 pre {
   overflow-x: auto;
-  padding: 1rem 0;
+  /* Apply vertical padding to the pre block itself */
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  /* Horizontal padding will be handled by individual lines or line numbers to ensure alignment */
 }
 
-pre[data-line] {
-  padding: 0 1rem;
-}
 
-/* Line numbers */
-code {
+/* pre > code > [data-line] {
+  padding-left: 1rem;
+  padding-right: 1rem;
+} 
+
+no need for this extra padding */
+
+
+pre > code[data-line-numbers] {
   counter-reset: line;
 }
 
-code > [data-line]::before {
+/* Apply line number pseudo-element to children of the line-numbered code block */
+pre > code[data-line-numbers] > [data-line]::before {
   counter-increment: line;
   content: counter(line);
   display: inline-block;
-  width: 1rem;
-  margin-right: 2rem;
+  width: 1rem; /* Default width for line numbers */
+  margin-right: 1rem; /* space between line number and code content */
   text-align: right;
-  color: rgb(110, 118, 129);
+  color: rgb(110, 118, 129); /* Your chosen color for line numbers */
 }
 
-code[data-line-numbers-max-digits="2"] > [data-line]::before {
+/* Adjust width for line numbers with more digits */
+pre
+  > code[data-line-numbers][data-line-numbers-max-digits="2"]
+  > [data-line]::before {
   width: 2rem;
 }
 
-code[data-line-numbers-max-digits="3"] > [data-line]::before {
+pre
+  > code[data-line-numbers][data-line-numbers-max-digits="3"]
+  > [data-line]::before {
   width: 3rem;
 }
 
 /* Highlighted lines */
+/* Your existing styles for highlighted lines.
+   The margin-left: -1rem effectively cancels out the 1rem padding-left from `pre > code > [data-line]`
+   for the background/border of the highlighted line.
+   The padding-left: 0.875rem then indents the text within the highlight.
+   This means text in highlighted lines will be 0.125rem (1rem - 0.875rem) to the *left*
+   of text in non-highlighted lines, relative to the start of their respective backgrounds.
+*/
 [data-highlighted-line] {
   background-color: rgba(101, 117, 133, 0.16);
-  border-left: 2px solid rgb(79, 172, 249);
-  padding-left: 0.875rem;
-  margin-left: -1rem;
-  margin-right: -1rem;
+  border-left: 1px solid rgb(79, 172, 249);
 }
 
 /* Highlighted chars */
@@ -171,18 +194,17 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
   padding: 0.125rem 0.25rem;
 }
 
-/* Multiple theme support */
+/* Multiple theme support (Shiki) */
 code[data-theme*=" "],
 code[data-theme*=" "] span {
   color: var(--shiki-light);
-  background-color: var(--shiki-light-bg);
+  background-color: transparent;
 }
 
 @media (prefers-color-scheme: dark) {
   code[data-theme*=" "],
   code[data-theme*=" "] span {
     color: var(--shiki-dark);
-    background-color: var(--shiki-dark-bg);
   }
 }
 
@@ -210,15 +232,15 @@ code[data-theme*=" "] span {
   border-top: none;
 }
 
-/* Inline code highlighting */
+/* Inline code highlighting (targets code not in pre) */
 code:not(pre code) {
   background-color: rgba(175, 184, 193, 0.2);
   padding: 0.125rem 0.25rem;
   border-radius: 0.25rem;
-  font-size: 0.875em;
+  font-size: 0.875em; /* Ensure this is suitable for your prose */
 }
 
-/* Dark mode adjustments */
+/* Dark mode adjustments for specific rehype-pretty-code elements and inline code */
 .dark code:not(pre code) {
   background-color: rgba(110, 118, 129, 0.4);
 }

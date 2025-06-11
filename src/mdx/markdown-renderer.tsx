@@ -4,6 +4,7 @@ import { MarkdownAsync } from "react-markdown";
 import { Tweet } from "react-tweet";
 import rehypeMathJax from "rehype-mathjax";
 import rehypePrettyCode from "rehype-pretty-code";
+import rehypeRaw from "rehype-raw";
 import remarkDirective from "remark-directive";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkGfm from "remark-gfm";
@@ -32,7 +33,20 @@ export function MarkdownRenderer({ content, meta }: MarkdownRendererProps) {
         remarkFrontmatter,
         remarkDirective,
       ]}
-      rehypePlugins={[rehypeMathJax, rehypePrettyCode]}
+      rehypePlugins={[
+        rehypeMathJax,
+        [
+          rehypePrettyCode,
+          {
+            theme: {
+              dark: "github-dark",
+              light: "github-light",
+            },
+            keepBackground: false,
+          },
+        ],
+        rehypeRaw,
+      ]}
       components={{
         a: ({ href, children }) => {
           if (
