@@ -1,7 +1,6 @@
 /* eslint-disable */
 import ReactMarkdown from "react-markdown";
 import { MarkdownAsync } from "react-markdown";
-import { Tweet } from "react-tweet";
 import rehypeMathJax from "rehype-mathjax";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeRaw from "rehype-raw";
@@ -48,24 +47,16 @@ export function MarkdownRenderer({ content, meta }: MarkdownRendererProps) {
         rehypeRaw,
       ]}
       components={{
-        a: ({ href, children }) => {
-          if (
-            href?.startsWith("https://twitter.com")
-            //|| href?.startsWith("https://x.com") // for ssmax blog disabling, as it is rendering it in reference section & also add nested linkgings [[]()]()
-          ) {
-            return <Tweet id={href.split("/").pop() || ""} />;
-          }
-          return (
-            <a
-              href={href}
-              // target="_blank"
-              rel="noopener noreferrer"
-              className="!text-blue-500 no-underline transition-colors hover:!text-blue-600 dark:!text-blue-400 dark:hover:!text-blue-300"
-            >
-              {children}
-            </a>
-          );
-        },
+        a: ({ href, children }) => (
+          <a
+            href={href}
+            // target="_blank"
+            rel="noopener noreferrer"
+            className="!text-blue-500 no-underline transition-colors hover:!text-blue-600 dark:!text-blue-400 dark:hover:!text-blue-300"
+          >
+            {children}
+          </a>
+        ),
       }}
     >
       {content}

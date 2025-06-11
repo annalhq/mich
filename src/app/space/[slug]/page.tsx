@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { ReactElement } from "react";
 
+import { PostLayout } from "@/components/posts";
 import { MarkdownRenderer } from "@/mdx/markdown-renderer";
 import { getPost, getSpaceEntries } from "@/mdx/utils/mdx";
 
@@ -20,20 +21,14 @@ export default async function SpaceEntry(props: {
   }
 
   return (
-    <div className="mx-auto max-w-2xl px-4">
-      <article data-pagefind-body className="overflow-hidden">
-        <header className="mb-8">
-          <h1 className="mb-2 text-3xl font-bold">{entry.title}</h1>
-          <div className="text-sm text-muted-foreground">
-            <time dateTime={entry.date}>{entry.date}</time>
-            <span className="mx-2">•</span>
-            <span>{entry.readingTime}</span>
-          </div>
-        </header>
-        <div className="prose break-words prose-pre:overflow-auto prose-img:max-w-full">
-          <MarkdownRenderer content={entry.content} meta={entry.meta} />
-        </div>
-      </article>
-    </div>
+    <PostLayout
+      title={entry.title}
+      date={entry.date}
+      readingTime={entry.readingTime}
+    >
+      <div className="prose break-words prose-pre:overflow-auto prose-img:max-w-full">
+        <MarkdownRenderer content={entry.content} meta={entry.meta} />
+      </div>
+    </PostLayout>
   );
 }
