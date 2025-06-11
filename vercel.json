@@ -2,7 +2,8 @@
   "git": {
     "deploymentEnabled": {
       "main": false,
-      "alpha": false
+      "alpha": false,
+      "beta": false
     }
   }
 }

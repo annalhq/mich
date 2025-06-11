@@ -1,10 +1,18 @@
-import { GeistSans } from "geist/font/sans";
+import { Inter } from "next/font/google";
+
+import clsx from "clsx";
 
 import { Layout } from "@/components/layout";
+import { Providers } from "@/components/providers";
 import { ScreenIndicator } from "@/components/screen-indicator";
-import { ThemeProvider } from "@/components/theme-provider";
 
 import "./globals.css";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
 
 export default function RootLayout({
   children,
@@ -14,7 +22,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${GeistSans.className}`}
+      className={clsx(inter.variable, "font-sans")}
       suppressHydrationWarning
     >
       <head>
@@ -24,15 +32,10 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <Providers>
           <Layout>{children}</Layout>
           <ScreenIndicator />
-        </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );
