@@ -1,7 +1,9 @@
 /* eslint-disable */
-import ReactMarkdown from "react-markdown";
+
+/* katex styles */
+import "katex/dist/katex.min.css";
 import { MarkdownAsync } from "react-markdown";
-import rehypeMathJax from "rehype-mathjax";
+import rehypekatex from "rehype-katex";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeRaw from "rehype-raw";
 import remarkDirective from "remark-directive";
@@ -9,6 +11,11 @@ import remarkFrontmatter from "remark-frontmatter";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 
+import FootnoteBackReference from "@/components/footnote/back-reference";
+import FootnoteForwardReference from "@/components/footnote/forward-reference";
+
+/* my custom components */
+import Link from "@/components/link";
 import { cn } from "@/lib/utils";
 
 import { MetaConfig } from "./utils/mdx";
@@ -28,12 +35,11 @@ export function MarkdownRenderer({ content, meta }: MarkdownRendererProps) {
       })}
       remarkPlugins={[
         remarkGfm,
-        remarkMath,
         remarkFrontmatter,
         remarkDirective,
+        remarkMath,
       ]}
       rehypePlugins={[
-        rehypeMathJax,
         [
           rehypePrettyCode,
           {
@@ -45,18 +51,27 @@ export function MarkdownRenderer({ content, meta }: MarkdownRendererProps) {
           },
         ],
         rehypeRaw,
+        rehypekatex,
       ]}
       components={{
-        a: ({ href, children }) => (
-          <a
-            href={href}
-            // target="_blank"
-            rel="noopener noreferrer"
-            className="!text-blue-500 no-underline transition-colors hover:!text-blue-600 dark:!text-blue-400 dark:hover:!text-blue-300"
-          >
-            {children}
-          </a>
-        ),
+        a: ({ children, href }) => {
+          if (href?.startsWith("#user-content-fn-")) {
+            return (
+              <FootnoteForwardReference href={href}>
+                {children}
+              </FootnoteForwardReference>
+            );
+          }
+          return (
+            <Link
+              href={href}
+              className="inline-flex items-center gap-1 text-muted"
+              underline
+            >
+              {children}
+            </Link>
+          );
+        },
       }}
     >
       {content}

@@ -122,6 +122,7 @@
   @apply text-blue-500 no-underline transition-colors hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300;
 }
 
+
 /* 
 ------
 REHYPE PRETTY CODE 
@@ -265,3 +266,18 @@ code:not(pre code) {
 .dark [data-highlighted-chars] {
   background-color: rgba(101, 117, 133, 0.3);
 }
+
+/*
+-----
+CUSTOM COMPONENTS STYLINGS
+-----
+*/
+
+/* KaTeX styling */
+.katex-display { overflow: auto hidden }
+
+.katex-display > .katex { white-space: normal }
+
+.katex-display > .base { margin: 0.25em 0 }
+
+.katex-display { margin: 0.5em 0; }
