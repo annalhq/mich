@@ -1,0 +1,39 @@
+---
+title: "Gumbel Softmax"
+description: "It models a continuous relaxation of the categorical distribution, allowing for differentiable sampling."
+date: "2025-06-17"
+---
+
+## Problem 
+
+In [DALLE](https://arxiv.org/pdf/2102.12092), they want to maximize $\ln{p_{\theta}, \psi (x,y)}$ and by _ELBO_, they derive the lower bound to be:
+
+$$\ln{p_{\theta}, \psi (x,y)} \geq \mathbb{E}_{z \sim q_{\phi}(z|x)}[\ln{p_{\theta}(x|y, z)}] - \beta D_{KL}(q_{\phi}(y,z|x)||p_{\psi}(y,z))$$
+
+Here $z$ is a sample from the categorical distribution $q_{\phi}(z|x)$, which is a discrete variable.
+This is analogous to a _VAE_, where $z$ is a latent, but in a VAE the latent space is continuos and in DALLE's case its discrete.
+The problem is that the sampling operation is not differentiable, so we cannot backpropagate through it. To solve this, we can use the same reparametrization trick used in VAEs, so they use the _Gumbel Softmax_ trick.
+This defines our problem: We want to sample from a $k$ dimensional categorical distribution with unnormalized probabilities $[{\pi}_1,...,{\pi}_2]$ and allow gradients to flow through.
+
+## Gumbel Softmax
+
+The Gumbel Softmax heavily utilizes the results from ([Maddison et al](https://arxiv.org/pdf/1611.00712.pdf)), where the authors present the Concrete distribution: 
+$X \in \triangle^{k-1}$, where $\triangle^{k-1}$ is the $k-1$ simplex, which is the set of all $k$ dimensional vectors with non-negative entries that sum to 1. The Concrete distribution is a continuous relaxation of the categorical distribution.
+Intuitively, we want to sample from the vertices of this simplex based on our categorical distribution.
+The authors define the Concrete distribution as:
+
+$$
+X_i = \dfrac{\exp\left(\log{\pi_i} + g_i / \tau \right)}{\sum_{j=1}^k \exp\left(\log{\pi_j} + g_j / \tau \right)}
+$$
+
+where $g_i \sim \mathrm{Gumbel(0,1)}$ and temperature $\tau > 0$.
+Based on this, the joint distribution over the simplex is: 
+
+$$
+p_{\pi, \tau}(X) = (k-1)! \tau^{k-1} \prod_{i=1}^k \left(\dfrac{\pi_i X_i^{-\tau-1}}{\sum_{i=1}^k \pi_iX^{-\tau}}\right)
+$$
+
+---
+P.S: This blog is taken from jyopari's blog, which is a great resource for understanding Gumbel Softmax and its applications in deep learning. I am just testing the MDX format for my blog.
+Reference:
+- [Gumbel Softmax](https://jyopari.github.io/posts/gumbel)
