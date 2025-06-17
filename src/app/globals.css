@@ -59,6 +59,7 @@
   }
 }
 
+
 .markdown {
   @apply prose prose-zinc max-w-none dark:prose-invert;
 }
@@ -78,6 +79,14 @@
 .markdown h5,
 .markdown h6 {
   @apply scroll-mt-20 font-bold tracking-tight;
+
+}
+
+.markdown :is(h1, h2, h3, h4, h5) a:is(:hover, :focus, :active)::before,
+.markdown :is(h1, h2, h3, h4, h5):is(:target, :focus) a::before {
+  content: "#";
+  position: absolute;
+  transform: translate(-1.5ch, 0rem);
 }
 
 .markdown p {
@@ -122,7 +131,6 @@
   @apply text-blue-500 no-underline transition-colors hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300;
 }
 
-
 /* 
 ------
 REHYPE PRETTY CODE 
@@ -132,26 +140,15 @@ REHYPE PRETTY CODE
 /* rehype-pretty-code styling */
 pre {
   overflow-x: auto;
-  /* Apply vertical padding to the pre block itself */
   padding-top: 1rem;
   padding-bottom: 1rem;
-  /* Horizontal padding will be handled by individual lines or line numbers to ensure alignment */
 }
-
-
-/* pre > code > [data-line] {
-  padding-left: 1rem;
-  padding-right: 1rem;
-} 
-
-no need for this extra padding */
 
 
 pre > code[data-line-numbers] {
   counter-reset: line;
 }
 
-/* Apply line number pseudo-element to children of the line-numbered code block */
 pre > code[data-line-numbers] > [data-line]::before {
   counter-increment: line;
   content: counter(line);
@@ -159,7 +156,7 @@ pre > code[data-line-numbers] > [data-line]::before {
   width: 1rem; /* Default width for line numbers */
   margin-right: 1rem; /* space between line number and code content */
   text-align: right;
-  color: rgb(110, 118, 129); /* Your chosen color for line numbers */
+  color: rgb(110, 118, 129); /* color for line numbers */
 }
 
 /* Adjust width for line numbers with more digits */
@@ -176,13 +173,7 @@ pre
 }
 
 /* Highlighted lines */
-/* Your existing styles for highlighted lines.
-   The margin-left: -1rem effectively cancels out the 1rem padding-left from `pre > code > [data-line]`
-   for the background/border of the highlighted line.
-   The padding-left: 0.875rem then indents the text within the highlight.
-   This means text in highlighted lines will be 0.125rem (1rem - 0.875rem) to the *left*
-   of text in non-highlighted lines, relative to the start of their respective backgrounds.
-*/
+
 [data-highlighted-line] {
   background-color: rgba(101, 117, 133, 0.16);
   border-left: 1px solid rgb(79, 172, 249);
@@ -238,7 +229,7 @@ code:not(pre code) {
   background-color: rgba(175, 184, 193, 0.2);
   padding: 0.125rem 0.25rem;
   border-radius: 0.25rem;
-  font-size: 0.875em; /* Ensure this is suitable for your prose */
+  font-size: 0.875em;
 }
 
 /* Dark mode adjustments for specific rehype-pretty-code elements and inline code */

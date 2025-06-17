@@ -9,11 +9,10 @@ interface LinkProps extends React.HTMLProps<HTMLAnchorElement> {
 const Link = ({ text, href, underline, className, children }: LinkProps) => {
   return (
     <a
-      target="_blank"
+      // target="_blank"
       rel="noopener noreferrer nofollow"
       className={clsx(className, {
-        "decoration-gray-a4 underline decoration-1 underline-offset-2":
-          underline,
+        "decoration-gray-a4 underline decoration-1": underline,
       })}
       href={href}
     >

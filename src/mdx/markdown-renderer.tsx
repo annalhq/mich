@@ -1,17 +1,16 @@
 /* eslint-disable */
-
-/* katex styles */
 import "katex/dist/katex.min.css";
 import { MarkdownAsync } from "react-markdown";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypekatex from "rehype-katex";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeRaw from "rehype-raw";
+import rehypeSlug from "rehype-slug";
 import remarkDirective from "remark-directive";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 
-import FootnoteBackReference from "@/components/footnote/back-reference";
 import FootnoteForwardReference from "@/components/footnote/forward-reference";
 
 /* my custom components */
@@ -40,6 +39,16 @@ export function MarkdownRenderer({ content, meta }: MarkdownRendererProps) {
         remarkMath,
       ]}
       rehypePlugins={[
+        rehypeSlug,
+        [
+          rehypeAutolinkHeadings,
+          {
+            behavior: "wrap",
+            properties: {
+              className: "linked-heading",
+            },
+          },
+        ],
         [
           rehypePrettyCode,
           {
@@ -62,15 +71,7 @@ export function MarkdownRenderer({ content, meta }: MarkdownRendererProps) {
               </FootnoteForwardReference>
             );
           }
-          return (
-            <Link
-              href={href}
-              className="inline-flex items-center gap-1 text-muted"
-              underline
-            >
-              {children}
-            </Link>
-          );
+          return <Link href={href}>{children}</Link>;
         },
       }}
     >
