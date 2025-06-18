@@ -1,3 +1,18 @@
+@import url("@radix-ui/colors/gray.css");
+@import url("@radix-ui/colors/gray-alpha.css");
+@import url("@radix-ui/colors/gray-dark.css");
+@import url("@radix-ui/colors/gray-dark-alpha.css");
+@import url("@radix-ui/colors/teal.css");
+@import url("@radix-ui/colors/teal-alpha.css");
+@import url("@radix-ui/colors/teal-dark.css");
+@import url("@radix-ui/colors/teal-dark-alpha.css");
+@import url("@radix-ui/colors/blue.css");
+@import url("@radix-ui/colors/blue-alpha.css");
+@import url("@radix-ui/colors/blue-dark.css");
+@import url("@radix-ui/colors/blue-dark-alpha.css");
+@import url("@radix-ui/colors/black-alpha.css");
+@import url("@radix-ui/colors/white-alpha.css");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -24,6 +39,124 @@
     --input: 240 5.9% 90%;
     --ring: 240 10% 3.9%;
     --radius: 0.5rem;
+    /* alpha  */
+
+    --bg: var(--gray-1);
+    --fg: var(--gray-12);
+    --muted: var(--gray-8);
+    --border: var(--gray-4);
+    --scrollbar-thumb: var(--gray-4);
+    --scrollbar-track: transparent;
+    --selection-background: var(--teal-3);
+    --selection-foreground: var(--teal-11);
+    --kbd-background: var(--gray-3);
+    --kbd-foreground: var(--gray-11);
+    --kbd-border: var(--gray-4);
+    --highlight-background: var(--yellow-3);
+    --highlight-foreground: var(--yellow-11);
+  }
+
+  * {
+    --webkit-font-smoothing: antialiased;
+    --moz-osx-font-smoothing: grayscale;
+
+    font-variant-ligatures: common-ligatures;
+    text-rendering: optimizelegibility;
+  }
+
+  *::selection {
+    color: var(--selection-foreground);
+    background-color: var(--selection-background);
+  }
+
+  html {
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+    scroll-behavior: smooth;
+  }
+
+  html {
+    @apply bg-background text-foreground text-default;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      @apply font-medium;
+    }
+
+    h2,
+    h3,
+    sub,
+    sup {
+      @apply text-muted;
+    }
+
+    sub {
+      @apply text-small;
+    }
+
+    a {
+      @apply transition hover:opacity-50;
+    }
+
+    ol {
+      @apply list-decimal;
+    }
+
+    ul {
+      @apply list-disc;
+    }
+
+    kbd {
+      @apply mx-1;
+
+      display: inline-block;
+      min-width: 20px;
+      height: 20px;
+      min-height: 20px;
+      padding: 0 6px;
+      font-size: 12px;
+      line-height: 20px;
+      text-align: center;
+      background: var(--kbd-background);
+      border-radius: 4px;
+      box-shadow: 0 0 0 1px var(--kbd-border);
+    }
+  }
+
+  article {
+    h1 + h2 {
+      margin-top: 4px !important;
+    }
+
+    h1 + p,
+    h2 + p {
+      margin-top: 8px !important;
+    }
+
+    figure + h1,
+    p + h1 {
+      margin-top: 48px !important;
+    }
+
+    p:not(:first-child),
+    h1:not(:first-child),
+    h2:not(:first-child),
+    h3:not(:first-child),
+    h4:not(:first-child),
+    h5:not(:first-child),
+    h6:not(:first-child),
+    blockquote:not(:first-child),
+    ul:not(:first-child),
+    ol:not(:first-child),
+    pre:not(:first-child),
+    figure:not(:first-child) {
+      margin-top: 24px;
+    }
   }
 
   .dark {
@@ -59,7 +192,6 @@
   }
 }
 
-
 .markdown {
   @apply prose prose-zinc max-w-none dark:prose-invert;
 }
@@ -79,7 +211,6 @@
 .markdown h5,
 .markdown h6 {
   @apply scroll-mt-20 font-bold tracking-tight;
-
 }
 
 .markdown :is(h1, h2, h3, h4, h5) a:is(:hover, :focus, :active)::before,
@@ -137,13 +268,11 @@ REHYPE PRETTY CODE
 ------
 */
 
-/* rehype-pretty-code styling */
 pre {
   overflow-x: auto;
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
-
 
 pre > code[data-line-numbers] {
   counter-reset: line;
@@ -153,13 +282,12 @@ pre > code[data-line-numbers] > [data-line]::before {
   counter-increment: line;
   content: counter(line);
   display: inline-block;
-  width: 1rem; /* width for line numbers */
-  margin-right: 1rem; /* space between line number and code content */
+  width: 1rem;
+  margin-right: 1rem;
   text-align: right;
-  color: rgb(110, 118, 129); /* color for line numbers */
+  color: rgb(110, 118, 129);
 }
 
-/* Adjust width for line numbers with more digits */
 pre
   > code[data-line-numbers][data-line-numbers-max-digits="2"]
   > [data-line]::before {
@@ -172,33 +300,17 @@ pre
   width: 3rem;
 }
 
-/* Highlighted lines */
 [data-highlighted-line] {
   background-color: rgba(101, 117, 133, 0.16);
   border-left: 1px solid rgb(79, 172, 249);
 }
 
-/* Highlighted chars */
 [data-highlighted-chars] {
   background-color: rgba(101, 117, 133, 0.16);
   border-radius: 0.25rem;
   padding: 0.125rem 0.25rem;
 }
 
-/* Multiple theme support (Shiki) */
-/* code[data-theme*=" "],
-code[data-theme*=" "] span {
-  color: var(--shiki-light);
-}
-
-@media (prefers-color-scheme: dark) {
-  code[data-theme*=" "],
-  code[data-theme*=" "] span {
-    color: var(--shiki-dark);
-  }
-} */
-
-/* Title and caption styling */
 [data-rehype-pretty-code-title] {
   background-color: rgb(47, 51, 56);
   color: rgb(201, 209, 217);
@@ -222,7 +334,6 @@ code[data-theme*=" "] span {
   border-top: none;
 }
 
-/* Inline code highlighting (targets code not in pre) */
 code:not(pre code) {
   background-color: rgba(175, 184, 193, 0.2);
   padding: 0.125rem 0.25rem;
@@ -230,7 +341,6 @@ code:not(pre code) {
   font-size: 0.875em;
 }
 
-/* Dark mode adjustments for specific rehype-pretty-code elements and inline code */
 .dark code:not(pre code) {
   background-color: rgba(110, 118, 129, 0.4);
 }
@@ -263,10 +373,18 @@ my custom components
 */
 
 /* KaTeX styling */
-.katex-display { overflow: auto hidden }
+.katex-display {
+  overflow: auto hidden;
+}
 
-.katex-display > .katex { white-space: normal }
+.katex-display > .katex {
+  white-space: normal;
+}
 
-.katex-display > .base { margin: 0.25em 0 }
+.katex-display > .base {
+  margin: 0.25em 0;
+}
 
-.katex-display { margin: 0.5em 0; }
+.katex-display {
+  margin: 0.5em 0;
+}

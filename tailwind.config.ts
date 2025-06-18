@@ -2,6 +2,7 @@ import typography from "@tailwindcss/typography";
 import type { Config } from "tailwindcss";
 import tailwindcssAnimate from "tailwindcss-animate";
 import defaultTheme from "tailwindcss/defaultTheme";
+import plugin from "tailwindcss/plugin";
 
 export default {
   darkMode: ["class"],
@@ -99,5 +100,21 @@ export default {
       },
     },
   },
-  plugins: [tailwindcssAnimate, typography],
+  plugins: [
+    tailwindcssAnimate,
+    typography,
+    plugin(({ addUtilities }) => {
+      addUtilities({
+        ".text-small": {
+          // fontSize: "14px",
+          letterSpacing: "0.01px",
+        },
+        ".text-default": {
+          //fontSize: "14px",
+          lineHeight: "21px",
+          letterSpacing: "-0.09px",
+        },
+      });
+    }),
+  ],
 } satisfies Config;
