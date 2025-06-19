@@ -5,6 +5,8 @@ import Link from "next/link";
 
 import { ArrowUpRight } from "lucide-react";
 
+import { baskervville } from "@/lib/custom-font";
+
 export default function HomePage() {
   return (
     <div className="mx-auto flex w-full max-w-2xl flex-col items-center justify-center">
@@ -17,7 +19,11 @@ export default function HomePage() {
             height={64}
             className="h-12 w-12 rounded-full border border-gray-700 md:h-12 md:w-12"
           />
-          <h1 className="text-left font-serif text-xl md:text-2xl">annalhq</h1>
+          <h1
+            className={`text-left font-serif text-xl md:text-2xl ${baskervville.className}`}
+          >
+            annalhq
+          </h1>
         </div>
 
         {/* Bio */}

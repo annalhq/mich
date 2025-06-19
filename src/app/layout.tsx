@@ -1,18 +1,11 @@
-import { Inter } from "next/font/google";
-
 import clsx from "clsx";
 
 import { Layout } from "@/components/layout";
 import { Providers } from "@/components/providers";
 import { ScreenIndicator } from "@/components/screen-indicator";
+import { baskervville, inter } from "@/lib/custom-font";
 
 import "./globals.css";
-
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-inter",
-});
 
 export default function RootLayout({
   children,
@@ -22,8 +15,8 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={clsx(inter.variable, "font-sans")}
       suppressHydrationWarning
+      className={clsx(inter.variable, "font-sans")}
     >
       <head>
         <link
@@ -31,7 +24,7 @@ export default function RootLayout({
           href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 120 120%22><text y=%221em%22 font-size=%22100%22>🤗</text></svg>"
         />
       </head>
-      <body>
+      <body className={clsx(baskervville.variable, inter.variable)}>
         <Providers>
           <Layout>{children}</Layout>
           <ScreenIndicator />

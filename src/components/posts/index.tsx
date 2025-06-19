@@ -1,5 +1,7 @@
 import { ReactNode } from "react";
 
+import { didot } from "@/lib/custom-font";
+
 interface PostLayoutProps {
   title: string;
   date: string;
@@ -18,7 +20,7 @@ export function PostLayout({
       <article data-pagefind-body className="overflow-hidden">
         <header className="mb-8">
           <h1 className="mb-2 text-3xl font-bold">{title}</h1>
-          <div className="text-sm text-muted-foreground">
+          <div className={`text-sm text-muted-foreground ${didot.className}`}>
             <time dateTime={date}>{date}</time>
             <span className="mx-2">•</span>
             <span>{readingTime}</span>

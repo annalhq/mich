@@ -15,6 +15,8 @@ strikethrough ~~sttext~~
 
 code `inline code`
 
+`#define UNROLLED_WARP_COPY(UNROLL_FACTOR, LANE_ID, N, DST, SRC, LD_FUNC, ST_FUNC){:cpp}`
+
 blockquote
 
 > This is a blockquote
@@ -86,7 +88,7 @@ int main() {
 }
 ```
 
-## Line Numbers Starting at Custom Number
+### Line Numbers Starting at Custom Number
 
 Should start at line 50:
 
@@ -95,8 +97,6 @@ __device__ __forceinline__ void st_na_relaxed(const int *ptr, int val) {
     asm volatile("st.relaxed.gpu.global.L1::no_allocate.b32 [%0], %1;" : : "l"(ptr), "r"(val));
 }
 ```
-
-## Line Highlighting
 
 Highlighting lines 2 and 4-6:
 
@@ -117,8 +117,6 @@ Highlighting lines 2 and 4-6:
     } \
 }
 ```
-
-## Line Highlighting with Groups
 
 Different colored groups:
 
@@ -142,7 +140,7 @@ __device__  __forceinline__ int64_t ld_volatile_global(const uint64_t *ptr) {
 }
 ```
 
-## Word/Character Highlighting
+### Word/Character Highlighting
 
 Highlighting specific words:
 
@@ -169,9 +167,6 @@ def constant_add_kernel(
     y = x + constant
     tl.store(y_ptr + offsets, y, mask=mask)
 ```
-
-## Character Highlighting with Groups
-
 Different colored character groups:
 
 ```javascript /data/#variable /setData/#setter /loading/#variable /setLoading/#setter
@@ -182,20 +177,7 @@ setData(newData);
 setLoading(false);
 ```
 
-## Character Highlighting with Ranges
-
-Highlighting specific instances:
-
-```javascript /console/1-2 /log/2-3
-console.log("First");
-console.warn("Warning");
-console.log("Second");
-console.error("Error");
-console.log("Third");
-console.debug("Debug");
-```
-
-## Code Block with Title
+### title caption
 
 ```javascript title="utils/helpers.js"
 export function debounce(func, delay) {
@@ -206,8 +188,6 @@ export function debounce(func, delay) {
   };
 }
 ```
-
-## Code Block with Caption
 
 ```sql caption="Query to get top users by post count"
 SELECT
@@ -224,16 +204,10 @@ LIMIT 10;
 
 Testing diff syntax:
 
-```javascript
-function calculatePrice(quantity, price) {
--   return quantity * price;
-+   return quantity * price * 1.08; // Add tax
-}
-
-function formatPrice(price) {
--   return `$${price}`;
-+   return `$${price.toFixed(2)}`;
-}
+```js
+const added = true; // [!code ++]
+const removed = true; // [!code --]
+const blank = true;
 ```
 
 ## Inline Code Test
@@ -242,57 +216,6 @@ Here's some inline code: `const name = "John"{:js}` with syntax highlighting.
 
 Testing token mapping: `getUserById{:.fn}` and `className{:.property}`.
 
-## Different Languages
-
-### Python
-
-```python showLineNumbers
-import pandas as pd
-import numpy as np
-
-def process_data(df):
-    return df.dropna().reset_index(drop=True)
-
-data = pd.DataFrame({'a': [1, 2, None], 'b': [4, None, 6]})
-clean_data = process_data(data)
-print(clean_data)
-```
-
-### Rust
-
-```rust title="main.rs" {3-5}
-use std::collections::HashMap;
-
-fn main() {
-    let mut map = HashMap::new();
-    map.insert("key", "value");
-
-    match map.get("key") {
-        Some(value) => println!("Found: {}", value),
-        None => println!("Not found"),
-    }
-}
-```
-
-### Go
-
-```go /http/ /fmt/
-package main
-
-import (
-    "fmt"
-    "net/http"
-)
-
-func handler(w http.ResponseWriter, r *http.Request) {
-    fmt.Fprintf(w, "Hello, World!")
-}
-
-func main() {
-    http.HandleFunc("/", handler)
-    http.ListenAndServe(":8080", nil)
-}
-```
 
 [^1]: Github, ["Basic Writing and Formatting Syntax"](https://docs.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax) Github, 2024. [Accessed: 19-Sep-2024].
 [^2]: This is a second footnote.

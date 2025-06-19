@@ -10,6 +10,10 @@
 @import url("@radix-ui/colors/blue-alpha.css");
 @import url("@radix-ui/colors/blue-dark.css");
 @import url("@radix-ui/colors/blue-dark-alpha.css");
+@import url("@radix-ui/colors/pink.css");
+@import url("@radix-ui/colors/pink-alpha.css");
+@import url("@radix-ui/colors/pink-dark.css");
+@import url("@radix-ui/colors/pink-dark-alpha.css");
 @import url("@radix-ui/colors/black-alpha.css");
 @import url("@radix-ui/colors/white-alpha.css");
 
@@ -78,15 +82,6 @@
 
   html {
     @apply bg-background text-foreground text-default;
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      @apply font-medium;
-    }
 
     /* h2,
     h3,
@@ -159,6 +154,17 @@
     }
   }
 
+  article > header > h1,
+  article .prose h1,
+  article .prose h2,
+  article .prose h3,
+  article .prose h4,
+  article .prose h5,
+  article .prose h6 {
+    @apply font-bold italic;
+    font-family: var(--font-baskervville), serif;
+  }
+
   .dark {
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
@@ -188,7 +194,6 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: "Geist", sans-serif;
   }
 }
 
@@ -262,6 +267,11 @@
   @apply text-blue-500 no-underline transition-colors hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300;
 }
 
+.markdown :where(code):not(:where(pre code))::before,
+.markdown :where(code):not(:where(pre code))::after {
+  content: "" !important;
+}
+
 /* 
 ------
 REHYPE PRETTY CODE 
@@ -309,6 +319,18 @@ pre
   background-color: rgba(101, 117, 133, 0.16);
   border-radius: 0.25rem;
   padding: 0.125rem 0.25rem;
+}
+
+[data-line].diff {
+  @apply relative before:absolute before:left-0 before:px-px;
+}
+
+[data-line].diff.add {
+  @apply bg-[--teal-3] text-[--teal-10] before:content-['+'];
+}
+
+[data-line].diff.remove {
+  @apply bg-[--pink-4] text-[--pink-10] opacity-70 before:content-['-'];
 }
 
 [data-rehype-pretty-code-title] {
