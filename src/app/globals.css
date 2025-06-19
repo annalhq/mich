@@ -48,7 +48,7 @@
     --bg: var(--gray-1);
     --fg: var(--gray-12);
     --muted: var(--gray-8);
-    --border: var(--gray-4);
+    --md-border: var(--gray-4);
     --scrollbar-thumb: var(--gray-4);
     --scrollbar-track: transparent;
     --selection-background: var(--teal-3);
@@ -409,4 +409,44 @@ my custom components
 
 .katex-display {
   margin: 0.5em 0;
+}
+
+/* footnote stylings */
+.footnotes {
+  position: relative;
+  padding-top: 10px;
+  margin-top: 60px !important;
+  border-top: px solid var(--md-border);
+}
+
+.footnotes ol {
+  position: relative;
+  display: block;
+  padding: 0 0 0 4px;
+  margin-top: 16px !important;
+  list-style: none;
+}
+
+.footnotes li {
+  margin-top: 0 !important;
+}
+
+.footnotes ol li {
+  position: relative;
+  padding-top: 4px;
+  padding-left: 6px;
+  color: var(--muted);
+  counter-increment: list;
+}
+
+.footnotes ol li::before {
+  position: absolute;
+  top: 0;
+  right: 100%;
+  font-size: 12px;
+  content: counter(list);
+}
+
+.footnotes ol li p a {
+  z-index: 2;
 }

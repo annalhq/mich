@@ -1,5 +1,9 @@
 "use client";
 
+import { Undo2 } from "lucide-react";
+
+import { baskeritalic } from "@/lib/custom-font";
+
 import styles from "../styles.module.css";
 
 interface Props {
@@ -26,7 +30,7 @@ function FootnoteBackReference({ href, children }: Props): JSX.Element {
   };
 
   return (
-    <>
+    <div className={baskeritalic.className}>
       {children}
       {href && (
         <button
@@ -43,10 +47,10 @@ function FootnoteBackReference({ href, children }: Props): JSX.Element {
           }}
           className={styles["footnote-back-reference"]}
         >
-          ↩
+          <Undo2 size={16} />
         </button>
       )}
-    </>
+    </div>
   );
 }
 

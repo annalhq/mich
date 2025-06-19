@@ -1,5 +1,7 @@
 "use client";
 
+import { didot } from "@/lib/custom-font";
+
 import styles from "../styles.module.css";
 
 interface Props extends React.HTMLProps<HTMLButtonElement> {
@@ -33,7 +35,7 @@ function FootnoteForwardReference({ href, id, children }: Props): JSX.Element {
           scroll();
         }
       }}
-      className={styles["footnote-forward-reference"]}
+      className={`${styles["footnote-forward-reference"]} ${didot.className}`}
     >
       {children}
     </button>
