@@ -88,12 +88,12 @@
       @apply font-medium;
     }
 
-    h2,
+    /* h2,
     h3,
     sub,
     sup {
       @apply text-muted;
-    }
+    } */
 
     sub {
       @apply text-small;

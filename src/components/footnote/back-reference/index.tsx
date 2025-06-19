@@ -2,15 +2,15 @@
 
 import styles from "../styles.module.css";
 
-interface Props extends React.HTMLProps<HTMLDivElement> {
-  href: string;
+interface Props {
+  href?: string;
+  children: React.ReactNode;
 }
 
 function FootnoteBackReference({ href, children }: Props): JSX.Element {
   const scroll = () => {
-    const footnote = document.querySelector(
-      `[id="${href.replace("ref", "")}"]`
-    );
+    if (!href) return;
+    const footnote = document.querySelector(href);
 
     if (footnote) {
       const headerOffset = 100;
@@ -26,23 +26,27 @@ function FootnoteBackReference({ href, children }: Props): JSX.Element {
   };
 
   return (
-    <button
-      id={href}
-      type="button"
-      onClick={(e) => {
-        e.preventDefault();
-        scroll();
-      }}
-      onKeyUp={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          scroll();
-        }
-      }}
-      className={styles["footnote-back-reference"]}
-    >
+    <>
       {children}
-    </button>
+      {href && (
+        <button
+          type="button"
+          onClick={(e) => {
+            e.preventDefault();
+            scroll();
+          }}
+          onKeyUp={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              scroll();
+            }
+          }}
+          className={styles["footnote-back-reference"]}
+        >
+          ↩
+        </button>
+      )}
+    </>
   );
 }
 

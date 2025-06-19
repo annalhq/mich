@@ -2,15 +2,14 @@
 
 import styles from "../styles.module.css";
 
-interface Props extends React.HTMLProps<HTMLDivElement> {
+interface Props extends React.HTMLProps<HTMLButtonElement> {
   href: string;
+  id: string;
 }
 
-function FootnoteForwardReference({ href, children }: Props): JSX.Element {
+function FootnoteForwardReference({ href, id, children }: Props): JSX.Element {
   const scroll = () => {
-    const footnote = document.querySelector(
-      `[id="${href.replace("fn-", "fnref-")}"]`
-    );
+    const footnote = document.querySelector(href);
 
     if (footnote) {
       window.scrollTo({
@@ -22,7 +21,7 @@ function FootnoteForwardReference({ href, children }: Props): JSX.Element {
 
   return (
     <button
-      id={href}
+      id={id}
       type="button"
       onClick={(e) => {
         e.preventDefault();
