@@ -13,7 +13,7 @@ export default function HomePage() {
       <div className="w-full flex-col px-0 md:px-0 lg:px-0">
         <div className="flex items-center gap-4">
           <Image
-            src="/enso.jpg"
+            src="/enso.jpeg"
             alt="profile picture"
             width={64}
             height={64}

@@ -6,7 +6,7 @@ date: "2025-06-17"
 
 ## Problem 
 
-In [DALLE](https://arxiv.org/pdf/2102.12092), they want to maximize $\ln{p_{\theta}, \psi (x,y)}$ and by _ELBO_, they derive the lower bound to be:
+In [DALLE](https://arxiv.org/pdf/2102.12092)[^1], they wanted to maximize $\ln{p_{\theta}, \psi (x,y)}$ and by _ELBO_, they derive the lower bound to be:
 
 $$\ln{p_{\theta}, \psi (x,y)} \geq \mathbb{E}_{z \sim q_{\phi}(z|x)}[\ln{p_{\theta}(x|y, z)}] - \beta D_{KL}(q_{\phi}(y,z|x)||p_{\psi}(y,z))$$
 
@@ -17,7 +17,7 @@ This defines our problem: We want to sample from a $k$ dimensional categorical d
 
 ## Gumbel Softmax
 
-The Gumbel Softmax heavily utilizes the results from ([Maddison et al](https://arxiv.org/pdf/1611.00712.pdf)), where the authors present the Concrete distribution: 
+The Gumbel Softmax heavily utilizes the results from ([Maddison et al](https://arxiv.org/pdf/1611.00712.pdf)[^2]), where the authors present the Concrete distribution: 
 $X \in \triangle^{k-1}$, where $\triangle^{k-1}$ is the $k-1$ simplex, which is the set of all $k$ dimensional vectors with non-negative entries that sum to 1. The Concrete distribution is a continuous relaxation of the categorical distribution.
 Intuitively, we want to sample from the vertices of this simplex based on our categorical distribution.
 The authors define the Concrete distribution as:
@@ -33,7 +33,7 @@ $$
 p_{\pi, \tau}(X) = (k-1)! \tau^{k-1} \prod_{i=1}^k \left(\dfrac{\pi_i X_i^{-\tau-1}}{\sum_{i=1}^k \pi_iX^{-\tau}}\right)
 $$
 
----
-P.S: This blog is taken from jyopari's blog, which is a great resource for understanding Gumbel Softmax and its applications in deep learning. I am just testing the MDX format for my blog.
-Reference:
-- [Gumbel Softmax](https://jyopari.github.io/posts/gumbel)
+
+[^1]: Zero-Shot Text-to-Image Generation by Aditya Ramesh et al. [OpenAI 2021](https://arxiv.org/pdf/2102.12092.pdf)
+
+[^2]: The Concrete Distribution: A Continuous Relaxation of Discrete Random Variables [ICLR 2017](https://arxiv.org/pdf/1611.00712.pdf)

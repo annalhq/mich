@@ -6,10 +6,10 @@
 @import url("@radix-ui/colors/teal-alpha.css");
 @import url("@radix-ui/colors/teal-dark.css");
 @import url("@radix-ui/colors/teal-dark-alpha.css");
-@import url("@radix-ui/colors/blue.css");
-@import url("@radix-ui/colors/blue-alpha.css");
-@import url("@radix-ui/colors/blue-dark.css");
-@import url("@radix-ui/colors/blue-dark-alpha.css");
+@import url("@radix-ui/colors/iris.css");
+@import url("@radix-ui/colors/iris-alpha.css");
+@import url("@radix-ui/colors/iris-dark.css");
+@import url("@radix-ui/colors/iris-dark-alpha.css");
 @import url("@radix-ui/colors/pink.css");
 @import url("@radix-ui/colors/pink-alpha.css");
 @import url("@radix-ui/colors/pink-dark.css");
@@ -51,8 +51,8 @@
     --md-border: var(--gray-4);
     --scrollbar-thumb: var(--gray-4);
     --scrollbar-track: transparent;
-    --selection-background: var(--teal-3);
-    --selection-foreground: var(--teal-11);
+    --selection-background: var(--iris-3);
+    --selection-foreground: var(--iris-11);
     --kbd-background: var(--gray-3);
     --kbd-foreground: var(--gray-11);
     --kbd-border: var(--gray-4);
@@ -416,7 +416,7 @@ my custom components
   position: relative;
   padding-top: 10px;
   margin-top: 60px !important;
-  border-top: px solid var(--md-border);
+  border-top: 1px solid var(--md-border);
 }
 
 .footnotes ol {
