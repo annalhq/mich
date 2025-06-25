@@ -4,9 +4,6 @@ description: "alpha testing my mdx compiler"
 date: "2025-06-03"
 ---
 
-sample blog post to test the mdx compiler and custom components
-
-
 bold **bold text**
 
 italic *italic text*
@@ -14,6 +11,12 @@ italic *italic text*
 strikethrough ~~sttext~~
 
 code `inline code`
+
+<details><summary>collapsible</summary>
+ 
+Tada! 🎉
+ 
+</details>
 
 `#define UNROLLED_WARP_COPY(UNROLL_FACTOR, LANE_ID, N, DST, SRC, LD_FUNC, ST_FUNC){:cpp}`
 
@@ -90,7 +93,7 @@ Testing if line numbers appear:
 int main() {
     float a = 2.0f, b = 3.0f, c = 4.0f, result;
     asm volatile (
-        "vfmadd213ss %[c], %[b], %[a]\n\t" // result = (a * b) + c
+        "vfmadd213ss %[c], %[b], %[a]\n\t"
         : [a] "+x" (a)
         : [b] "x" (b), [c] "x" (c)
     );
@@ -100,7 +103,7 @@ int main() {
 }
 ```
 
-### Line Numbers Starting at Custom Number
+# Line Numbers Starting at Custom Number
 
 Should start at line 50:
 
@@ -152,7 +155,7 @@ __device__  __forceinline__ int64_t ld_volatile_global(const uint64_t *ptr) {
 }
 ```
 
-### Word/Character Highlighting
+# Word/Character Highlighting
 
 Highlighting specific words:
 
@@ -189,7 +192,7 @@ setData(newData);
 setLoading(false);
 ```
 
-### title caption
+## title caption
 
 ```javascript title="utils/helpers.js"
 export function debounce(func, delay) {
@@ -217,8 +220,8 @@ LIMIT 10;
 Testing diff syntax:
 
 ```js
-const added = true; // [!code ++]
-const removed = true; // [!code --]
+const added = true; 
+const removed = true;
 const blank = true;
 ```
 

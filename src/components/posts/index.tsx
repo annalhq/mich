@@ -28,10 +28,10 @@ export function PostLayout({
             <span>{readingTime}</span>
           </div>
         </header>
+        <TableOfContents />
         <div className="prose break-words prose-pre:overflow-auto prose-img:max-w-full">
           {children}
         </div>
-        <TableOfContents />
       </article>
     </div>
   );
