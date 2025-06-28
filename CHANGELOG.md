@@ -2,6 +2,46 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/annalhq/mich/compare/v0.2.1...v0.3.0) (2025-06-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* #3 async plugin support
+* major global ui layout changes
+
+### Features
+
+* [#2](https://github.com/annalhq/mich/issues/2) auto link headings ([b38f22f](https://github.com/annalhq/mich/commit/b38f22fa8e5f9eb78363f997e78c3343a04f820e))
+* [#2](https://github.com/annalhq/mich/issues/2) footnote component ([cb157a3](https://github.com/annalhq/mich/commit/cb157a3ed9745123f5acbb6162df5804c7b528a9))
+* [#2](https://github.com/annalhq/mich/issues/2) meta config options ([32e8a20](https://github.com/annalhq/mich/commit/32e8a204c4e2f41394cb390987a4f0bba27efb8c))
+* [#2](https://github.com/annalhq/mich/issues/2) migrate from mathjax to katex ([df54c9f](https://github.com/annalhq/mich/commit/df54c9fd5a87d9d7f5a30a0b5af81c8c6a3651d9))
+* [#2](https://github.com/annalhq/mich/issues/2) toc (alpha) ([f2aafa2](https://github.com/annalhq/mich/commit/f2aafa26c7abdd4e77de8e0d5eb8cf48c82e8d89))
+* [#3](https://github.com/annalhq/mich/issues/3) code copy transformer ([5fab6ec](https://github.com/annalhq/mich/commit/5fab6ecc35040150f04d4205055aa2f01ff0251f))
+* [#3](https://github.com/annalhq/mich/issues/3) reimplement rehype pretty code ([1570ae5](https://github.com/annalhq/mich/commit/1570ae5fdbd7b77322b2c3b1ad4abd5cdacbb324))
+* **content:** update space/dl ([eaa0634](https://github.com/annalhq/mich/commit/eaa06344b54e6015b05a2bc90c2dde97f0e7e38d))
+* **content:** update space/research-papers ([d0ed7a4](https://github.com/annalhq/mich/commit/d0ed7a42c6055ef353bb0a9a78cf57fb966800cd))
+* DGM CS236 ([9c28c4d](https://github.com/annalhq/mich/commit/9c28c4da6ae7aff94d4c486ff4e22fe87645b962))
+* major global ui layout changes ([52fd6fa](https://github.com/annalhq/mich/commit/52fd6fa2171801c395302b7672fbb8faae9c36ea))
+* muon blog ([eb56126](https://github.com/annalhq/mich/commit/eb561265384be778a10cafec67acd93349dc44bd))
+* revamped components ([5803e42](https://github.com/annalhq/mich/commit/5803e42773d9087364f33288a7a792c7370d7214))
+* space/gpu ([c7eb622](https://github.com/annalhq/mich/commit/c7eb6224934135225bb7325f1afcb638d04b63a9))
+* support for sub, sub, kbd via rehypeRaw ([efe1323](https://github.com/annalhq/mich/commit/efe132362f221cac730190b576404efd643b9dce))
+* theme toggle ([658df69](https://github.com/annalhq/mich/commit/658df69d1b5e47587687505fa0a28511b52bc2e8))
+* triton to cuda mapping ([bd79490](https://github.com/annalhq/mich/commit/bd79490f4cbb2aef787701f5275746bc7f048e4a))
+* Triton to CUDA mapping ([2a98cc7](https://github.com/annalhq/mich/commit/2a98cc711c8da8e287b9427ce02cadda94f0d5c6))
+* update space ([d762ad4](https://github.com/annalhq/mich/commit/d762ad4c7c7de9014af971821ee2b0d8ced907e0))
+* update space/web-clips ([f762ad2](https://github.com/annalhq/mich/commit/f762ad264c36d80ea118e5ab8a5da9a4ff78598d))
+
+
+### Bug Fixes
+
+* [#3](https://github.com/annalhq/mich/issues/3) async plugin support ([bf83eb6](https://github.com/annalhq/mich/commit/bf83eb6fd66433e9093d55089be7723f72bee670)), closes [#13](https://github.com/annalhq/mich/issues/13)
+* [#4](https://github.com/annalhq/mich/issues/4) sticky search bar ([d4b84b7](https://github.com/annalhq/mich/commit/d4b84b748df8c37191b1b6960e3baf82f8af004f))
+* resolve deprecated createJiti warning ([19ea702](https://github.com/annalhq/mich/commit/19ea702a6bd0d429433e743db5710adb7594359c))
+* resolve deprecated createJiti warning ([a3149c3](https://github.com/annalhq/mich/commit/a3149c3e60cd00c6812f2aa4d6b69342a5ca8b81))
+* resolve deprecated deprecated warning ([4f80ac6](https://github.com/annalhq/mich/commit/4f80ac6e7beed1e8758c5d5567de77c02d4480b1))
+
 ### [0.2.1](https://github.com/annalhq/mich/compare/v0.2.0...v0.2.1) (2025-04-28)
 
 
