@@ -5,7 +5,7 @@ import { Providers } from "@/components/providers";
 import { ScreenIndicator } from "@/components/screen-indicator";
 import { baskervville, inter } from "@/lib/custom-font";
 
-import "./globals.css";
+import "../styles/global.css";
 
 export default function RootLayout({
   children,
