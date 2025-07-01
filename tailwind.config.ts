@@ -4,6 +4,8 @@ import tailwindcssAnimate from "tailwindcss-animate";
 import defaultTheme from "tailwindcss/defaultTheme";
 import plugin from "tailwindcss/plugin";
 
+import { getRadixColorScale } from "./src/lib/radix-util";
+
 export default {
   darkMode: ["class"],
   content: [
@@ -25,38 +27,43 @@ export default {
         sans: ["var(--font-inter)", ...defaultTheme.fontFamily.sans],
       },
       colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
+        gray: getRadixColorScale("slate"),
+        tomato: getRadixColorScale("tomato"),
+        border: "var(--gray-6)",
+        input: "var(--gray-a6)",
+        ring: "var(--tomato-9)",
+        background: "var(--gray-1)",
+        foreground: "var(--gray-12)",
         primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+          ...getRadixColorScale("tomato"),
+          DEFAULT: "var(--tomato-9)",
+          foreground: "var(--tomato-1)",
         },
         secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
+          ...getRadixColorScale("teal"),
+          DEFAULT: "var(--teal-9)",
+          foreground: "var(--teal-1)",
         },
         destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
+          ...getRadixColorScale("red"),
+          DEFAULT: "var(--red-9)",
+          foreground: "var(--red-1)",
         },
         muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
+          DEFAULT: "var(--gray-3)",
+          foreground: "var(--gray-11)",
         },
         accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
+          DEFAULT: "var(--gray-a3)",
+          foreground: "var(--gray-12)",
         },
         popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
+          DEFAULT: "var(--gray-1)",
+          foreground: "var(--gray-12)",
         },
         card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
+          DEFAULT: "var(--gray-1)",
+          foreground: "var(--gray-12)",
         },
       },
       borderRadius: {
@@ -78,7 +85,7 @@ export default {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
-      typography: {
+      typography: () => ({
         DEFAULT: {
           css: {
             ":is(h1, h2, h3, h4, h5) a": {
@@ -94,10 +101,9 @@ export default {
               "font-weight": "inherit",
               "text-decoration": "none",
             },
-            //
           },
         },
-      },
+      }),
     },
   },
   plugins: [

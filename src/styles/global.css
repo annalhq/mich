@@ -2,14 +2,22 @@
 @import url("@radix-ui/colors/gray-alpha.css");
 @import url("@radix-ui/colors/gray-dark.css");
 @import url("@radix-ui/colors/gray-dark-alpha.css");
-@import url("@radix-ui/colors/teal.css");
-@import url("@radix-ui/colors/teal-alpha.css");
-@import url("@radix-ui/colors/teal-dark.css");
-@import url("@radix-ui/colors/teal-dark-alpha.css");
 @import url("@radix-ui/colors/iris.css");
 @import url("@radix-ui/colors/iris-alpha.css");
 @import url("@radix-ui/colors/iris-dark.css");
 @import url("@radix-ui/colors/iris-dark-alpha.css");
+@import url("@radix-ui/colors/slate.css");
+@import url("@radix-ui/colors/slate-alpha.css");
+@import url("@radix-ui/colors/slate-dark.css");
+@import url("@radix-ui/colors/slate-dark-alpha.css");
+@import url("@radix-ui/colors/teal.css");
+@import url("@radix-ui/colors/teal-alpha.css");
+@import url("@radix-ui/colors/teal-dark.css");
+@import url("@radix-ui/colors/teal-dark-alpha.css");
+@import url("@radix-ui/colors/tomato.css");
+@import url("@radix-ui/colors/tomato-alpha.css");
+@import url("@radix-ui/colors/tomato-dark.css");
+@import url("@radix-ui/colors/tomato-dark-alpha.css");
 @import url("@radix-ui/colors/pink.css");
 @import url("@radix-ui/colors/pink-alpha.css");
 @import url("@radix-ui/colors/pink-dark.css");
@@ -23,36 +31,15 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 10% 3.9%;
-    --radius: 0.5rem;
-    /* alpha  */
-
     --bg: var(--gray-1);
     --fg: var(--gray-12);
     --muted: var(--gray-8);
     --md-border: var(--gray-4);
     --scrollbar-thumb: var(--gray-4);
     --scrollbar-track: transparent;
-    --selection-background: var(--iris-3);
-    --selection-foreground: var(--iris-11);
+    --selection-background: var(--pink-3);
+    --selection-foreground: var(--pink-11);
+    --radius: 0.5rem;
     --kbd-background: var(--gray-3);
     --kbd-foreground: var(--gray-11);
     --kbd-border: var(--gray-4);
@@ -78,6 +65,11 @@
     scrollbar-gutter: stable;
     scrollbar-width: thin;
     scroll-behavior: smooth;
+    overflow-y: scroll;
+  }
+  
+  a, button {
+    @apply outline-offset-2 outline-accent focus-visible:outline-2 focus-visible:outline-dashed;
   }
 
   html {
@@ -163,28 +155,6 @@
   article .prose h6 {
     @apply font-bold italic;
     font-family: var(--font-baskervville), serif;
-  }
-
-  .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
   }
 }
 
@@ -450,5 +420,3 @@ my custom components
 .footnotes ol li p a {
   z-index: 2;
 }
-
-/* toc */
