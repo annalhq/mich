@@ -25,9 +25,7 @@ export const TableOfContents = () => {
 
   return (
     <div className="text-sm">
-      <h3 className="mb-3 font-medium text-slate-700 dark:text-slate-300">
-        On this page
-      </h3>
+      <h3 className="mb-3 font-medium">On this page</h3>
       <ul className="space-y-2">
         {headings.map((heading) => (
           <li key={heading.id}>
