@@ -56,7 +56,10 @@ export function MarkdownRenderer({ content, meta }: MarkdownRendererProps) {
         [
           rehypePrettyCode,
           {
-            theme: "catppuccin-macchiato",
+            theme: {
+              light: "one-light",
+              dark: "catppuccin-mocha",
+            },
             keepBackground: false,
           },
         ],
