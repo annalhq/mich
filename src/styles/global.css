@@ -52,6 +52,7 @@
     --muted: var(--slate-11);
     --border-accent: var(--slate-6);
     --md-border: var(--slate-4);
+    --interactive: var(--slate-9);
     --scrollbar-thumb: var(--slate-5);
     --selection-background: var(--pink-3);
     --selection-foreground: var(--pink-11);
@@ -219,7 +220,6 @@
 .markdown img { @apply rounded-lg; }
 .markdown hr { @apply my-8 border-slate-200 dark:border-slate-800; }
 
-/* Table styles updated to use slate */
 .markdown table { @apply w-full border-collapse text-sm; }
 .markdown th { @apply border border-slate-300 bg-slate-100 px-4 py-2 text-left font-medium dark:border-slate-600 dark:bg-slate-800; }
 .markdown td { @apply border border-slate-300 px-4 py-2 dark:border-slate-600; }
@@ -324,7 +324,8 @@ code:not(pre code) {
   font-size: 0.875em;
 }
 
-/* dual theme support */
+/* dual theme styliings */
+
 code[data-theme*=" "],
 code[data-theme*=" "] span {
   color: var(--shiki-light);

@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 import { didot } from "@/lib/custom-font";
 
-import { TableOfContents } from "../on-this-page";
+import { TableOfContents } from "../toc";
 
 interface PostLayoutProps {
   title: string;
