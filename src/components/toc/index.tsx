@@ -24,23 +24,22 @@ export const TableOfContents = () => {
   if (headings.length === 0) return null;
 
   return (
-    <div className="text-sm">
-      <h3 className="mb-3 font-medium">On this page</h3>
-      <ul className="space-y-2">
+    <aside className="fixed left-0 top-1/2 hidden -translate-y-1/2 xl:block">
+      <ul className="toc-item">
         {headings.map((heading) => (
-          <li key={heading.id}>
-            <a
-              href={`#${heading.id}`}
-              className={cn(
-                "block border-l border-slate-200 py-0.5 text-slate-600 transition-colors hover:border-slate-900 hover:text-slate-900 dark:border-slate-700 dark:text-slate-400 dark:hover:border-slate-200 dark:hover:text-slate-200",
-                heading.level === "h3" ? "pl-6" : "pl-4"
-              )}
-            >
-              {heading.text}
+          <li
+            key={heading.id}
+            className={cn("toc-list-item", heading.level === "h3" && "pl-4")}
+          >
+            <a href={`#${heading.id}`} className="flex items-center">
+              <div className="line-container">
+                <div className="line" />
+              </div>
+              <span className="title">{heading.text}</span>
             </a>
           </li>
         ))}
       </ul>
-    </div>
+    </aside>
   );
 };

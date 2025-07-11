@@ -81,9 +81,10 @@
     scroll-behavior: smooth;
     overflow-y: scroll;
   }
-  
-  a, button {
-    @apply outline-offset-2 focus-visible:outline-2 focus-visible:outline-dashed;
+
+  a,
+  button {
+    @apply outline-offset-2 focus-visible:outline-dashed focus-visible:outline-2;
   }
 
   html {
@@ -165,6 +166,91 @@
   }
 }
 
+/*
+--------------------
+TOC outline list
+--------------------
+*/
+.toc-item {
+  padding-left: 8px;
+}
+
+.toc-item:hover .toc-list-item {
+  color: var(--fg);
+}
+
+.toc-item:hover .toc-list-item .title {
+  opacity: 1;
+  visibility: visible;
+}
+
+.toc-item:hover .toc-list-item .line-container {
+  width: 20px;
+}
+
+.toc-item:hover .toc-list-item .line {
+  color: var(--fg);
+}
+
+.toc-item:hover .toc-list-item:hover {
+  color: var(--iris-9);
+  font-weight: 500;
+}
+
+.toc-item:hover .toc-list-item:hover .title {
+  overflow: visible;
+}
+
+.toc-item:hover .toc-list-item:hover .line-container {
+  width: 24px;
+}
+
+.toc-item:hover .toc-list-item:hover .line {
+  border-color: var(--iris-9);
+}
+
+.toc-list-item {
+  cursor: pointer;
+  color: var(--slate-8);
+  white-space: nowrap;
+  align-items: center;
+  padding: 4px 0;
+  font-size: 14px;
+  line-height: 1.4;
+  transition: color 0.2s;
+}
+
+.toc-list-item a {
+  display: flex;
+  align-items: center;
+}
+
+.toc-list-item .line-container {
+  flex-shrink: 0;
+  justify-content: flex-end;
+  align-items: center;
+  width: 30px;
+  margin-right: 10px;
+  transition: all 0.2s;
+  display: flex;
+}
+
+.toc-list-item .line-container .line {
+  width: 100%;
+  border-bottom: 1px solid var(--slate-8);
+  transition: all 0.2s;
+}
+
+.toc-list-item .title {
+  opacity: 0;
+  visibility: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: all 0.2s;
+  overflow: hidden;
+  max-width: 200px;
+}
+
 @layer base {
   * {
     @apply border-border;
@@ -192,7 +278,7 @@
 .markdown h4,
 .markdown h5,
 .markdown h6 {
-  @apply scroll-mt-20 font-bold tracking-tight ;
+  @apply scroll-mt-20 font-bold tracking-tight;
 }
 
 .markdown :is(h1, h2, h3, h4, h5) a:is(:hover, :focus, :active)::before,
@@ -214,16 +300,33 @@
   @apply text-foreground no-underline;
 }
 
-.markdown ul, .markdown ol { @apply my-6 ml-6; }
-.markdown.markdown-no-list-margin ul, .markdown.markdown-no-list-margin ol { @apply ml-0; }
-.markdown blockquote { @apply border-l-2 border-slate-300 pl-6 italic dark:border-slate-700; }
-.markdown img { @apply rounded-lg; }
-.markdown hr { @apply my-8 border-slate-200 dark:border-slate-800; }
+.markdown ul,
+.markdown ol {
+  @apply my-6 ml-6;
+}
+.markdown.markdown-no-list-margin ul,
+.markdown.markdown-no-list-margin ol {
+  @apply ml-0;
+}
+.markdown blockquote {
+  @apply border-l-2 border-slate-300 pl-6 italic dark:border-slate-700;
+}
+.markdown img {
+  @apply rounded-lg;
+}
+.markdown hr {
+  @apply my-8 border-slate-200 dark:border-slate-800;
+}
 
-.markdown table { @apply w-full border-collapse text-sm; }
-.markdown th { @apply border border-slate-300 bg-slate-100 px-4 py-2 text-left font-medium dark:border-slate-600 dark:bg-slate-800; }
-.markdown td { @apply border border-slate-300 px-4 py-2 dark:border-slate-600; }
-
+.markdown table {
+  @apply w-full border-collapse text-sm;
+}
+.markdown th {
+  @apply border border-slate-300 bg-slate-100 px-4 py-2 text-left font-medium dark:border-slate-600 dark:bg-slate-800;
+}
+.markdown td {
+  @apply border border-slate-300 px-4 py-2 dark:border-slate-600;
+}
 
 .markdown :where(code):not(:where(pre code))::before,
 .markdown :where(code):not(:where(pre code))::after {
@@ -235,7 +338,6 @@
 REHYPE PRETTY CODE 
 ------
 */
-
 
 pre {
   overflow-x: auto;
@@ -295,13 +397,12 @@ pre
   @apply bg-[--pink-4] text-[--pink-10] opacity-70 before:content-['-'];
 }
 
-
 [data-rehype-pretty-code-title] {
   background-color: var(--slate-3);
   color: var(--slate-12);
   padding: 0.5rem 1rem;
   border-top-left-radius: var(--radius);
-  border-top-right-radius: var(--radius);;
+  border-top-right-radius: var(--radius);
   border: 1px solid var(--border-accent);
   margin-bottom: -0.1rem;
 }
@@ -311,7 +412,7 @@ pre
   color: var(--slate-12);
   padding: 0.5rem 1rem;
   border-bottom-left-radius: var(--radius);
-  border-bottom-right-radius: var(--radius);;
+  border-bottom-right-radius: var(--radius);
   border: 1px solid var(--border-accent);
   margin-top: -1rem;
   margin-bottom: 1rem;

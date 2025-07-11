@@ -18,7 +18,8 @@ export function PostLayout({
   children,
 }: PostLayoutProps) {
   return (
-    <div className="mx-auto max-w-2xl px-4">
+    <div className="relative mx-auto max-w-2xl px-4">
+      <TableOfContents />
       <article data-pagefind-body className="overflow-hidden">
         <header className="mb-8">
           <h1 className="mb-2 text-3xl font-bold">{title}</h1>
@@ -28,7 +29,6 @@ export function PostLayout({
             <span>{readingTime}</span>
           </div>
         </header>
-        <TableOfContents />
         <div className="prose break-words prose-pre:overflow-auto prose-img:max-w-full">
           {children}
         </div>
