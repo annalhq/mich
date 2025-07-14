@@ -2,12 +2,43 @@ import { notFound } from "next/navigation";
 import { ReactElement } from "react";
 
 import { PostLayout } from "@/components/posts";
+import { getOgImage } from "@/lib/og";
 import { MarkdownRenderer } from "@/mdx/markdown-renderer";
 import { getBlogPosts, getPost } from "@/mdx/utils/mdx";
 
 export async function generateStaticParams() {
   const posts = getBlogPosts();
   return posts.map((post) => ({ slug: post.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const post = getPost("blog", params.slug);
+  if (!post) {
+    return {};
+  }
+
+  return {
+    title: post.title,
+    description: post.description,
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      type: "article",
+      url: `/blog/${post.slug}`,
+      images: [
+        {
+          url: getOgImage({ ...post, type: "Blog" }),
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+    },
+  };
 }
 
 export default async function BlogPost(props: {
