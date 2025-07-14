@@ -38,8 +38,8 @@
     --md-border: var(--slate-4);
     --scrollbar-thumb: var(--slate-5);
     --scrollbar-track: transparent;
-    --selection-background: var(--pink-3);
-    --selection-foreground: var(--pink-11);
+    --selection-background: var(--iris-3);
+    --selection-foreground: var(--iris-11);
     --radius: 0.5rem;
     --kbd-background: var(--slate-3);
     --kbd-foreground: var(--slate-11);
@@ -54,8 +54,8 @@
     --md-border: var(--slate-4);
     --interactive: var(--slate-9);
     --scrollbar-thumb: var(--slate-5);
-    --selection-background: var(--pink-3);
-    --selection-foreground: var(--pink-11);
+    --selection-background: var(--iris-3);
+    --selection-foreground: var(--iris-11);
     --kbd-background: var(--slate-3);
     --kbd-foreground: var(--slate-11);
     --kbd-border: var(--slate-5);
@@ -161,7 +161,7 @@
   article .prose h4,
   article .prose h5,
   article .prose h6 {
-    @apply font-bold italic;
+    @apply font-bold;
     font-family: var(--font-baskervville), serif;
   }
 }
@@ -171,84 +171,109 @@
 TOC outline list
 --------------------
 */
-.toc-item {
-  padding-left: 8px;
+
+.toc-indicator {
+  position: absolute;
+  left: 10px;
+  width: 28px;
+  height: auto;
+  background-color: var(--slate-3);
+  border: 1px solid var(--slate-5);
+  border-radius: 8px;
+  padding: 8px 4px;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.toc-item:hover .toc-list-item {
-  color: var(--fg);
+aside:hover .toc-indicator {
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.95);
 }
 
-.toc-item:hover .toc-list-item .title {
+.toc-sidebar {
+  position: absolute;
+  left: 10px;
+  width: 28px;
+  transform: scale(0.95);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0;
+  visibility: hidden;
+  z-index: 5;
+  background-color: var(--slate-3);
+  border: 1px solid var(--slate-5);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.toc-sidebar-visible {
+  width: 220px;
+  transform: scale(1);
   opacity: 1;
   visibility: visible;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
-.toc-item:hover .toc-list-item .line-container {
-  width: 20px;
-}
-
-.toc-item:hover .toc-list-item .line {
-  color: var(--fg);
-}
-
-.toc-item:hover .toc-list-item:hover {
-  color: var(--iris-9);
+.toc-heading {
+  font-style: italic;
+  text-align: center;
+  color: var(--slate-11);
+  font-size: 16px;
   font-weight: 500;
+  margin-bottom: 10px;
+  padding: 0 8px;
+  margin-top: 0;
 }
 
-.toc-item:hover .toc-list-item:hover .title {
-  overflow: visible;
+.toc-glass-bg {
+  background-color: var(--slate-2);
+  padding: 12px 6px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  position: relative;
+  width: 100%;
 }
 
-.toc-item:hover .toc-list-item:hover .line-container {
-  width: 24px;
-}
-
-.toc-item:hover .toc-list-item:hover .line {
-  border-color: var(--iris-9);
+.toc-item {
+  padding: 0;
 }
 
 .toc-list-item {
   cursor: pointer;
-  color: var(--slate-8);
-  white-space: nowrap;
+  color: var(--slate-11);
   align-items: center;
-  padding: 4px 0;
+  padding: 4px 8px;
   font-size: 14px;
-  line-height: 1.4;
-  transition: color 0.2s;
+  line-height: 1.5;
+  transition: all 0.2s;
+  border-radius: 4px;
+  margin-bottom: 2px;
 }
 
 .toc-list-item a {
-  display: flex;
-  align-items: center;
-}
-
-.toc-list-item .line-container {
-  flex-shrink: 0;
-  justify-content: flex-end;
-  align-items: center;
-  width: 30px;
-  margin-right: 10px;
-  transition: all 0.2s;
-  display: flex;
-}
-
-.toc-list-item .line-container .line {
-  width: 100%;
-  border-bottom: 1px solid var(--slate-8);
-  transition: all 0.2s;
+  display: block;
+  text-decoration: none;
+  white-space: normal;
+  word-break: break-word;
 }
 
 .toc-list-item .title {
-  opacity: 0;
-  visibility: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   transition: all 0.2s;
-  overflow: hidden;
-  max-width: 200px;
+}
+
+.toc-list-item:hover {
+  background-color: var(--slate-4);
+  color: var(--iris-10);
+}
+
+.toc-list-item-active {
+  background-color: var(--slate-5);
+  color: var(--iris-10);
+  font-weight: 500;
 }
 
 @layer base {
