@@ -14,10 +14,10 @@
 @import url("@radix-ui/colors/teal-alpha.css");
 @import url("@radix-ui/colors/teal-dark.css");
 @import url("@radix-ui/colors/teal-dark-alpha.css");
-@import url("@radix-ui/colors/tomato.css");
-@import url("@radix-ui/colors/tomato-alpha.css");
-@import url("@radix-ui/colors/tomato-dark.css");
-@import url("@radix-ui/colors/tomato-dark-alpha.css");
+@import url("@radix-ui/colors/indigo.css");
+@import url("@radix-ui/colors/indigo-alpha.css");
+@import url("@radix-ui/colors/indigo-dark.css");
+@import url("@radix-ui/colors/indigo-dark-alpha.css");
 @import url("@radix-ui/colors/pink.css");
 @import url("@radix-ui/colors/pink-alpha.css");
 @import url("@radix-ui/colors/pink-dark.css");
@@ -318,11 +318,11 @@ aside:hover .toc-indicator {
   @apply leading-7;
 }
 .markdown a {
-  @apply text-primary no-underline transition-colors hover:underline;
+  @apply text-[--slate-11] no-underline transition-colors hover:text-[--slate-10] hover:underline;
 }
 
 .markdown a[href^="#"] {
-  @apply text-foreground no-underline;
+  @apply text-[--slate-12] no-underline ;
 }
 
 .markdown ul,
