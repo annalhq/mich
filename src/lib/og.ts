@@ -1,3 +1,4 @@
+import { env } from "@/env/client";
 import { type Post } from "@/mdx";
 
 export type OgImageProps = {
@@ -12,8 +13,7 @@ export function getOgImage(
   data: Partial<Post> & { type: "Blog" | "Space" }
 ): string {
   const { title, description, type, date, readingTime } = data;
-  // eslint-disable-next-line n/no-process-env
-  const url = new URL(`${process.env.NEXT_PUBLIC_BASE_URL}/api/og`);
+  const url = new URL(`${env.NEXT_PUBLIC_BASE_URL}/api/og`);
 
   if (title) url.searchParams.set("title", title);
   if (description) url.searchParams.set("description", description);

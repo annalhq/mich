@@ -18,17 +18,11 @@ export async function GET(request: Request) {
     } = params;
 
     const interRegular = fetch(
-      new URL(
-        "../../../../public/assets/font/inter/Inter-Regular.ttf",
-        import.meta.url
-      )
+      new URL("/public/assets/font/inter/regular.ttf", import.meta.url)
     ).then((res) => res.arrayBuffer());
 
     const interBold = fetch(
-      new URL(
-        "../../../../public/assets/font/inter/Inter-Bold.ttf",
-        import.meta.url
-      )
+      new URL("/public/assets/font/inter/semi-bold.ttf", import.meta.url)
     ).then((res) => res.arrayBuffer());
 
     return new ImageResponse(
@@ -40,62 +34,138 @@ export async function GET(request: Request) {
             display: "flex",
             flexDirection: "column",
             alignItems: "flex-start",
-            padding: "40px",
-            fontSize: "24px",
-            letterSpacing: "-0.47px",
-            backgroundColor: "black",
+            justifyContent: "space-between",
+            padding: "80px",
+            background: "#f0f0f0",
+            color: "#030303",
+            position: "relative",
           }}
         >
           <div
             style={{
               display: "flex",
               alignItems: "center",
-              gap: "12px",
-              fontSize: "28px",
-              border: "2px solid #fff",
-              borderRadius: "9999px",
-              padding: "8px 20px",
+              justifyContent: "flex-start",
+              width: "100%",
             }}
           >
-            {type && <span>{type}</span>}
-          </div>
-          <div
-            style={{
-              fontSize: "60px",
-              fontWeight: 700,
-              lineHeight: 1.1,
-              textShadow: "0 2px 8px rgba(0,0,0,0.5)",
-            }}
-          >
-            {title}
-          </div>
-          <div
-            style={{
-              fontSize: "32px",
-              lineHeight: 1.4,
-              opacity: 0.8,
-              maxWidth: "80%",
-              textShadow: "0 2px 4px rgba(0,0,0,0.5)",
-            }}
-          >
-            {description}
-          </div>
-          {(date || readingTime) && (
             <div
               style={{
                 display: "flex",
                 alignItems: "center",
-                gap: "20px",
-                fontSize: "24px",
-                opacity: 0.7,
-                marginTop: "20px",
+                gap: "16px",
               }}
             >
-              {date && <span>{date}</span>}
-              {date && readingTime && <span>•</span>}
-              {readingTime && <span>{readingTime}</span>}
+              <div
+                style={{
+                  fontSize: "28px",
+                  fontWeight: 600,
+                  letterSpacing: "-0.5px",
+                  color: "#000000",
+                }}
+              >
+                annenso
+              </div>
+
+              {/* Type badge */}
+              {type && (
+                <div
+                  style={{
+                    fontSize: "16px",
+                    fontWeight: 600,
+                    color: "#444",
+                    textTransform: "uppercase",
+                    letterSpacing: "1px",
+                    padding: "8px 16px",
+                    backgroundColor: "#e0e0e0",
+                    borderRadius: "20px",
+                    border: "1px solid #ccc",
+                  }}
+                >
+                  {type}
+                </div>
+              )}
             </div>
-          )}
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-start",
+              width: "100%",
+              maxWidth: "900px",
+            }}
+          >
+            {/* Title */}
+            <div
+              style={{
+                fontSize: "76px",
+                fontWeight: 800,
+                lineHeight: 1.05,
+                letterSpacing: "-2px",
+                marginBottom: "28px",
+                background: "linear-gradient(135deg, #000000 0%, #333333 100%)",
+                backgroundClip: "text",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                textShadow: "0px 0px 1px rgba(0,0,0,0.1)",
+              }}
+            >
+              {title}
+            </div>
+
+            {/* Description */}
+            <div
+              style={{
+                fontSize: "26px",
+                lineHeight: 1.4,
+                color: "#444",
+                fontWeight: 500,
+                maxWidth: "650px",
+              }}
+            >
+              {description}
+            </div>
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "flex-start",
+              width: "100%",
+              marginTop: "20px",
+            }}
+          >
+            {/* Metadata */}
+            {(date || readingTime) && (
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "16px",
+                  fontSize: "18px",
+                  color: "#555",
+                  fontWeight: 500,
+                  padding: "8px 16px",
+                }}
+              >
+                {date && <span>{date}</span>}
+                {date && readingTime && (
+                  <div
+                    style={{
+                      width: "5px",
+                      height: "5px",
+                      borderRadius: "50%",
+                      backgroundColor: "#888",
+                    }}
+                  />
+                )}
+                {readingTime && <span>{readingTime}</span>}
+              </div>
+            )}
+          </div>
         </div>
       ),
       {
