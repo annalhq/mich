@@ -1,30 +1,9 @@
 import { ContentCard } from "@/components/content-card";
 import { baskeritalic } from "@/lib/custom-font";
-import { getOgImage } from "@/lib/og";
+import { spaceMetadata } from "@/lib/metadata";
 import { getSpaceEntries } from "@/mdx/utils/mdx";
 
-export const metadata = {
-  title: "Space",
-  description: "A collection of my projects, ideas, and explorations.",
-  openGraph: {
-    title: "Space",
-    description: "A collection of my projects, ideas, and explorations.",
-    type: "website",
-    url: "/space",
-    images: [
-      {
-        url: getOgImage({
-          title: "Space",
-          description: "A collection of my projects, ideas, and explorations.",
-          type: "Space",
-        }),
-        width: 1200,
-        height: 630,
-        alt: "Space",
-      },
-    ],
-  },
-};
+export const metadata = spaceMetadata;
 
 export default function SpacePage() {
   const entries = getSpaceEntries();

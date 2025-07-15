@@ -1,31 +1,9 @@
 import { ContentCard } from "@/components/content-card";
 import { baskeritalic } from "@/lib/custom-font";
-import { getOgImage } from "@/lib/og";
+import { blogMetadata } from "@/lib/metadata";
 import { getBlogPosts } from "@/mdx/utils/mdx";
 
-export const metadata = {
-  title: "Blog",
-  description: "Thoughts on technology, life, and everything in between.",
-  openGraph: {
-    title: "Blog",
-    description: "Thoughts on technology, life, and everything in between.",
-    type: "website",
-    url: "/blog",
-    images: [
-      {
-        url: getOgImage({
-          title: "Blog",
-          description:
-            "Thoughts on technology, life, and everything in between.",
-          type: "Blog",
-        }),
-        width: 1200,
-        height: 630,
-        alt: "Blog",
-      },
-    ],
-  },
-};
+export const metadata = blogMetadata;
 
 export default function BlogPage() {
   const posts = getBlogPosts();

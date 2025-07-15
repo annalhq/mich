@@ -1,11 +1,12 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 
 import { ArrowUpRight } from "lucide-react";
 
 import { baskervville } from "@/lib/custom-font";
+import { rootMetadata } from "@/lib/metadata";
+
+export const metadata = rootMetadata;
 
 export default function HomePage() {
   return (

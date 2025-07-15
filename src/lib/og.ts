@@ -4,13 +4,13 @@ import { type Post } from "@/mdx";
 export type OgImageProps = {
   title: string;
   description: string;
-  type: "Blog" | "Space";
+  type?: "Blog" | "Space";
   date?: string;
   readingTime?: string;
 };
 
 export function getOgImage(
-  data: Partial<Post> & { type: "Blog" | "Space" }
+  data: Partial<Post> & { type?: "Blog" | "Space" }
 ): string {
   const { title, description, type, date, readingTime } = data;
   const url = new URL(`${env.NEXT_PUBLIC_BASE_URL}/api/og`);
