@@ -6,7 +6,7 @@
     "prefer-template": ["error"],
     "semi": ["error"],
     "quotes": ["error", "double"],
-    "n/no-process-env": ["error"],
+    "n/no-process-env": "off",
     "check-file/filename-naming-convention": [
       "error",
       {

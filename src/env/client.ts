@@ -11,7 +11,6 @@ export const env = createEnv({
     NEXT_PUBLIC_BASE_URL: z
       .string()
       .url()
-      //eslint-disable-next-line n/no-process-env
       .default(
         process.env.NODE_ENV === "development"
           ? "localhost:3000"
@@ -19,9 +18,7 @@ export const env = createEnv({
       ),
   },
   runtimeEnv: {
-    // eslint-disable-next-line n/no-process-env
     NEXT_PUBLIC_MESSAGE: process.env.NEXT_PUBLIC_MESSAGE,
-    // eslint-disable-next-line n/no-process-env
     NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
   },
 });
