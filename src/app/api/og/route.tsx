@@ -2,8 +2,6 @@ import { ImageResponse } from "next/og";
 
 import { type OgImageProps } from "@/lib/og";
 
-export const runtime = "edge";
-
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
