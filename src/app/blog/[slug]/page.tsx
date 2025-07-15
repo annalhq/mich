@@ -7,19 +7,17 @@ import { MarkdownRenderer } from "@/mdx/markdown-renderer";
 import { getBlogPosts, getPost } from "@/mdx/utils/mdx";
 
 export async function generateStaticParams() {
-  const posts = getBlogPosts();
-  return posts.map((post) => ({ slug: post.slug }));
+  return getBlogPosts().map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const post = getPost("blog", params.slug);
-  if (!post) {
-    return {};
-  }
+  const { slug } = await params;
+  const post = getPost("blog", slug);
+  if (!post) return {};
 
   return {
     title: post.title,
@@ -28,7 +26,7 @@ export async function generateMetadata({
       title: post.title,
       description: post.description,
       type: "article",
-      url: `/blog/${post.slug}`,
+      url: `/blog/${slug}`,
       images: [
         {
           url: getOgImage({ ...post, type: "Blog" }),
@@ -44,12 +42,10 @@ export async function generateMetadata({
 export default async function BlogPost(props: {
   params: Promise<{ slug: string }>;
 }): Promise<ReactElement> {
-  const params = await props.params;
-  const post = getPost("blog", params.slug);
+  const { slug } = await props.params;
+  const post = getPost("blog", slug);
 
-  if (!post) {
-    notFound();
-  }
+  if (!post) notFound();
 
   return (
     <PostLayout

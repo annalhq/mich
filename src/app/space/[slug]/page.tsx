@@ -14,12 +14,11 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const entry = getPost("space", params.slug);
-  if (!entry) {
-    return {};
-  }
+  const { slug } = await params;
+  const entry = getPost("space", slug);
+  if (!entry) return {};
 
   return {
     title: entry.title,
@@ -28,7 +27,7 @@ export async function generateMetadata({
       title: entry.title,
       description: entry.description,
       type: "article",
-      url: `/space/${entry.slug}`,
+      url: `/space/${slug}`,
       images: [
         {
           url: getOgImage({ ...entry, type: "Space" }),
@@ -44,12 +43,10 @@ export async function generateMetadata({
 export default async function SpaceEntry(props: {
   params: Promise<{ slug: string }>;
 }): Promise<ReactElement> {
-  const params = await props.params;
-  const entry = getPost("space", params.slug);
+  const { slug } = await props.params;
+  const entry = getPost("space", slug);
 
-  if (!entry) {
-    notFound();
-  }
+  if (!entry) notFound();
 
   return (
     <PostLayout

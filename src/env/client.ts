@@ -13,8 +13,8 @@ export const env = createEnv({
       .url()
       .default(
         process.env.NODE_ENV === "development"
-          ? "localhost:3000"
-          : "annalhq.vercel.app"
+          ? "http://localhost:3000"
+          : "https://annalhq.vercel.app"
       ),
   },
   runtimeEnv: {
