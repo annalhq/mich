@@ -3,9 +3,10 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+// import { Search } from "./search";
+import Search from "@/components/search/index";
 import { cn } from "@/lib/utils";
 
-import { Search } from "./search";
 import { ThemeToggle } from "./theme-toggle";
 
 export function Navigation() {

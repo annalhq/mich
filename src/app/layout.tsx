@@ -2,7 +2,6 @@ import clsx from "clsx";
 
 import { Layout } from "@/components/layout";
 import { Providers } from "@/components/providers";
-import { ScreenIndicator } from "@/components/screen-indicator";
 import { baskervville, inter } from "@/lib/custom-font";
 
 import "../styles/global.css";
@@ -27,7 +26,6 @@ export default function RootLayout({
       <body className={clsx(baskervville.variable, inter.variable)}>
         <Providers>
           <Layout>{children}</Layout>
-          <ScreenIndicator />
         </Providers>
       </body>
     </html>

@@ -29,6 +29,8 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 @layer base {
   :root {
     --bg: var(--slate-1);
@@ -40,6 +42,8 @@
     --scrollbar-track: transparent;
     --selection-background: var(--iris-3);
     --selection-foreground: var(--iris-11);
+    --mark-background: var(--iris-3);
+    --mark-foreground: var(--iris-11);
     --radius: 0.5rem;
     --kbd-background: var(--slate-3);
     --kbd-foreground: var(--slate-11);
@@ -56,6 +60,8 @@
     --scrollbar-thumb: var(--slate-5);
     --selection-background: var(--iris-3);
     --selection-foreground: var(--iris-11);
+    --mark-background: var(--iris-3);
+    --mark-foreground: var(--iris-11);
     --kbd-background: var(--slate-3);
     --kbd-foreground: var(--slate-11);
     --kbd-border: var(--slate-5);
