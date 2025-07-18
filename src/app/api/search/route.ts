@@ -1,8 +1,6 @@
 /* eslint-disable */
 import config from "@/config";
 
-import * as pageFind from "../../../../public/_pagefind/pagefind";
-
 interface SearchResult {
   title: string;
   content: string;
@@ -33,7 +31,6 @@ export async function GET(request: Request) {
   }
   const script_src = `${url.origin}/docs`;
 
-  // hard patch for pagefind
   if (typeof global.window === "undefined") {
     global.window = {
       location: {
@@ -66,6 +63,10 @@ export async function GET(request: Request) {
     url.searchParams.get(excerptLengthKeyword) || defaultExcerptLength;
 
   try {
+    const pageFind = await import(
+      /* webpackIgnore: true */ "../../../../public/_pagefind/pagefind"
+    );
+
     await pageFind.options({
       basePath: `${url.origin}/_pagefind/`,
       excerptLength: parseInt(excerptLength.toString(), 10),
@@ -79,11 +80,9 @@ export async function GET(request: Request) {
         .map((r: { data: () => unknown }) => r.data())
     );
 
-    // reset the global document, window and location
     delete (global as any).document;
     delete (global as any).window;
 
-    // format results
     const formattedResults: SearchResult[] = results.map((result: any) => {
       return {
         title: result.meta.title,
