@@ -1,5 +1,35 @@
 /* eslint-disable */
+import { addBasePath } from "next/dist/client/add-base-path";
+
 import config from "@/config";
+
+interface Pagefind {
+  search: (query: string) => Promise<{ results: PagefindResult[] }>;
+  options: (config: {
+    basePath: string;
+    excerptLength: number;
+  }) => Promise<void>;
+  init: () => Promise<void>;
+}
+
+interface PagefindResult {
+  id: string;
+  data: () => Promise<PagefindData>;
+}
+
+interface PagefindData {
+  url: string;
+  meta: {
+    title?: string;
+  };
+  content: string;
+  excerpt: string;
+  sub_results: Array<{
+    title: string;
+    url: string;
+    excerpt: string;
+  }>;
+}
 
 interface SearchResult {
   title: string;
@@ -9,6 +39,13 @@ interface SearchResult {
     url: string;
     excerpt: string;
   }>;
+}
+
+async function importPagefind(): Promise<Pagefind> {
+  const pagefindModule = await import(
+    /* webpackIgnore: true */ addBasePath("/_pagefind/pagefind.js")
+  );
+  return pagefindModule as Pagefind;
 }
 
 export async function GET(request: Request) {
@@ -29,6 +66,7 @@ export async function GET(request: Request) {
       { status: 200 }
     );
   }
+
   const script_src = `${url.origin}/docs`;
 
   if (typeof global.window === "undefined") {
@@ -58,14 +96,15 @@ export async function GET(request: Request) {
     return Response.json({ error: "Search query too short" }, { status: 200 });
   }
 
-  const limit = url.searchParams.get(limitKeyword) || defaultMaxResults;
+  const limit = parseInt(
+    url.searchParams.get(limitKeyword) || defaultMaxResults.toString(),
+    10
+  );
   const excerptLength =
     url.searchParams.get(excerptLengthKeyword) || defaultExcerptLength;
 
   try {
-    const pageFind = await import(
-      /* webpackIgnore: true */ "../../../../public/_pagefind/pagefind"
-    );
+    const pageFind = await importPagefind();
 
     await pageFind.options({
       basePath: `${url.origin}/_pagefind/`,
@@ -75,9 +114,7 @@ export async function GET(request: Request) {
 
     const search = await pageFind.search(query);
     const results = await Promise.all(
-      search.results
-        .slice(0, limit)
-        .map((r: { data: () => unknown }) => r.data())
+      search.results.slice(0, limit).map((r: PagefindResult) => r.data())
     );
 
     delete (global as any).document;
