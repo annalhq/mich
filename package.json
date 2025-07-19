@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "next build && yarn postbuild",
-    "postbuild": "pagefind --site .next/server/app --output-path public/_pagefind && cp -r ./public/_pagefind ./out",
+    "build": "next build && pagefind --site .next/server/app --output-path public/_pagefind",
+    "postbuild": "",
     "start": "next start",
     "lint": "next lint",
     "format": "prettier src/ --write",
