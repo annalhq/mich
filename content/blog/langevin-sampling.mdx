@@ -1,0 +1,121 @@
+---
+title: "Langevin Sampling"
+description: "Method for sampling from complex distributions using stochastic differential equations."
+date: "2025-08-15"
+---
+
+## Introduction
+
+We often know a target density only up to a normalizing constant:
+
+$p(x) = \frac{1}{Z} \tilde p(x), \qquad \nabla \log p(x) = \nabla \log \tilde p(x)$
+
+Langevin sampling (Langevin Monte Carlo, LMC) exploits gradients of the log-density to construct a continuous-time diffusion whose stationary distribution is $p$. Discretizing that diffusion yields a Markov chain that (under conditions) approaches $p$ and can mix faster than random-walk Metropolis for high dimensions.
+
+Define a potential $U(x) = -\log p(x) + \mathrm{const}$; then $\nabla \log p(x) = -\nabla U(x)$.
+
+## Brownian Motion and Itô Calculus
+
+A (scalar) Brownian motion $B_t$ satisfies:
+
+- $B_0 = 0$
+- Independent increments
+- $B_{t_2} - B_{t_1} \sim \mathcal{N}(0, t_2 - t_1)$ for $t_2 > t_1$
+- Almost surely continuous paths, nowhere classically differentiable.
+
+Heuristically, partitioning $[0,T]$ finely gives
+
+$\sum_i (B_{t_{i+1}} - B_{t_i})^2 \to T$
+
+suggesting the mnemonic $(dB_t)^2 = dt$ (not an algebraic identity, but a bookkeeping rule in stochastic calculus).
+
+### Itô's Lemma
+
+For an Itô process in $\mathbb{R}^d$:
+
+$dX_t = a(X_t,t)\,dt + B(X_t,t)\, dW_t,$
+
+with $W_t$ a $k$-dimensional Brownian motion and diffusion matrix $D = B B^\top$.
+For smooth $f:\mathbb{R}^d \times \mathbb{R} \to \mathbb{R}$:
+
+$df = \Big(\partial_t f + \nabla f^\top a + \tfrac{1}{2}\mathrm{Tr}( D \nabla^2 f)\Big) dt + (\nabla f)^\top B\, dW_t.$
+
+## Fokker-Planck (Forward Kolmogorov) Equation
+
+The density $p(x,t)$ of $X_t$ evolves as
+
+$\frac{\partial p}{\partial t}
+= -\nabla \cdot \big(a(x,t) p(x,t)\big) + \tfrac{1}{2} \sum_{i,j} \frac{\partial^2}{\partial x_i \partial x_j}\Big(D_{ij}(x,t) p(x,t)\Big).$
+
+## Overdamped Langevin Dynamics
+
+Choose the SDE
+
+$dX_t = \nabla \log p(X_t)\, dt + \sqrt{2}\, dW_t
+\quad \text{(equivalently } dX_t = -\nabla U(X_t)\, dt + \sqrt{2}\, dW_t\text{)}$
+
+Here $a(x) = \nabla \log p(x)$, $D = 2 I$. Plugging into Fokker-Planck:
+
+$\partial_t p_t = -\nabla \cdot (\nabla \log p \; p_t) + \nabla^2 p_t
+= -\nabla \cdot (p_t \nabla \log p) + \nabla \cdot (\nabla p_t).$
+
+When $p_t = p$, note $\nabla \log p \; p = \nabla p$ so the RHS is zero; hence $p$ is stationary. Under regularity & confining tails (e.g. $U$ strongly convex outside a ball), the process is ergodic and $X_t \Rightarrow p$.
+
+(Zero probability flux / detailed balance viewpoint: stationary current $J = a p - \nabla p = 0$.)
+
+## Euler-Maruyama method
+
+Time-step the SDE with step $\eta > 0$:
+
+$x_{k+1} = x_k + \eta \nabla \log p(x_k) + \sqrt{2\eta}\,\xi_k,\quad \xi_k \sim \mathcal{N}(0,I).$
+
+This introduces discretization bias: the chain has invariant distribution $p_\eta \neq p$. Under smoothness & dissipativity, $W_2(p_\eta, p) = O(\eta)$.
+
+Often we only know $\nabla \log \tilde p$, so use it directly.
+
+### Practical Pseudocode
+
+1. Initialize $x_0$
+2. For $k = 0..K-1$:
+   - $g = \nabla \log p(x_k)$
+   - $\text{noise} \sim \mathcal{N}(0,I)$
+   - $x_{k+1} = x_k + \eta g + \sqrt{2\eta}\,\text{noise}$
+3. Discard burn-in, thin if desired.
+
+## Metropolis-Adjusted Langevin Algorithm (MALA)
+
+Reduce bias via Metropolis-Hastings using Langevin proposal:
+Proposal density:
+
+$q(x'|x) = \mathcal{N}\Big(x'; x + \eta \nabla \log p(x), 2\eta I\Big).$
+
+Accept with probability
+
+$\alpha = \min\Big(1, \frac{p(x') q(x|x')}{p(x) q(x'|x)}\Big).$
+
+For small $\eta$, acceptance ≈ high; optimal scaling in high dimension behaves like $\eta \propto d^{-1/3}$ (heuristic from diffusion limits).
+
+## Choosing the Step Size
+
+Guidelines:
+
+- ULA: pick $\eta$ so drift and noise scales comparable: monitor acceptance surrogate (norm of update).
+- MALA: tune $\eta$ to target acceptance 0.55–0.6 (empirical).
+- Strongly convex regions: larger $\eta$ possible; multimodal / rugged: smaller $\eta$.
+- Use adaptive schemes (but beware of breaking detailed balance unless stabilization after burn-in).
+
+## Preconditioning and Variants
+
+To accelerate mixing, use a positive definite matrix $M$:
+
+$dX_t = M \nabla \log p(X_t) dt + \sqrt{2M}\, dW_t.$
+
+Discretization:
+
+$x_{k+1} = x_k + \eta M \nabla \log p(x_k) + \sqrt{2\eta M}\,\xi_k.$
+
+Choices:
+
+- Diagonal $M$ from running variance estimates.
+- Fisher information (Riemannian Langevin) when available.
+- Stochastic gradients (SGLD) replace exact gradient with minibatch estimate + added noise; requires decreasing step schedule $\eta_k$ to control bias.
