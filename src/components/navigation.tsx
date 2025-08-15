@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-// import { Search } from "./search";
 import Search from "@/components/search/index";
 import { cn } from "@/lib/utils";
 
