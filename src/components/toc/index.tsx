@@ -1,3 +1,4 @@
+// old broken :/ toc v3
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -6,6 +7,8 @@ import { AlignCenter } from "lucide-react";
 
 import { baskeritalic } from "@/lib/custom-font";
 import { cn } from "@/lib/utils";
+
+// old broken :/ toc v3
 
 export const TableOfContents = () => {
   const [headings, setHeadings] = useState<
