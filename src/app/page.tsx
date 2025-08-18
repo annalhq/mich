@@ -27,7 +27,6 @@ export default function HomePage() {
           </h1>
         </div>
 
-        {/* Bio */}
         <p className="mt-8 text-[16px] md:text-[18px]">
           hey there 👋. i work in machine learning, mathematics and low level
           optimizations.
@@ -38,25 +37,21 @@ export default function HomePage() {
           leveraged to create more interpretable models.
         </p>
         <p className="mt-4 text-[16px] md:text-[18px]">
-          currently i am implementing{" "}
-          <Link href="https://docs.cleanrl.dev/">
-            reinforcement learning papers
-          </Link>
+          interests: low level systems, hpc, cuda, oi
         </p>
 
-        {/* Links */}
         <div className="mt-4 flex gap-4 md:gap-8">
           <Link
             href="https://github.com/annalhq"
-            className="flex items-center text-[16px] underline md:text-[18px]"
+            className="flex items-center text-[16px] underline transition-colors hover:text-neutral-400 md:text-[18px]"
           >
             <ArrowUpRight className="mr-1 h-4 w-4" /> github
           </Link>
           <Link
             href="https://zhihu.com/people/przybylski"
-            className="flex items-center text-[16px] underline md:text-[18px]"
+            className="flex items-center text-[16px] underline transition-colors hover:text-neutral-400 md:text-[18px]"
           >
-            <ArrowUpRight className="mr-1 h-4 w-4" /> zhihu
+            <ArrowUpRight className="mr-1 h-4 w-4" /> 知乎
           </Link>
         </div>
 
