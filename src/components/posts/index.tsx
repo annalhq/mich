@@ -13,8 +13,6 @@ import { cn } from "@/lib/utils";
 
 import "./neotoc.css";
 
-// Optional: add overrides if needed
-
 interface PostLayoutProps {
   title: string;
   date: string;
@@ -34,14 +32,12 @@ export function PostLayout({
 
   useEffect(() => {
     const removeToc = neotoc({
-      io: "article >> :not(.admonition :is(h2,h3,h4,h5,h6)):is(h2,h3,h4,h5,h6) >> #sidebar",
+      io: "article >> h2,h3,h4,h5,h6 >> #sidebar",
       ellipsis: true,
       fillAnchor(h) {
         const a = h.firstChild as HTMLElement;
         const span = document.createElement("span");
-        span.append(
-          ...[...a!.childNodes].slice(1, -1).map((n) => n.cloneNode(true))
-        );
+        span.textContent = a.textContent;
         return span;
       },
       offsetTop: 80,
@@ -80,7 +76,6 @@ export function PostLayout({
         </div>
       </article>
 
-      {/* TOC Sidebar */}
       <aside
         className={cn(
           "fixed w-[280px] flex-shrink-0 overflow-hidden rounded-bl-lg border-b border-l shadow-lg shadow-zinc-950/10 transition-all duration-300 dark:shadow-zinc-950 md:static md:block md:min-h-80 md:overflow-visible md:border-none md:shadow-none md:[font-size:0.92rem] [&>*:first-child]:sticky [&>*:first-child]:top-[calc(var(--site-header-height)+var(--top-breathing-space))]",
@@ -89,9 +84,8 @@ export function PostLayout({
         id="sidebar"
       ></aside>
 
-      {/* TOC Toggle Button for mobile */}
       <Button
-        className="fixed bottom-4 right-4 bg-gradient-to-r from-zinc-500 to-zinc-400 shadow-xl shadow-zinc-500/50 md:hidden [&_svg]:size-6"
+        className="fixed bottom-4 right-4 bg-gradient-to-r from-zinc-500 to-zinc-400 md:hidden [&_svg]:size-6"
         size="icon"
         onClick={() => setTocVisibility((x) => !x)}
       >
