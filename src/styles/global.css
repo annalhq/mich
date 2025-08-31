@@ -183,8 +183,8 @@ TOC outline list
   left: 10px;
   width: 28px;
   height: auto;
-  background-color: var(--slate-3);
-  border: 1px solid var(--slate-5);
+  background-color: var(--bg);
+  border: 1px solid var(--border-accent);
   border-radius: 8px;
   padding: 8px 4px;
   cursor: pointer;
@@ -210,8 +210,8 @@ aside:hover .toc-indicator {
   opacity: 0;
   visibility: hidden;
   z-index: 5;
-  background-color: var(--slate-3);
-  border: 1px solid var(--slate-5);
+  background-color: var(--bg);
+  border: 1px solid var(--border-accent);
   border-radius: 8px;
   overflow: hidden;
 }
@@ -228,7 +228,7 @@ aside:hover .toc-indicator {
 .toc-heading {
   font-style: italic;
   text-align: center;
-  color: var(--slate-11);
+  color: var(--muted);
   font-size: 16px;
   font-weight: 500;
   margin-bottom: 10px;
@@ -237,7 +237,7 @@ aside:hover .toc-indicator {
 }
 
 .toc-glass-bg {
-  background-color: var(--slate-2);
+  background-color: var(--bg);
   padding: 12px 6px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   position: relative;
@@ -250,7 +250,7 @@ aside:hover .toc-indicator {
 
 .toc-list-item {
   cursor: pointer;
-  color: var(--slate-11);
+  color: var(--fg);
   align-items: center;
   padding: 4px 8px;
   font-size: 14px;
@@ -272,13 +272,13 @@ aside:hover .toc-indicator {
 }
 
 .toc-list-item:hover {
-  background-color: var(--slate-4);
-  color: var(--iris-10);
+  background-color: var(--md-border);
+  color: var(--fg);
 }
 
 .toc-list-item-active {
-  background-color: var(--slate-5);
-  color: var(--iris-10);
+  background-color: var(--md-border);
+  color: var(--fg);
   font-weight: 500;
 }
 
