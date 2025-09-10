@@ -2,7 +2,7 @@
 
 import { Undo2 } from "lucide-react";
 
-import { baskeritalic } from "@/lib/custom-font";
+import { instrument } from "@/lib/custom-font";
 
 import styles from "../styles.module.css";
 
@@ -30,7 +30,7 @@ function FootnoteBackReference({ href, children }: Props): JSX.Element {
   };
 
   return (
-    <div className={baskeritalic.className}>
+    <div className={instrument.className}>
       {children}
       {href && (
         <button

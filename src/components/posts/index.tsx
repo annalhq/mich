@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-import { didot } from "@/lib/custom-font";
+import { instrument } from "@/lib/custom-font";
 
 import { TableOfContents } from "../toc";
 
@@ -23,7 +23,9 @@ export function PostLayout({
       <article data-pagefind-body className="overflow-hidden">
         <header className="mb-8">
           <h1 className="mb-2 text-3xl font-bold">{title}</h1>
-          <div className={`text-sm text-muted-foreground ${didot.className}`}>
+          <div
+            className={`text-sm text-muted-foreground ${instrument.className}`}
+          >
             <time dateTime={date}>{date}</time>
             <span className="mx-2">•</span>
             <span>{readingTime}</span>

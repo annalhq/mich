@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { ArrowUpRight } from "lucide-react";
 
-import { baskervville } from "@/lib/custom-font";
+import { instrument } from "@/lib/custom-font";
 import { rootMetadata } from "@/lib/metadata";
 
 export const metadata = rootMetadata;
@@ -21,7 +21,7 @@ export default function HomePage() {
             className="h-12 w-12 rounded-full border border-gray-700 md:h-12 md:w-12"
           />
           <h1
-            className={`text-left font-serif text-xl md:text-2xl ${baskervville.className}`}
+            className={`text-left font-serif text-xl md:text-2xl ${instrument.className}`}
           >
             annalhq
           </h1>

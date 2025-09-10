@@ -29,8 +29,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 @layer base {
   :root {
     --bg: var(--slate-1);
@@ -168,7 +166,7 @@
   article .prose h5,
   article .prose h6 {
     @apply font-bold;
-    font-family: var(--font-baskervville), serif;
+    font-family: var(--font-instrument), serif;
   }
 }
 
@@ -328,7 +326,7 @@ aside:hover .toc-indicator {
 }
 
 .markdown a[href^="#"] {
-  @apply text-[--slate-12] no-underline ;
+  @apply text-[--slate-12] no-underline;
 }
 
 .markdown ul,
