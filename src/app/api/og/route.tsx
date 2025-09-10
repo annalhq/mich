@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 
+// import { instrument } from "@/lib/custom-fonts";
 import { type OgImageProps } from "@/lib/og";
 
 export async function GET(request: Request) {
@@ -14,14 +15,6 @@ export async function GET(request: Request) {
       date,
       readingTime,
     } = params;
-
-    const interRegular = fetch(
-      new URL("/public/assets/font/inter/regular.ttf", import.meta.url)
-    ).then((res) => res.arrayBuffer());
-
-    const interBold = fetch(
-      new URL("/public/assets/font/inter/semi-bold.ttf", import.meta.url)
-    ).then((res) => res.arrayBuffer());
 
     return new ImageResponse(
       (
@@ -170,18 +163,12 @@ export async function GET(request: Request) {
         width: 1200,
         height: 630,
         fonts: [
-          {
-            name: "Inter",
-            data: await interRegular,
-            weight: 400,
-            style: "normal",
-          },
-          {
-            name: "Inter",
-            data: await interBold,
-            weight: 700,
-            style: "normal",
-          },
+          // {
+          //   name: "Inter",
+          //   data: await instrument("Inter"),
+          //   weight: 400,
+          //   style: "normal",
+          // },
         ],
       }
     );
