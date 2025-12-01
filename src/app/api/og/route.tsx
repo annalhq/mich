@@ -62,7 +62,7 @@ export async function GET(request: Request) {
                   color: "#000000",
                 }}
               >
-                annenso
+                ann
               </div>
 
               {/* Type badge */}

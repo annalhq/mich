@@ -1,21 +1,21 @@
 import { getOgImage } from "@/lib/og";
 
 export const rootMetadata = {
-  title: "annenso",
+  title: "ann",
   description: "mein zuhause im internet",
   openGraph: {
-    title: "annenso",
+    title: "ann",
     description: "mein zuhause im internet",
     url: "/",
     images: [
       {
         url: getOgImage({
-          title: "annenso",
+          title: "ann",
           description: "mein zuhause im internet",
         }),
         width: 1200,
         height: 630,
-        alt: "annenso",
+        alt: "ann",
       },
     ],
   },
