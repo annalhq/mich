@@ -2,7 +2,7 @@ import clsx from "clsx";
 
 import { Layout } from "@/components/layout";
 import { Providers } from "@/components/providers";
-import { baskervville, inter } from "@/lib/custom-font";
+import { instrument, inter } from "@/lib/custom-font";
 
 import "../styles/global.css";
 
@@ -23,7 +23,7 @@ export default function RootLayout({
           href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 120 120%22><text y=%221em%22 font-size=%22100%22>🤗</text></svg>"
         />
       </head>
-      <body className={clsx(baskervville.variable, inter.variable)}>
+      <body className={clsx(instrument.variable, inter.variable)}>
         <Providers>
           <Layout>{children}</Layout>
         </Providers>

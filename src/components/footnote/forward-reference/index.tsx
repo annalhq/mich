@@ -1,6 +1,6 @@
 "use client";
 
-import { didot } from "@/lib/custom-font";
+import { instrument } from "@/lib/custom-font";
 
 import styles from "../styles.module.css";
 
@@ -35,7 +35,7 @@ function FootnoteForwardReference({ href, id, children }: Props): JSX.Element {
           scroll();
         }
       }}
-      className={`${styles["footnote-forward-reference"]} ${didot.className}`}
+      className={`${styles["footnote-forward-reference"]} ${instrument.className}`}
     >
       {children}
     </button>

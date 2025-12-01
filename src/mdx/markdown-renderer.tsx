@@ -18,7 +18,7 @@ import FootnoteForwardReference from "@/components/footnote/forward-reference";
 
 /* my custom components */
 import Link from "@/components/link";
-import { baskervville, didot } from "@/lib/custom-font";
+import { instrument } from "@/lib/custom-font";
 import { cn } from "@/lib/utils";
 
 import { MetaConfig } from "./utils/mdx";
@@ -93,9 +93,7 @@ export function MarkdownRenderer({ content, meta }: MarkdownRendererProps) {
           ) {
             return (
               <ol data-footnotes>
-                <div
-                  className={`mb-2 mt-6 text-small ${baskervville.className}`}
-                >
+                <div className={`mb-2 mt-6 text-small ${instrument.className}`}>
                   Footnotes
                 </div>
                 {props.children}
@@ -122,7 +120,7 @@ export function MarkdownRenderer({ content, meta }: MarkdownRendererProps) {
         }: React.HTMLAttributes<HTMLLIElement>) => {
           if (props.id?.includes("user-content-fn-")) {
             return (
-              <li id={props.id} className={cn(className, didot.className)}>
+              <li id={props.id} className={cn(className, instrument.className)}>
                 {React.Children.map(children, (child) => {
                   if (React.isValidElement(child)) {
                     if (child.type === "p") {

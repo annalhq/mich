@@ -5,8 +5,12 @@ import React, { useEffect, useState } from "react";
 
 import { AlignCenter } from "lucide-react";
 
-import { baskeritalic } from "@/lib/custom-font";
+import { instrument } from "@/lib/custom-font";
 import { cn } from "@/lib/utils";
+
+// old broken :/ toc v3
+
+// old broken :/ toc v3
 
 // old broken :/ toc v3
 
@@ -66,7 +70,7 @@ export const TableOfContents = () => {
 
       <div className={cn("toc-sidebar", isHovered && "toc-sidebar-visible")}>
         <div className="toc-glass-bg">
-          <h4 className={`toc-heading ${baskeritalic.className}`}>
+          <h4 className={`toc-heading ${instrument.className}`}>
             Table of Contents
           </h4>
           <ul className="toc-item">
