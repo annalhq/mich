@@ -28,16 +28,17 @@ export default function HomePage() {
         </div>
 
         <p className="mt-8 text-[16px] md:text-[18px]">
-          hey there 👋. i work in machine learning, mathematics and low level
-          optimizations.
+          hey there! i am currently exploring rl, low level optimizations, and
+          gpu based llm inference.
         </p>
         <p className="mt-4 text-[16px] md:text-[18px]">
-          my research interests lie in the intersection of these fields, where
-          i&apos;m interested in exploring how mathematical structures can be
-          leveraged to create more interpretable models.
+          my interests include inference time systems such as vllm and sglang,
+          cuda, kernel level optimizations. more broadly, where tools from
+          mathematics and optimizations help explain representation learning and
+          generalization in models.
         </p>
         <p className="mt-4 text-[16px] md:text-[18px]">
-          interests: low level systems, hpc, cuda, oi
+          interests: low level systems, hpc, cuda, oi, pacific++ & cppcon confs
         </p>
 
         <div className="mt-4 flex gap-4 md:gap-8">

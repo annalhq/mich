@@ -12,7 +12,7 @@ const Link = ({ text, href, underline, className, children }: LinkProps) => {
       // target="_blank"
       rel="noopener noreferrer nofollow"
       className={clsx(className, {
-        "decoration-gray-a4 underline decoration-1": underline,
+        "underline decoration-gray-a4 decoration-1": underline,
       })}
       href={href}
     >

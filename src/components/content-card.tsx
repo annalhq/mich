@@ -25,11 +25,11 @@ export function ContentCard({
   return (
     <Link
       href={href}
-      className="group relative block rounded-lg border border-border bg-card/95 p-5 shadow-md transition-all hover:border-primary/50 hover:bg-card hover:shadow-lg"
+      className="bg-card/95 hover:border-primary/50 group relative block rounded-lg border border-border p-5 shadow-md transition-all hover:bg-card hover:shadow-lg"
     >
       <article className="flex flex-col gap-3">
         {category && (
-          <span className="inline-flex w-fit rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
+          <span className="bg-primary/10 inline-flex w-fit rounded-full px-2.5 py-0.5 text-xs font-medium text-primary">
             {category}
           </span>
         )}
@@ -47,7 +47,7 @@ export function ContentCard({
             {tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-full bg-secondary/40 px-2.5 py-0.5 text-xs font-medium text-secondary-foreground"
+                className="bg-secondary/40 text-secondary-foreground rounded-full px-2.5 py-0.5 text-xs font-medium"
               >
                 {tag}
               </span>

@@ -29,7 +29,7 @@ export const AppThemeSwitcher = () => {
   ];
 
   return (
-    <span className="bg-gray-2 flex w-fit items-center gap-0.5 overflow-hidden rounded-[6px] p-[2px]">
+    <span className="flex w-fit items-center gap-0.5 overflow-hidden rounded-[6px] bg-gray-2 p-[2px]">
       {buttons.map(({ label, icon, active }) => (
         <button
           type="button"
